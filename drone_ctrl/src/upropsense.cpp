@@ -14,7 +14,8 @@
 #include "sensor.h"
 // for KDevelop 
 //#include </media/chr/2T/data/Downloads/arduino-1.8.13/hardware/teensy/avr/libraries/NXPMotionSense/utility/NXPSensorRegisters.h>
-#include "../libraries/NXPMotionSense/utility/NXPSensorRegisters.h"
+// #include "../libraries/NXPMotionSense/utility/NXPSensorRegisters.h"
+#include "/home/local/arduino-1.8.19/hardware/teensy/avr/libraries/NXPMotionSense/utility/NXPSensorRegisters.h"
 
 #define NXP_MOTION_CAL_EEADDR  60
 #define NXP_MOTION_CAL_SIZE    68

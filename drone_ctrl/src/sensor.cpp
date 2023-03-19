@@ -17,7 +17,8 @@
 
 #include <ADC.h>
 #include <../teensy3/kinetis.h>
-// #include <../libraries/ADC/ADC.h> // MC: Already included above
+//#include <../libraries/ADC/ADC.h>
+#include </home/local/arduino-1.8.19/hardware/teensy/avr/libraries/ADC/ADC.h>
 // #include "../teensy3/kinetis.h"
 // #include "../teensy3/pins_arduino.h"
 #include "../teensy3/core_pins.h"
