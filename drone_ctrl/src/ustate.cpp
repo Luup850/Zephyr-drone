@@ -194,14 +194,26 @@ void UState::tick()
       }
       break;
     case InFlight:
-      if(hgt.height < 0.5 and hgt.heightVelocity < -0.1)
+      // MC: Added check to see if drone is in auto mode. If not refuse Landing state.
+      // TODO: Add check that switches to landing state if prop speed is low for a period of time.
+
+      if(rc.autoCheck() == true and hgt.height < 0.5 and hgt.heightVelocity < -0.1)
         startingCounter++;
       else
         startingCounter--;
+
+      // Allow pilot in control to disable drone mid air (Not a good idea though).
+      if(armState == Disarmed)
+      {
+        flightState = OnGround;
+        usb.send("message emergency stop\n");
+      }
+
+
       // takes some time to trust
-      if (startingCounter <= 0)
+      if (startingCounter <= 0 and rc.autoCheck() == true)
         startingCounter = 0;
-      else if (startingCounter > 1000)
+      else if (startingCounter > 1000 and rc.autoCheck() == true)
       {
         flightState = Landing;
         usb.send("message landing\n");

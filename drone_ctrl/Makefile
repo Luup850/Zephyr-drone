@@ -28,17 +28,15 @@ BUILDDIR = $(CURDIR)/build
 
 # path location for Teensy Loader, teensy_post_compile and teensy_reboot
 #TOOLSPATH = $(CURDIR)/tools
-BASEPATH = /home/local/arduino-1.8.19/hardware
+BASEPATH = .
 TOOLSPATH = $(BASEPATH)/tools
 
 # path location for Teensy 3 core
 #COREPATH = teensy3
-# Old: COREPATH = $(BASEPATH)/teensy3 
-COREPATH = $(BASEPATH)/teensy/avr/cores/teensy3
+COREPATH = $(BASEPATH)/teensy3
 
 # path location for Arduino libraries
-# Old: LIBRARYPATH = libraries
-LIBRARYPATH = $(BASEPATH)/teensy/avr/libraries
+LIBRARYPATH = libraries
 
 # path location for the arm-none-eabi compiler
 #COMPILERPATH = $(TOOLSPATH)/arm-none-eabi/bin

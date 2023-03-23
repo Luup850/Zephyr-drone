@@ -183,6 +183,7 @@ bool USbus::armRequestCheck()
   return armable;
 }
 
+// MC: Armed(RC) = false. Armed(Auto) = true
 bool USbus::autoCheck()
 {
   bool aut = false;
@@ -193,7 +194,7 @@ bool USbus::autoCheck()
     if(channel[sw] > 1500)
     {
       aut = true;
-       usb.send("message to auto\n"); // Was //       usb.send("# to auto\n");
+//       usb.send("# to auto\n");
     }
   }
   return aut;
