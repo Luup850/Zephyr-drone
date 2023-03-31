@@ -1,0 +1,3 @@
+C:/Users/Marcus/Documents/GitHub/Zephyr-drone/OptiTrack/build/CMakeFiles/PacketClient.dir
+C:/Users/Marcus/Documents/GitHub/Zephyr-drone/OptiTrack/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Marcus/Documents/GitHub/Zephyr-drone/OptiTrack/build/CMakeFiles/ZERO_CHECK.dir
