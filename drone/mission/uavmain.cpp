@@ -24,6 +24,8 @@ bool startNatNetConnection(const char * argv0);
 void unpack(char * pData);
 
 UOptitrack * frame = nullptr;
+URigid *drone_marker;
+double PX, PY, PZ;
 
 int main(int argc, char **argv)
 {
@@ -41,11 +43,17 @@ int main(int argc, char **argv)
       return(1);
     }
     
-    usleep(500000);
-    
-    sf->sendmsg("ref 20 0 0 0");
-    usleep(500000);
-    sf->sendmsg("ref 0 0 0 0");
+    //usleep(500000);
+    bool isOK = startNatNetConnection(argv[0]);
+
+    while(isOK)
+    {
+        usleep(500000);
+        printf("%f %f %f\n", PX, PY, PZ);
+    }
+    //sf->sendmsg("ref 0 0 0 0");
+    //usleep(500000);
+    //sf->sendmsg("ref 0 0 0 0");
     return(0);
 }
 
@@ -71,11 +79,31 @@ bool startNatNetConnection(const char * argv0)
  * Called from receive thread.
  * A new frame is detected 
  * \param pData is pointer to binary frame to int unpack(char* pData) */
- void unpack(char * pData)
+void unpack(char * pData)
 { // should maybe be expanded to 
-    // at least 2 frames with resource lock
-    // activated during unpack/use
-    if (frame == nullptr)
-        frame = new UOptitrack();
-    frame->unpack(pData);
- }
+   // at least 2 frames with resource lock
+   // activated during unpack/use
+   if (frame == nullptr)
+     frame = new UOptitrack();
+   frame->unpack(pData);
+   
+   drone_marker = frame->findMarker(24149);
+   if(drone_marker->valid)
+   {
+        //printf("%lf, %f, %f, %f\n", frame->get_timestamp(), drone_marker->pos[0], drone_marker->pos[1], drone_marker->pos[2]);
+        
+        double q0 = drone_marker->rotq[3];
+        double q1 = drone_marker->rotq[0];
+        double q2 = drone_marker->rotq[1];
+        double q3 = drone_marker->rotq[2];
+        
+        double atti_p = asin(2.0 * (q0 * q2 - q1 * q3));
+        double atti_r = atan2(2.0 * (q0 * q1 + q2 * q3), 1.0 - 2.0 * (pow(q1, 2) + pow(q2, 2)));
+        double atti_y = atan2(2.0 * (q1 * q2 + q0 * q3), 1.0 - 2.0 * (pow(q2, 2) + pow(q3, 2)));
+        
+        //printf("%lf, %lf, %lf\n", 180 / M_PI * atti_r, 180 / M_PI * atti_p, 180 / M_PI * atti_y);
+        PX = drone_marker->pos[0];
+        PY = -drone_marker->pos[1];
+        PZ = drone_marker->pos[2];
+   }
+}
