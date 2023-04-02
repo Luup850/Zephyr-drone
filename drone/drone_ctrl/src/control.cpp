@@ -224,7 +224,7 @@ bool UControl::decodeLimit(const char* buf)
     refRollMin = -refRollMax;
     //
     refPitchMax = strtof(p2, (char**)&p2);
-    refPitchMin = - refPitchMax;
+    refPitchMin = -refPitchMax;
     //
     refYawMax = strtof(p2, (char**)&p1);
     refYawMin = -refYawMax;
@@ -467,5 +467,11 @@ void UControl::setRef(float height, float roll, float pitch, float yaw)
     refYaw = refYawMax;
   else
     refYaw = yaw;
+
+  // MC: Debug print
+  //const int MRL = 100;
+  //char reply[MRL];
+  //snprintf(reply, MRL, "message Pitch %.3f\r\n", refPitch);
+  //usb.send(reply);
 }
 

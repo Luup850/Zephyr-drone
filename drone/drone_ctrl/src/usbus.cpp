@@ -26,6 +26,7 @@
 #include "mixer.h"
 #include "ustate.h"
 #include "usubss.h"
+#include <string> // MC: Added for debugging
 
 USbus rc;
 

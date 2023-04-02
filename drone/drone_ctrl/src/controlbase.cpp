@@ -591,6 +591,11 @@ void UControlBase::controlTick(bool logExtra)
       *output = u;
       outLimitUsed = false;
     }
+    // MC: Debug print
+    //const int MRL = 100;
+    //char reply[MRL];
+    //snprintf(reply, MRL, "message U %p %.1f %.1f %.1f \r\n", &u, u, outLimitMax, outLimitMin);
+    //usb.send(reply);
   }
 }
 

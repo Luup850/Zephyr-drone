@@ -196,8 +196,9 @@ void UState::tick()
     case InFlight:
       // MC: Added check to see if drone is in auto mode. If not refuse Landing state.
       // TODO: Add check that switches to landing state if prop speed is low for a period of time.
+      // Added 1 == 2 to disable auto landing.
 
-      if(rc.autoCheck() == true and hgt.height < 0.5 and hgt.heightVelocity < -0.1)
+      if(rc.autoCheck() == true and 1 == 2 and hgt.height < 0.5 and hgt.heightVelocity < -0.1)
         startingCounter++;
       else
         startingCounter--;
@@ -211,9 +212,9 @@ void UState::tick()
 
 
       // takes some time to trust
-      if (startingCounter <= 0 and rc.autoCheck() == true)
+      if (startingCounter <= 0 and rc.autoCheck() == true and 1 == 2)
         startingCounter = 0;
-      else if (startingCounter > 1000 and rc.autoCheck() == true)
+      else if (startingCounter > 1000 and rc.autoCheck() == true and 1 == 2)
       {
         flightState = Landing;
         usb.send("message landing\n");
