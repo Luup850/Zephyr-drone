@@ -11,6 +11,7 @@ CMakeFiles/uav.dir/src/optidata.cpp.o: ../src/optidata.cpp
 CMakeFiles/uav.dir/src/serial_if.cpp.o: ../include/serial_if.h
 CMakeFiles/uav.dir/src/serial_if.cpp.o: ../src/serial_if.cpp
 
+CMakeFiles/uav.dir/uavmain.cpp.o: ../include/drone.h
 CMakeFiles/uav.dir/uavmain.cpp.o: ../include/main.h
 CMakeFiles/uav.dir/uavmain.cpp.o: ../include/optidata.h
 CMakeFiles/uav.dir/uavmain.cpp.o: ../include/serial_if.h

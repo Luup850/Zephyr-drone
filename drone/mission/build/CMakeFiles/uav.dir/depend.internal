@@ -12,6 +12,7 @@ CMakeFiles/uav.dir/src/serial_if.cpp.o
  ../include/serial_if.h
  /home/local/mdch/mission/src/serial_if.cpp
 CMakeFiles/uav.dir/uavmain.cpp.o
+ ../include/drone.h
  ../include/main.h
  ../include/optidata.h
  ../include/serial_if.h
