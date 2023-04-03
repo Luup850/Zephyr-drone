@@ -70,9 +70,9 @@ int main(int argc, char **argv)
     {
         usleep(50000);
         count++;
-        error = (setpoint - PZ)*1.3;
+        error = (setpoint - PZ)*1.5;
         sprintf(str, "ref %f 0 0 0", 82.0 + error);
-        //sf->sendmsg(str);
+        sf->sendmsg(str);
 
         if(count > 10)
         {
