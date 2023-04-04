@@ -77,6 +77,7 @@ int main(int argc, char **argv)
         if(count > 10)
         {
             printf("POS: %.3f %.3f %.3f\n", PX, PY, PZ);
+            // Convert from radians to degrees by multiplying by 57.2957795.
             printf("Angles: %.3f %.3f %.3f\n", P*57.2957795, Y*57.2957795, R*57.2957795);
         }
     }
@@ -141,6 +142,7 @@ void unpack(char * pData)
    }
 }
 
+// Calculate velocity using a different thread. This is done to avoid blocking the main thread.
 void* velocity(void* arg)
 {
     double PX_old, PY_old, PZ_old;
