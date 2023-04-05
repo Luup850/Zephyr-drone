@@ -20,6 +20,5 @@ ControllerV2::ControllerV2(double *px, double *py, double *pz, double *vx, doubl
 
 void ControllerV2::tick()
 {
-    double r32 = k_p * (pz)
-    double psi = atan2()
+    
 }
