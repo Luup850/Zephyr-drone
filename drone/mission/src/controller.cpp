@@ -1,4 +1,5 @@
 #include "controller.h"
+#include <iostream>
 
 Controller::Controller()
 {
@@ -6,6 +7,7 @@ Controller::Controller()
     m_ki = 0.0;
     m_kd = 0.0;
     m_initialized = false;
+    out = 0;
 }
 
 void Controller::set_gains(double kp, double ki, double kd)
@@ -37,12 +39,15 @@ void Controller::tick()
         m_initialized = true;
     }
     double dt = difftime(clock(), m_prev_time)/CLOCKS_PER_SEC;
+    //printf("DT %.3f", dt);
     m_error = setpoint - (*measurement);
     m_i_error = m_i_error + m_error * dt;
+    //printf("I %.5f\n", m_i_error);
     m_d_error = (m_error - m_prev_error) / dt;
 
     // Set the controllers Out var.
-    double out = m_kp * m_error + m_ki * m_i_error + m_kd * m_d_error;
+    out = m_kp * m_error + m_ki * m_i_error + m_kd * m_d_error;
+    //printf("Out: %.5f\n", out);
     m_prev_error = m_error;
     m_prev_time = clock(); 
 }

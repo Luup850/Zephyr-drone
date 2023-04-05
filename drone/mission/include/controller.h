@@ -12,10 +12,11 @@ private:
     double m_error, m_i_error, m_d_error, m_prev_error;
 
 public:
-    double out;
-
+    Controller();
     void set_gains(double kp, double ki, double kd);
     void tick();
     void set_setpoint(double sp);
     void set_measurement(double* m);
+
+    double out;
 };

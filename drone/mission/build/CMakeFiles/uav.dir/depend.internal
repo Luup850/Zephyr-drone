@@ -4,6 +4,12 @@
 CMakeFiles/uav.dir/src/PacketClient.cpp.o
  ../include/main.h
  /home/local/mdch/mission/src/PacketClient.cpp
+CMakeFiles/uav.dir/src/controller.cpp.o
+ ../include/controller.h
+ /home/local/mdch/mission/src/controller.cpp
+CMakeFiles/uav.dir/src/drone.cpp.o
+ ../include/drone.h
+ /home/local/mdch/mission/src/drone.cpp
 CMakeFiles/uav.dir/src/optidata.cpp.o
  ../include/main.h
  ../include/optidata.h
@@ -12,6 +18,7 @@ CMakeFiles/uav.dir/src/serial_if.cpp.o
  ../include/serial_if.h
  /home/local/mdch/mission/src/serial_if.cpp
 CMakeFiles/uav.dir/uavmain.cpp.o
+ ../include/controller.h
  ../include/drone.h
  ../include/main.h
  ../include/optidata.h

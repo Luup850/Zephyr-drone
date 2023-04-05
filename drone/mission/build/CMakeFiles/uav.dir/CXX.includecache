@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+../include/controller.h
+time.h
+-
+
 ../include/drone.h
 
 ../include/main.h
@@ -93,6 +97,8 @@ optidata.h
 -
 drone.h
 /home/local/mdch/mission/drone.h
+controller.h
+/home/local/mdch/mission/controller.h
 serial_if.h
 /home/local/mdch/mission/serial_if.h
 

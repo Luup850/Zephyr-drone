@@ -150,6 +150,60 @@ src/PacketClient.cpp.s:
 	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/PacketClient.cpp.s
 .PHONY : src/PacketClient.cpp.s
 
+src/controller.o: src/controller.cpp.o
+
+.PHONY : src/controller.o
+
+# target to build an object file
+src/controller.cpp.o:
+	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/controller.cpp.o
+.PHONY : src/controller.cpp.o
+
+src/controller.i: src/controller.cpp.i
+
+.PHONY : src/controller.i
+
+# target to preprocess a source file
+src/controller.cpp.i:
+	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/controller.cpp.i
+.PHONY : src/controller.cpp.i
+
+src/controller.s: src/controller.cpp.s
+
+.PHONY : src/controller.s
+
+# target to generate assembly for a file
+src/controller.cpp.s:
+	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/controller.cpp.s
+.PHONY : src/controller.cpp.s
+
+src/drone.o: src/drone.cpp.o
+
+.PHONY : src/drone.o
+
+# target to build an object file
+src/drone.cpp.o:
+	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/drone.cpp.o
+.PHONY : src/drone.cpp.o
+
+src/drone.i: src/drone.cpp.i
+
+.PHONY : src/drone.i
+
+# target to preprocess a source file
+src/drone.cpp.i:
+	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/drone.cpp.i
+.PHONY : src/drone.cpp.i
+
+src/drone.s: src/drone.cpp.s
+
+.PHONY : src/drone.s
+
+# target to generate assembly for a file
+src/drone.cpp.s:
+	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/drone.cpp.s
+.PHONY : src/drone.cpp.s
+
 src/optidata.o: src/optidata.cpp.o
 
 .PHONY : src/optidata.o
@@ -243,6 +297,12 @@ help:
 	@echo "... src/PacketClient.o"
 	@echo "... src/PacketClient.i"
 	@echo "... src/PacketClient.s"
+	@echo "... src/controller.o"
+	@echo "... src/controller.i"
+	@echo "... src/controller.s"
+	@echo "... src/drone.o"
+	@echo "... src/drone.i"
+	@echo "... src/drone.s"
 	@echo "... src/optidata.o"
 	@echo "... src/optidata.i"
 	@echo "... src/optidata.s"

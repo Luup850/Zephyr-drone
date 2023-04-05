@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/uav.dir/src/PacketClient.cpp.o"
+  "CMakeFiles/uav.dir/src/controller.cpp.o"
+  "CMakeFiles/uav.dir/src/drone.cpp.o"
   "CMakeFiles/uav.dir/src/optidata.cpp.o"
   "CMakeFiles/uav.dir/src/serial_if.cpp.o"
   "CMakeFiles/uav.dir/uavmain.cpp.o"

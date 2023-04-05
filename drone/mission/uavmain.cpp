@@ -19,7 +19,7 @@
 //#include "main.h"
 #include <optidata.h>
 #include "drone.h"
-
+#include "controller.h"
 #include "serial_if.h"
 
 
@@ -43,6 +43,11 @@ int main(int argc, char **argv)
     serial_if *sf = new serial_if();
     Drone* drone;
     drone = new Drone();
+    Controller* ctrl_h = new Controller();
+    Controller* ctrl_yaw = new Controller();
+    Controller* ctrl_x = new Controller();
+    Controller* ctrl_y = new Controller();
+
 
     // Velocity calculations.
     pthread_t vel_thread;
@@ -61,17 +66,39 @@ int main(int argc, char **argv)
     //usleep(500000);
     bool isOK = startNatNetConnection(argv[0]);
 
-    double error;
-    double setpoint = 1.0;
     char str[100];
     int count = 0;
+    ctrl_h->set_setpoint(1.5);
+    ctrl_h->set_gains(1.5, 0.1, 0.5);
+    ctrl_h->set_measurement(&PZ);
 
+    ctrl_yaw->set_setpoint(0);
+    ctrl_yaw->set_gains(1, 0.01, 0);
+    ctrl_yaw->set_measurement(&Y);
+
+    ctrl_x->set_setpoint(PX);
+    ctrl_x->set_gains(1.5, 0.3, 0.5);
+    ctrl_x->set_measurement(&PX);
+
+    ctrl_y->set_setpoint(PY);
+    ctrl_y->set_gains(1.5, 0.3, 0.5);
+    ctrl_y->set_measurement(&PY);
+
+    // Simple control. Does not give a fuck about relative orientation.
     while(isOK)
     {
+
         usleep(50000);
-        count++;
-        error = (setpoint - PZ)*1.5;
-        sprintf(str, "ref %f 0 0 0", 82.0 + error);
+        ctrl_h->tick();
+        ctrl_yaw->tick();
+        ctrl_x->tick();
+        ctrl_y->tick();
+        double error_h = ctrl_h->out;
+        double error_yaw = ctrl_yaw->out;
+        double error_x = -ctrl_x->out;
+        double error_y = ctrl_y->out;
+        // Height roll pitch yaw.
+        sprintf(str, "ref %f %f %f %f", 82.0 + error_h, error_y, error_x, error_yaw);
         sf->sendmsg(str);
 
         if(count > 10)
@@ -79,7 +106,11 @@ int main(int argc, char **argv)
             printf("POS: %.3f %.3f %.3f\n", PX, PY, PZ);
             // Convert from radians to degrees by multiplying by 57.2957795.
             printf("Angles: %.3f %.3f %.3f\n", P*57.2957795, Y*57.2957795, R*57.2957795);
+            printf("Error: H=%.3f R=%.3f P=%.3f Y=%.3f\n", error_h, error_x, error_y, error_yaw);
+            printf("--------------------------------------------------------------------\n");
+            count = 0;
         }
+        count++;
     }
     //sf->sendmsg("ref 20 0 0 0");
     //usleep(500000);

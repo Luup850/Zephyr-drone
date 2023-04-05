@@ -5,6 +5,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/local/mdch/mission/src/PacketClient.cpp" "/home/local/mdch/mission/build/CMakeFiles/uav.dir/src/PacketClient.cpp.o"
+  "/home/local/mdch/mission/src/controller.cpp" "/home/local/mdch/mission/build/CMakeFiles/uav.dir/src/controller.cpp.o"
+  "/home/local/mdch/mission/src/drone.cpp" "/home/local/mdch/mission/build/CMakeFiles/uav.dir/src/drone.cpp.o"
   "/home/local/mdch/mission/src/optidata.cpp" "/home/local/mdch/mission/build/CMakeFiles/uav.dir/src/optidata.cpp.o"
   "/home/local/mdch/mission/src/serial_if.cpp" "/home/local/mdch/mission/build/CMakeFiles/uav.dir/src/serial_if.cpp.o"
   "/home/local/mdch/mission/uavmain.cpp" "/home/local/mdch/mission/build/CMakeFiles/uav.dir/uavmain.cpp.o"
