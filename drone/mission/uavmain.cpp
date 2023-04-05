@@ -31,6 +31,7 @@ UOptitrack * frame = nullptr;
 URigid *drone_marker;
 double PX, PY, PZ;
 double VX, VY, VZ;
+double AX, AY, AZ;
 
 // Pitch, yaw, roll
 double P, Y, R;
@@ -177,6 +178,9 @@ void unpack(char * pData)
 void* velocity(void* arg)
 {
     double PX_old, PY_old, PZ_old;
+    double VX_old = 0, VY_old = 0, VZ_old = 0;
+    double VX_tmp = 0, VY_tmp = 0, VZ_tmp = 0;
+    int counter = 0;
     clock_t start = clock();
 
     while(true)
@@ -186,13 +190,35 @@ void* velocity(void* arg)
         PZ_old = PZ;
         if(PX != PX_old)
         {
-            VX = (PX - PX_old) / (difftime(clock(), start)/CLOCKS_PER_SEC);
-            VY = (PY - PY_old) / (difftime(clock(), start)/CLOCKS_PER_SEC);
-            VZ = (PZ - PZ_old) / (difftime(clock(), start)/CLOCKS_PER_SEC);
+            double time_diff = (difftime(clock(), start)/CLOCKS_PER_SEC);
+            VX = (PX - PX_old) / time_diff;
+            VY = (PY - PY_old) / time_diff;
+            VZ = (PZ - PZ_old) / time_diff;
             PX_old = PX;
             PY_old = PY;
             PZ_old = PZ;
             start = clock();
+
+            if(counter < 10)
+            {
+                AX_tmp += (VX - VX_old) / time_diff;
+                AY_tmp += (VY - VY_old) / time_diff;
+                AZ_tmp += (VZ - VZ_old) / time_diff;
+                VX_old = VX;
+                VY_old = VY;
+                VZ_old = VZ;
+                counter++;
+            }
+            else
+            {
+                AX = AX_tmp / 10;
+                AY = AY_tmp / 10;
+                AZ = AZ_tmp / 10;
+                AX_tmp = 0;
+                AY_tmp = 0;
+                AZ_tmp = 0;
+                counter = 0;
+            }
         }
     }
 }
