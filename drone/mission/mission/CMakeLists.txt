@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 2.8)
+project(uav)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
+file(GLOB_RECURSE SRC_FILES src/*.cpp)
+add_executable(uav uavmain.cpp ${SRC_FILES})
+target_include_directories(uav PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include)
+target_link_libraries(uav pthread)
