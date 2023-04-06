@@ -20,6 +20,7 @@
 #include <optidata.h>
 #include "drone.h"
 #include "controller.h"
+//#include "pid_custom.h"
 #include "serial_if.h"
 
 
@@ -29,9 +30,8 @@ void* velocity(void* arg);
 
 UOptitrack * frame = nullptr;
 URigid *drone_marker;
-double PX, PY, PZ;
-double VX, VY, VZ;
-double AX, AY, AZ;
+double PX = 0, PY = 0, PZ = 0;
+double VX = 0, VY = 0, VZ = 0;
 
 // Pitch, yaw, roll
 double P, Y, R;
@@ -44,10 +44,11 @@ int main(int argc, char **argv)
     serial_if *sf = new serial_if();
     Drone* drone;
     drone = new Drone();
-    Controller* ctrl_h = new Controller();
-    Controller* ctrl_yaw = new Controller();
-    Controller* ctrl_x = new Controller();
-    Controller* ctrl_y = new Controller();
+    PID* ctrl_h = new PID();
+    PID* ctrl_yaw = new PID();
+    PID* ctrl_x = new PID();
+    PID* ctrl_y = new PID();
+    Controller* ctrl_pos = new Controller(&PX, &PY, &PZ, &R, &P, &Y, ctrl_x, ctrl_y);
 
 
     // Velocity calculations.
@@ -70,7 +71,7 @@ int main(int argc, char **argv)
     char str[100];
     int count = 0;
     ctrl_h->set_setpoint(1.5);
-    ctrl_h->set_gains(1.5, 0.1, 0.5);
+    ctrl_h->set_gains(1, 0.1, 1);
     ctrl_h->set_measurement(&PZ);
 
     ctrl_yaw->set_setpoint(0);
@@ -85,21 +86,19 @@ int main(int argc, char **argv)
     ctrl_y->set_gains(1.5, 0.3, 0.5);
     ctrl_y->set_measurement(&PY);
 
-    // Simple control. Does not give a fuck about relative orientation.
     while(isOK)
     {
 
         usleep(50000);
         ctrl_h->tick();
         ctrl_yaw->tick();
-        ctrl_x->tick();
-        ctrl_y->tick();
+        ctrl_pos->tick();
         double error_h = ctrl_h->out;
         double error_yaw = ctrl_yaw->out;
-        double error_x = -ctrl_x->out;
-        double error_y = ctrl_y->out;
+        double error_roll = -ctrl_pos->out_roll;
+        double error_pitch = ctrl_pos->out_pitch;
         // Height roll pitch yaw.
-        sprintf(str, "ref %f %f %f %f", 82.0 + error_h, error_y, error_x, error_yaw);
+        sprintf(str, "ref %f %f %f %f", 82.0 + error_h, error_roll, error_pitch, error_yaw);
         sf->sendmsg(str);
 
         if(count > 10)
@@ -107,7 +106,7 @@ int main(int argc, char **argv)
             printf("POS: %.3f %.3f %.3f\n", PX, PY, PZ);
             // Convert from radians to degrees by multiplying by 57.2957795.
             printf("Angles: %.3f %.3f %.3f\n", P*57.2957795, Y*57.2957795, R*57.2957795);
-            printf("Error: H=%.3f R=%.3f P=%.3f Y=%.3f\n", error_h, error_x, error_y, error_yaw);
+            printf("Error: H=%.3f R=%.3f P=%.3f Y=%.3f\n", error_h +82, error_roll, error_pitch, error_yaw);
             printf("--------------------------------------------------------------------\n");
             count = 0;
         }
@@ -150,7 +149,7 @@ void unpack(char * pData)
    frame->unpack(pData);
    
    // Marker from OptiTrack
-   drone_marker = frame->findMarker(24149);
+   drone_marker = frame->findMarker(24149); // Marker for the drone.
    if(drone_marker->valid)
    {
         //printf("%lf, %f, %f, %f\n", frame->get_timestamp(), drone_marker->pos[0], drone_marker->pos[1], drone_marker->pos[2]);
@@ -178,9 +177,6 @@ void unpack(char * pData)
 void* velocity(void* arg)
 {
     double PX_old, PY_old, PZ_old;
-    double VX_old = 0, VY_old = 0, VZ_old = 0;
-    double VX_tmp = 0, VY_tmp = 0, VZ_tmp = 0;
-    int counter = 0;
     clock_t start = clock();
 
     while(true)
@@ -198,27 +194,6 @@ void* velocity(void* arg)
             PY_old = PY;
             PZ_old = PZ;
             start = clock();
-
-            if(counter < 10)
-            {
-                AX_tmp += (VX - VX_old) / time_diff;
-                AY_tmp += (VY - VY_old) / time_diff;
-                AZ_tmp += (VZ - VZ_old) / time_diff;
-                VX_old = VX;
-                VY_old = VY;
-                VZ_old = VZ;
-                counter++;
-            }
-            else
-            {
-                AX = AX_tmp / 10;
-                AY = AY_tmp / 10;
-                AZ = AZ_tmp / 10;
-                AX_tmp = 0;
-                AY_tmp = 0;
-                AZ_tmp = 0;
-                counter = 0;
-            }
         }
     }
 }

@@ -1,22 +1,17 @@
-#include <time.h>
+#include "pid.h"
 
+// Controller implementation, that converts global positional error to pitch/roll commands in drone inertial frame.
 class Controller
 {
-private:
-    /* data */
-    time_t m_prev_time;
-    double m_kp, m_ki, m_kd;
-    bool m_initialized;
-    double setpoint;
-    double* measurement;
-    double m_error, m_i_error, m_d_error, m_prev_error;
+    private:
+        double *pos_x, *pos_y, *pos_z;
+        double *phi, *theta, *psi;
+        PID *m_pid_x, *m_pid_y;
 
-public:
-    Controller();
-    void set_gains(double kp, double ki, double kd);
-    void tick();
-    void set_setpoint(double sp);
-    void set_measurement(double* m);
+    public:
+        double setpoint_x, setpoint_y, setpoint_z;
+        double out_pitch, out_roll;
 
-    double out;
+        void tick();
+        Controller(double *px, double *py, double *pz, double *roll, double *pitch, double *yaw, PID *pid_x, PID *pid_y);
 };

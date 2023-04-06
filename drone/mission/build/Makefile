@@ -231,6 +231,33 @@ src/optidata.cpp.s:
 	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/optidata.cpp.s
 .PHONY : src/optidata.cpp.s
 
+src/pid.o: src/pid.cpp.o
+
+.PHONY : src/pid.o
+
+# target to build an object file
+src/pid.cpp.o:
+	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/pid.cpp.o
+.PHONY : src/pid.cpp.o
+
+src/pid.i: src/pid.cpp.i
+
+.PHONY : src/pid.i
+
+# target to preprocess a source file
+src/pid.cpp.i:
+	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/pid.cpp.i
+.PHONY : src/pid.cpp.i
+
+src/pid.s: src/pid.cpp.s
+
+.PHONY : src/pid.s
+
+# target to generate assembly for a file
+src/pid.cpp.s:
+	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/pid.cpp.s
+.PHONY : src/pid.cpp.s
+
 src/serial_if.o: src/serial_if.cpp.o
 
 .PHONY : src/serial_if.o
@@ -306,6 +333,9 @@ help:
 	@echo "... src/optidata.o"
 	@echo "... src/optidata.i"
 	@echo "... src/optidata.s"
+	@echo "... src/pid.o"
+	@echo "... src/pid.i"
+	@echo "... src/pid.s"
 	@echo "... src/serial_if.o"
 	@echo "... src/serial_if.i"
 	@echo "... src/serial_if.s"

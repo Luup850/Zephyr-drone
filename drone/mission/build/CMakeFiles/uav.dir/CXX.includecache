@@ -7,8 +7,8 @@
 #IncludeRegexTransform: 
 
 ../include/controller.h
-time.h
--
+pid.h
+../include/pid.h
 
 ../include/drone.h
 
@@ -35,6 +35,10 @@ arpa/inet.h
 -
 main.h
 ../include/main.h
+
+../include/pid.h
+time.h
+-
 
 ../include/serial_if.h
 stdlib.h

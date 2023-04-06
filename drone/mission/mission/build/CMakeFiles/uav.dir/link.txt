@@ -1,1 +1,0 @@
-/usr/bin/c++   -std=c++11 -Wall  -rdynamic CMakeFiles/uav.dir/uavmain.cpp.o CMakeFiles/uav.dir/src/PacketClient.cpp.o CMakeFiles/uav.dir/src/controller.cpp.o CMakeFiles/uav.dir/src/drone.cpp.o CMakeFiles/uav.dir/src/optidata.cpp.o CMakeFiles/uav.dir/src/pid.cpp.o CMakeFiles/uav.dir/src/serial_if.cpp.o  -o uav  -lpthread 

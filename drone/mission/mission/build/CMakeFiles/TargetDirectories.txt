@@ -1,3 +1,0 @@
-/home/local/mdch/mission/build/CMakeFiles/rebuild_cache.dir
-/home/local/mdch/mission/build/CMakeFiles/uav.dir
-/home/local/mdch/mission/build/CMakeFiles/edit_cache.dir
