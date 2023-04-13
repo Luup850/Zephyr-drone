@@ -103,6 +103,8 @@ drone.h
 /home/local/mdch/mission/drone.h
 controller.h
 /home/local/mdch/mission/controller.h
+pid.h
+/home/local/mdch/mission/pid.h
 serial_if.h
 /home/local/mdch/mission/serial_if.h
 

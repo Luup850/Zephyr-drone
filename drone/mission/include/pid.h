@@ -1,3 +1,5 @@
+#ifndef MY_PID
+#define MY_PID
 #include <time.h>
 
 class PID
@@ -10,6 +12,7 @@ private:
     double setpoint;
     double* measurement;
     double m_error, m_i_error, m_d_error, m_prev_error;
+    double m_min, m_max, windup_min, windup_max;
 
 public:
     PID();
@@ -17,6 +20,9 @@ public:
     void tick();
     void set_setpoint(double sp);
     void set_measurement(double* m);
+    void set_minmax(double min, double max);
+    void windup_limit(double, double);
 
     double out;
 };
+#endif // MY_PID

@@ -13,5 +13,6 @@ class Controller
         double out_pitch, out_roll;
 
         void tick();
+        void tick_matlab();
         Controller(double *px, double *py, double *pz, double *roll, double *pitch, double *yaw, PID *pid_x, PID *pid_y);
 };
