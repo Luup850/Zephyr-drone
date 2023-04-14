@@ -60,8 +60,8 @@ int main(int argc, char **argv)
     PID* ctrl_yaw = new PID();
     PID* ctrl_vel_x = new PID();
     PID* ctrl_vel_y = new PID();
-    PID* ctrl_x = new PID(); double ctrl_x_out = 0;
-    PID* ctrl_y = new PID(); double ctrl_y_out = 0;
+    PID* ctrl_x = new PID();
+    PID* ctrl_y = new PID();
     Controller* ctrl_pos = new Controller(&PX, &PY, &PZ, &R, &P, &Y, ctrl_vel_x, ctrl_vel_y);
 
 
@@ -94,19 +94,19 @@ int main(int argc, char **argv)
     ctrl_h->set_measurement(&PZ);
 
     ctrl_yaw->set_setpoint(Y);
-    ctrl_yaw->set_gains(0.2, 0, 0);
+    ctrl_yaw->set_gains(3, 0, 0.4);
     ctrl_yaw->set_measurement(&Y);
 
-    ctrl_vel_x->set_setpoint(ctrl_x_out);
-    ctrl_vel_x->set_gains(0.0823,0,0.5087); // MATLAB vel control PD: 0.0823, 0, 0.5087
+    ctrl_vel_x->set_setpoint(ctrl_x->out);
+    ctrl_vel_x->set_gains(0.0823,0,0.2087); // MATLAB vel control PD: 0.0823, 0, 0.5087
     ctrl_vel_x->set_measurement(&VX);
 
-    ctrl_vel_y->set_setpoint(ctrl_x_out);
-    ctrl_vel_y->set_gains(0.0823,0,0.5087);
+    ctrl_vel_y->set_setpoint(ctrl_y->out);
+    ctrl_vel_y->set_gains(0.0823,0,0.2087);
     ctrl_vel_y->set_measurement(&VY);
 
     ctrl_x->set_setpoint(PX);
-    ctrl_x->set_minmax(-1, 1);
+    ctrl_x->set_minmax(-1, 1); // Limit speed to 1 m/s
     ctrl_x->set_gains(0.5343, 0, 0); // MATLAB PID pos control: 0.6749, 3.7413, 1.7077. PD 1.2168, 1.1303. P 0.5343
     ctrl_x->windup_limit(-1, 1);
     ctrl_x->set_measurement(&PX);
@@ -128,24 +128,23 @@ int main(int argc, char **argv)
     int tst = 0;
     while(isOK)
     {
-
+        ctrl_vel_x->set_setpoint(ctrl_x->out);
+        ctrl_vel_y->set_setpoint(ctrl_y->out);
         usleep(50000);
         ctrl_h->tick();
         ctrl_yaw->tick();
         ctrl_x->tick(); // ctrl_x and y has to be called because ctrl_pos only calls ctrl_vel_x and y.
         ctrl_y->tick();
-        ctrl_x_out = ctrl_x->out;
-        ctrl_y_out = ctrl_y->out;
         ctrl_pos->tick_matlab();
         double error_h = ctrl_h->out;
-        double error_yaw = ctrl_yaw->out * 180/M_PI; // Convert to degrees
-        double error_roll = ctrl_pos->out_roll * 180/M_PI; // Convert to degrees
-        double error_pitch = /*-*/(ctrl_pos->out_pitch) * 180/M_PI; // Convert to degrees
+        double error_yaw = -(ctrl_yaw->out);// * (180/M_PI); // Convert to degrees
+        double error_roll = (ctrl_pos->out_roll) * (180/M_PI); // Convert to degrees
+        double error_pitch = -(ctrl_pos->out_pitch) * (180/M_PI); // Convert to degrees
         // Height roll pitch yaw.
         sprintf(str, "ref %f %f %f %f", 82.0 + error_h, error_roll, error_pitch, error_yaw);
         sf->sendmsg(str);
 
-        if( count > 2)
+        if( count > 5)
         {
             if (LOG_TO_FILE)
             {
@@ -164,7 +163,7 @@ int main(int argc, char **argv)
                 printf("POS: %.3f %.3f %.3f, OLD: %.3f %.3f %.3f\n", PX, PY, PZ, x_tmp, y_tmp, z_tmp);
                 // Convert from radians to degrees by multiplying by 57.2957795.
                 printf("Angles: %.3f %.3f %.3f, Speed: %.3f %.3f %.3f\n", P*57.2957795, Y*57.2957795, R*57.2957795, VX, VY, VZ);
-                printf("Error: H=%.3f R=%.3f P=%.3f Y=%.3f\n", error_h +82, error_roll, error_pitch, error_yaw);
+                printf("Signal: H=%.3f R=%.3f P=%.3f Y=%.3f\n", error_h +82, error_roll, error_pitch, error_yaw);
                 printf("Error XY reg: X=%.3f Y=%.3f\t Error XY vel reg: X=%.3f Y=%.3f \n", ctrl_x->out, ctrl_y->out, ctrl_vel_x->out, ctrl_vel_y->out);
                 printf("--------------------------------------------------------------------\n");
             }
