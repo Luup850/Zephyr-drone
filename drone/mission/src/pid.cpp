@@ -1,81 +1,140 @@
 #include "pid.h"
-#include <iostream>
+#include <stdio.h>
 
-PID::PID()
+PID::PID(RegType type, double interval)
 {
-    m_kp = 1.0;
-    m_ki = 0.0;
-    m_kd = 0.0;
-    m_initialized = false;
-    out = 0;
+    Ts = interval;
+
+    // Initialize Lead values
+    yl[0] = 0;
+    yl[1] = 0;
+    ul[0] = 0;
+    ul[1] = 0;
+
+    // Initialize Integral values
+    yi[0] = 0;
+    yi[1] = 0;
+    ui[0] = 0;
+    ui[1] = 0;
+
+    // Initialize min/max
     m_min = -99999;
     m_max = 99999;
-    windup_min = -99999;
-    windup_max = 99999;
+
+    enable_i = false;
+    enable_lead = false;
+
+    if(type == RegPI or type == RegPILead)
+        enable_i = true;
+
+    if(type == RegPLead or type == RegPILead)
+        enable_lead = true;
 }
 
-void PID::set_minmax(double min, double max)
+double PID::lead()
+{
+    /*
+        tf = (Tau * s + 1) / (alpha * Tau * s + 1)
+    
+    */
+
+    if (enable_lead == false)
+    {
+        yl[0] = *measurement;
+        return *measurement;
+    }
+
+    if(tick_count == 0)
+    {
+        ul[0] = *measurement;
+        //printf("Lead: a=%.3f, tau_d=%.3f, Ts=%.9f, yl[1]=%.3f, yl[0]=%.3f, ul[1]=%.3f ul[0]=%.3f\n\n",alpha, tau_d, Ts, yl[1], yl[0], ul[1], ul[0]);
+    }
+    else
+    {
+        ul[1] = ul[0];
+        ul[0] = *measurement;
+        yl[1] = yl[0];
+        //printf("Lead: a=%.3f, tau_d=%.3f, Ts=%.9f, yl[1]=%.3f, yl[0]=%.3f, ul[1]=%.3f ul[0]=%.3f\n\n",alpha, tau_d, Ts, yl[1], yl[0], ul[1], ul[0]);
+    }
+    //printf("Lead: a=%.3f, tau_d=%.3f, Ts=%.9f, yl[1]=%.3f, yl[0]=%.3f, ul[1]=%.3f ul[0]=%.3f\n\n",alpha, tau_d, Ts, yl[1], yl[0], ul[1], ul[0]);
+    // Lead |            1            |   |   2      |   |       3         |   |        4        |   |          5              |
+    yl[0] = ((2 * alpha * tau_d * yl[1]) - (Ts * yl[1]) + (2 * tau_d * ul[1]) - (2 * tau_d * ul[1]) + 
+            (Ts * ul[0]) + (Ts * ul[1])) / (2 * alpha * tau_d + Ts);
+    return yl[0];
+}
+
+double PID::integral()
+{
+    /*
+        tf = (1/tau) * (1/s)
+    
+    */
+
+    if (enable_i == false)
+    {
+        yi[0] = 0;
+        return 0;
+    }
+
+    if(tick_count == 0)
+    {
+        // Controller input, minus lead output, times kp.
+        ui[0] = (ref - yl[0]) * kp;
+    }
+    else
+    {
+        ui[1] = ui[0];
+        ui[0] = (ref - yl[0]) * kp;
+        yi[1] = yi[0];
+    }
+
+    // Integral
+    yi[0] = ((2 * tau_i * yi[1]) + (Ts * ui[1]) + (Ts * ui[0])) / (2 * tau_i);
+    
+    return yi[0];
+}
+
+double PID::output()
+{
+    double res = (ref - yl[0]) * kp + yi[0];
+    
+    if(res < m_min)
+    {
+        out = m_min;
+        return m_min;
+    }
+    else if(res > m_max)
+    {
+        out = m_max;
+        return m_max;
+    }
+    else
+    {
+        out = res;
+        return res;
+    }
+}
+
+// Need to run at the same speed as Ts
+void PID::tick()
+{
+    lead();
+    integral();
+    output();
+    // Last thing to do.
+    tick_count++;
+}
+
+void PID::set_gains(double Kp, double taui, double taud, double a)
+{
+    tau_d = taud;
+    alpha = a; // Lead time constant and lead gain
+    tau_i = taui; // Integral time constant
+    kp = Kp; // Proportional gain
+}
+
+void PID::limit_output(double max, double min)
 {
     m_min = min;
     m_max = max;
-}
-
-void PID::set_gains(double kp, double ki, double kd)
-{
-    m_kp = kp;
-    m_ki = ki;
-    m_kd = kd;
-}
-
-void PID::set_setpoint(double sp)
-{
-    setpoint = sp;
-}
-
-// Set the address of the var that is responsible for the measurement.
-void PID::set_measurement(double* m)
-{
-    measurement = m;
-}
-
-// Tick will run on a different thread.
-void PID::tick()
-{
-    if(m_initialized == false)
-    {
-        m_i_error = 0.0;
-        m_d_error = 0.0;
-        m_prev_time = clock();
-        m_initialized = true;
-    }
-    double dt = difftime(clock(), m_prev_time)/CLOCKS_PER_SEC;
-    //printf("DT %.3f", dt);
-    m_error = setpoint - (*measurement);
-    m_i_error = m_i_error + m_error * dt;
-    
-    if(m_i_error > windup_max)
-        m_i_error = windup_max;
-    else if(m_i_error < windup_min)
-        m_i_error = windup_min;
-
-    m_d_error = (m_error - m_prev_error) / dt;
-
-    // Set the controllers Out var.
-    double tmp = m_kp * m_error + m_ki * m_i_error + m_kd * m_d_error;
-    if(tmp > m_max)
-        out = m_max;
-    else if(tmp < m_min)
-        out = m_min;
-    else
-        out = tmp;
-    //printf("Out: %.5f\n", out);
-    m_prev_error = m_error;
-    m_prev_time = clock(); 
-}
-
-// Limit Integral term, such that it doesn't wind up.
-void PID::windup_limit(double min, double max)
-{
-    windup_min = min;
-    windup_max = max;
 }

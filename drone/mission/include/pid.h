@@ -1,28 +1,46 @@
-#ifndef MY_PID
-#define MY_PID
-#include <time.h>
+#ifndef PID_H
+#define PID_H
+enum RegType { RegP, RegPI, RegPLead, RegPILead };
+// Create a class called PID
+class PID {
 
-class PID
-{
 private:
-    /* data */
-    time_t m_prev_time;
-    double m_kp, m_ki, m_kd;
-    bool m_initialized;
-    double setpoint;
-    double* measurement;
-    double m_error, m_i_error, m_d_error, m_prev_error;
-    double m_min, m_max, windup_min, windup_max;
+    // Lead values, Y output, U input
+    double yl[2], ul[2];
+
+    // Integral values
+    double yi[2], ui[2];
+
+    int tick_count = 0;
+
+    double m_min, m_max;
 
 public:
-    PID();
-    void set_gains(double kp, double ki, double kd);
-    void tick();
-    void set_setpoint(double sp);
-    void set_measurement(double* m);
-    void set_minmax(double min, double max);
-    void windup_limit(double, double);
 
+    double *measurement;
     double out;
+    double ref;
+    double Ts;
+    bool enable_i, enable_lead;
+
+    /*
+    * Coefficients
+    */ 
+    double tau_d, alpha; // Lead time constant and lead gain
+    double tau_i; // Integral time constant
+    double kp; // Proportional gain
+
+    /*
+    * Constructor
+    */
+    PID(RegType type, double interval);
+
+    // Returns the measurement with the lead applied
+    double lead();
+    double integral();
+    double output();
+    void set_gains(double Kp, double taui, double taud, double a);
+    void limit_output(double max, double min);
+    void tick();
 };
-#endif // MY_PID
+#endif // PID_H

@@ -31,8 +31,6 @@ void Controller::tick()
 {
     double pitch_offset = 0;//-0.0523598776; // In radians
     double roll_offset = 0;//-0.0523598776; // In radians
-    m_pid_x->tick();
-    m_pid_y->tick();
 
     // Wrong formular. Fix tomorrow! 10-04-2023
     /*out_roll =  (cos(*theta) * sin(*psi) * m_pid_x->out + 
@@ -53,8 +51,6 @@ void Controller::tick()
 
 void Controller::tick_matlab()
 {
-    m_pid_x->tick();
-    m_pid_y->tick();
 
     out_roll = m_pid_x->out * sin(*psi) + cos(*psi) * m_pid_y->out;
 

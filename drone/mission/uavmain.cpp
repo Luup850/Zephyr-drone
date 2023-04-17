@@ -26,14 +26,26 @@
 // Defines
 #define LOG_TO_FILE true
 
+#define TS (1.0/60.0)
+
 bool startNatNetConnection(const char * argv0);
 void unpack(char * pData);
 void* velocity(void* arg);
+void* controllerTick(void* arg);
 
 UOptitrack * frame = nullptr;
 URigid *drone_marker;
 double PX, PY, PZ;
 double VX = 0, VY = 0, VZ = 0;
+
+// Controllers
+PID* ctrl_h;
+PID* ctrl_yaw;
+PID* ctrl_vel_x;
+PID* ctrl_vel_y;
+PID* ctrl_x;
+PID* ctrl_y;
+ 
 
 // Pitch, yaw, roll
 double P, Y, R;
@@ -56,12 +68,12 @@ int main(int argc, char **argv)
     serial_if *sf = new serial_if();
     Drone* drone;
     drone = new Drone();
-    PID* ctrl_h = new PID();
-    PID* ctrl_yaw = new PID();
-    PID* ctrl_vel_x = new PID();
-    PID* ctrl_vel_y = new PID();
-    PID* ctrl_x = new PID();
-    PID* ctrl_y = new PID();
+    ctrl_h = new PID(RegPLead, TS);
+    ctrl_yaw = new PID(RegPLead, TS);
+    ctrl_vel_x = new PID(RegPLead, TS);
+    ctrl_vel_y = new PID(RegPLead, TS);
+    ctrl_x = new PID(RegP, TS);
+    ctrl_y = new PID(RegP, TS);
     Controller* ctrl_pos = new Controller(&PX, &PY, &PZ, &R, &P, &Y, ctrl_vel_x, ctrl_vel_y);
 
 
@@ -89,57 +101,55 @@ int main(int argc, char **argv)
 
     // PID values from model for height.
     // h1 Kp = 26.7, ti=1.2, td = 1.26. Default values in matlab are kp = 60, ti = 1, td = 1.
-    ctrl_h->set_setpoint(2);
-    ctrl_h->set_gains(6, 1.2, 1.26); 
-    ctrl_h->set_measurement(&PZ);
+    ctrl_h->set_gains(4,1.2, 1.26, 0.1);
+    // MATLAB vel control PD: 0.0823, 0, 0.5087
+    ctrl_vel_x->set_gains(0.0823, 0, 0.5087, 0.1);
+    ctrl_vel_y->set_gains(0.0823, 0, 0.5087, 0.1);
+    // Limit speed to 1 m/s
+    // MATLAB PID pos control: 0.6749, 3.7413, 1.7077. PD 1.2168, 1.1303. P 0.5343
+    ctrl_x->set_gains(0.7343,0,0,0.1);
+    ctrl_y->set_gains(0.7343,0,0,0.1);
+    ctrl_x->limit_output(1, -1);
+    ctrl_y->limit_output(1, -1);
 
-    ctrl_yaw->set_setpoint(Y);
-    ctrl_yaw->set_gains(3, 0, 0.4);
-    ctrl_yaw->set_measurement(&Y);
+    ctrl_yaw->set_gains(2, 0, 0, 0.1);
 
-    ctrl_vel_x->set_setpoint(ctrl_x->out);
-    ctrl_vel_x->set_gains(0.0823,0,0.2087); // MATLAB vel control PD: 0.0823, 0, 0.5087
-    ctrl_vel_x->set_measurement(&VX);
+    // Controller reference
+    ctrl_x->ref = PX;
+    ctrl_y->ref = PY;
+    ctrl_yaw->ref = Y;
+    ctrl_h->ref = 2.0;
 
-    ctrl_vel_y->set_setpoint(ctrl_y->out);
-    ctrl_vel_y->set_gains(0.0823,0,0.2087);
-    ctrl_vel_y->set_measurement(&VY);
+    ctrl_x->measurement = &PX;
+    ctrl_y->measurement = &PY;
+    ctrl_h->measurement = &PZ;
 
-    ctrl_x->set_setpoint(PX);
-    ctrl_x->set_minmax(-1, 1); // Limit speed to 1 m/s
-    ctrl_x->set_gains(0.5343, 0, 0); // MATLAB PID pos control: 0.6749, 3.7413, 1.7077. PD 1.2168, 1.1303. P 0.5343
-    ctrl_x->windup_limit(-1, 1);
-    ctrl_x->set_measurement(&PX);
+    ctrl_vel_x->measurement = &VX;
+    ctrl_vel_y->measurement = &VY;
 
-    ctrl_y->set_setpoint(PY);
-    ctrl_y->set_minmax(-1, 1);
-    ctrl_y->set_gains(0.5343, 0, 0);
-    ctrl_y->windup_limit(-1, 1);
-    ctrl_y->set_measurement(&PY);
+    ctrl_yaw->measurement = &Y;
 
+    // Control tick
+    pthread_t control_thread;
+    pthread_create(&control_thread, NULL, controllerTick, NULL);
+    usleep(50000);
 
-    // Disable controllers
-    //ctrl_h->set_gains(10,0,0);
-    //ctrl_yaw->set_gains(10,0,0);
-    //ctrl_vel_x->set_gains(10,0,0);
-    //ctrl_vel_y->set_gains(10,0,0);
-    //ctrl_x->set_gains(0.6, 0, 0.8);
-    //ctrl_y->set_gains(0.6, 0, 0.8);
     int tst = 0;
     while(isOK)
     {
-        ctrl_vel_x->set_setpoint(ctrl_x->out);
-        ctrl_vel_y->set_setpoint(ctrl_y->out);
-        usleep(50000);
-        ctrl_h->tick();
-        ctrl_yaw->tick();
-        ctrl_x->tick(); // ctrl_x and y has to be called because ctrl_pos only calls ctrl_vel_x and y.
-        ctrl_y->tick();
+
+        usleep(25000);
+        //ctrl_h->tick();
+        //ctrl_x->tick();
+        //ctrl_y->tick();
+        //ctrl_vel_x->tick();
+        //ctrl_vel_y->tick();
         ctrl_pos->tick_matlab();
+        
         double error_h = ctrl_h->out;
         double error_yaw = -(ctrl_yaw->out);// * (180/M_PI); // Convert to degrees
         double error_roll = (ctrl_pos->out_roll) * (180/M_PI); // Convert to degrees
-        double error_pitch = -(ctrl_pos->out_pitch) * (180/M_PI); // Convert to degrees
+        double error_pitch = (ctrl_pos->out_pitch) * (180/M_PI); // Convert to degrees
         // Height roll pitch yaw.
         sprintf(str, "ref %f %f %f %f", 82.0 + error_h, error_roll, error_pitch, error_yaw);
         sf->sendmsg(str);
@@ -154,7 +164,7 @@ int main(int argc, char **argv)
                 // Convert from radians to degrees by multiplying by 57.2957795.
                 fprintf(fp, "Angles: %.3f %.3f %.3f, Speed: %.3f %.3f %.3f\n", P*57.2957795, Y*57.2957795, R*57.2957795, VX, VY, VZ);
                 fprintf(fp, "Signal: H=%.3f R=%.3f P=%.3f Y=%.3f\n", error_h +82, error_roll, error_pitch, error_yaw);
-                fprintf(fp, "Error XY reg: X=%.3f Y=%.3f\t Error XY vel reg: X=%.3f Y=%.3f \n", ctrl_x->out, ctrl_y->out, ctrl_vel_x->out, ctrl_vel_y->out);
+                fprintf(fp, "Error XY reg: X=%.3f Y=%.3f\t Error XY vel reg: X=%.3f Y=%.3f \n", ctrl_x->output(), ctrl_y->output(), ctrl_vel_x->output(), ctrl_vel_y->output());
                 fprintf(fp, "--------------------------------------------------------------------\n");
             }
             else
@@ -164,7 +174,7 @@ int main(int argc, char **argv)
                 // Convert from radians to degrees by multiplying by 57.2957795.
                 printf("Angles: %.3f %.3f %.3f, Speed: %.3f %.3f %.3f\n", P*57.2957795, Y*57.2957795, R*57.2957795, VX, VY, VZ);
                 printf("Signal: H=%.3f R=%.3f P=%.3f Y=%.3f\n", error_h +82, error_roll, error_pitch, error_yaw);
-                printf("Error XY reg: X=%.3f Y=%.3f\t Error XY vel reg: X=%.3f Y=%.3f \n", ctrl_x->out, ctrl_y->out, ctrl_vel_x->out, ctrl_vel_y->out);
+                printf("Error XY reg: X=%.3f Y=%.3f\t Error XY vel reg: X=%.3f Y=%.3f \n", ctrl_x->output(), ctrl_y->output(), ctrl_vel_x->output(), ctrl_vel_y->output());
                 printf("--------------------------------------------------------------------\n");
             }
             count = 0;
@@ -261,5 +271,22 @@ void* velocity(void* arg)
             PZ_old = PZ;
             start = clock();
         }
+    }
+}
+
+void* controllerTick(void* arg)
+{
+    while(true)
+    {
+        usleep(TS * 1000000);
+        //printf("I ran!\n");
+        ctrl_h->tick();
+        ctrl_yaw->tick();
+        ctrl_x->tick();
+        ctrl_y->tick();
+        ctrl_vel_x->ref = ctrl_x->output();
+        ctrl_vel_y->ref = ctrl_y->output();
+        ctrl_vel_x->tick();
+        ctrl_vel_y->tick();
     }
 }

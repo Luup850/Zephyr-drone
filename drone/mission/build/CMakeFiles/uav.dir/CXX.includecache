@@ -37,8 +37,6 @@ main.h
 ../include/main.h
 
 ../include/pid.h
-time.h
--
 
 ../include/serial_if.h
 stdlib.h
