@@ -4,6 +4,8 @@
 PID::PID(RegType type, double interval)
 {
     Ts = interval;
+    yaw_control = false;
+    m_type = type;
 
     // Initialize Lead values
     yl[0] = 0;
@@ -78,13 +80,23 @@ double PID::integral()
 
     if(tick_count == 0)
     {
+        if (yaw_control == false)
+        {
         // Controller input, minus lead output, times kp.
         ui[0] = (ref - yl[0]) * kp;
+        }
+        else
+            ui[0] = angle_diff(ref, yl[0]) * kp;
     }
     else
     {
         ui[1] = ui[0];
-        ui[0] = (ref - yl[0]) * kp;
+        
+        if (yaw_control == false)
+            ui[0] = (ref - yl[0]) * kp;
+        else
+            ui[0] = angle_diff(ref, yl[0]) * kp;
+        
         yi[1] = yi[0];
     }
 
@@ -96,7 +108,12 @@ double PID::integral()
 
 double PID::output()
 {
-    double res = (ref - yl[0]) * kp + yi[0];
+    double res;
+
+    if(yaw_control == false)
+        res = (ref - yl[0]) * kp + yi[0];
+    else
+        res = angle_diff(ref, yl[0]) * kp + yi[0];
     
     if(res < m_min)
     {
@@ -118,7 +135,15 @@ double PID::output()
 // Need to run at the same speed as Ts
 void PID::tick()
 {
-    lead();
+    if(m_type == RegHeight)
+    {
+        yl[0] = *measurement;
+    }
+    else
+    {
+        lead();
+    }
+
     integral();
     output();
     // Last thing to do.
@@ -137,4 +162,27 @@ void PID::limit_output(double max, double min)
 {
     m_min = min;
     m_max = max;
+}
+
+// x = ref, y = measurement.
+double PID::angle_diff(double x, double y)
+{
+    double out = 0.0;
+    double a = x + 180.0;
+    double b = y + 180.0;
+
+    if (abs(a - b) <= 180)
+        if(a > b)
+            out = (b - a);
+        else
+            out = (b - a);
+    else
+        if(a > b)
+            out = (-360) + (a - b);
+        else
+            out = 360 + (a - b);
+        out = (a - b);
+
+    //printf("Test1 %.3f\n", out);
+    return out;
 }

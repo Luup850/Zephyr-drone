@@ -25,8 +25,8 @@
 
 // Defines
 #define LOG_TO_FILE true
-
 #define TS (1.0/60.0)
+#define HOVER_VALUE 82.0
 
 bool startNatNetConnection(const char * argv0);
 void unpack(char * pData);
@@ -37,6 +37,7 @@ UOptitrack * frame = nullptr;
 URigid *drone_marker;
 double PX, PY, PZ;
 double VX = 0, VY = 0, VZ = 0;
+double height_measurement; // Height controller is weird. Trying to mimic it.
 
 // Controllers
 PID* ctrl_h;
@@ -68,12 +69,12 @@ int main(int argc, char **argv)
     serial_if *sf = new serial_if();
     Drone* drone;
     drone = new Drone();
-    ctrl_h = new PID(RegPLead, TS);
+    ctrl_h = new PID(RegHeight, TS);
     ctrl_yaw = new PID(RegPLead, TS);
     ctrl_vel_x = new PID(RegPLead, TS);
     ctrl_vel_y = new PID(RegPLead, TS);
-    ctrl_x = new PID(RegP, TS);
-    ctrl_y = new PID(RegP, TS);
+    ctrl_x = new PID(RegPLead, TS);
+    ctrl_y = new PID(RegPLead, TS);
     Controller* ctrl_pos = new Controller(&PX, &PY, &PZ, &R, &P, &Y, ctrl_vel_x, ctrl_vel_y);
 
 
@@ -94,35 +95,37 @@ int main(int argc, char **argv)
     //usleep(500000);
     bool isOK = startNatNetConnection(argv[0]);
     usleep(500000);
-    double x_tmp = PX, y_tmp = PY, z_tmp = PZ;
+    double x_tmp = PX, y_tmp = PY, z_tmp = PZ + 3.0 /*For set height*/, yaw_tmp = Y * (180.0/M_PI);
 
     char str[100];
     int count = 0;
 
     // PID values from model for height.
     // h1 Kp = 26.7, ti=1.2, td = 1.26. Default values in matlab are kp = 60, ti = 1, td = 1.
-    ctrl_h->set_gains(4,1.2, 1.26, 0.1);
+    ctrl_h->set_gains(26.7,1.2, 1.26, 0.07);
     // MATLAB vel control PD: 0.0823, 0, 0.5087
-    ctrl_vel_x->set_gains(0.0823, 0, 0.5087, 0.1);
-    ctrl_vel_y->set_gains(0.0823, 0, 0.5087, 0.1);
+    ctrl_vel_x->set_gains(0.0823, 0, 0.5022, 0.3);
+    ctrl_vel_y->set_gains(0.0823, 0, 0.5022, 0.3);
     // Limit speed to 1 m/s
     // MATLAB PID pos control: 0.6749, 3.7413, 1.7077. PD 1.2168, 1.1303. P 0.5343
-    ctrl_x->set_gains(0.7343,0,0,0.1);
-    ctrl_y->set_gains(0.7343,0,0,0.1);
+    ctrl_x->set_gains(2.2228,0,1.1248,0.3);
+    ctrl_y->set_gains(2.2228,0,1.1248,0.3);
     ctrl_x->limit_output(1, -1);
     ctrl_y->limit_output(1, -1);
 
-    ctrl_yaw->set_gains(2, 0, 0, 0.1);
+    ctrl_yaw->set_gains(3, 0, 0.4243, 0.5);
+    ctrl_yaw->yaw_control = true;
 
     // Controller reference
     ctrl_x->ref = PX;
     ctrl_y->ref = PY;
     ctrl_yaw->ref = Y;
-    ctrl_h->ref = 2.0;
+    ctrl_h->ref = 3.0;
 
     ctrl_x->measurement = &PX;
     ctrl_y->measurement = &PY;
-    ctrl_h->measurement = &PZ;
+    //ctrl_h->measurement = &PZ;
+    ctrl_h->measurement = &height_measurement;
 
     ctrl_vel_x->measurement = &VX;
     ctrl_vel_y->measurement = &VY;
@@ -138,20 +141,27 @@ int main(int argc, char **argv)
     while(isOK)
     {
 
-        usleep(25000);
+        usleep(50000);
         //ctrl_h->tick();
         //ctrl_x->tick();
         //ctrl_y->tick();
         //ctrl_vel_x->tick();
         //ctrl_vel_y->tick();
         ctrl_pos->tick_matlab();
+        height_measurement = PZ + VZ * ctrl_h->tau_d;
         
-        double error_h = ctrl_h->out;
-        double error_yaw = -(ctrl_yaw->out);// * (180/M_PI); // Convert to degrees
-        double error_roll = (ctrl_pos->out_roll) * (180/M_PI); // Convert to degrees
-        double error_pitch = (ctrl_pos->out_pitch) * (180/M_PI); // Convert to degrees
+        // Divide with 4 to take into account Kff from next controller
+        double error_h = ctrl_h->out / 4.0;
+
+        if (error_h > 92.061)
+            error_h = 92.061;
+        //double error_h = 50.0 - 82.0;
+        double error_yaw = (ctrl_yaw->out);// * (180.0/M_PI); // Convert to degree
+        //double error_yaw = 0;
+        double error_roll = (ctrl_pos->out_roll) * (180.0/M_PI); // Convert to degrees
+        double error_pitch = -(ctrl_pos->out_pitch) * (180.0/M_PI); // Convert to degrees
         // Height roll pitch yaw.
-        sprintf(str, "ref %f %f %f %f", 82.0 + error_h, error_roll, error_pitch, error_yaw);
+        sprintf(str, "ref %f %f %f %f", HOVER_VALUE + error_h, error_roll, error_pitch, error_yaw);
         sf->sendmsg(str);
 
         if( count > 5)
@@ -160,20 +170,22 @@ int main(int argc, char **argv)
             {
                 printf("save %d\n", tst);
                 fprintf(fp, "[%d]\n", tst);
-                fprintf(fp, "POS: %.3f %.3f %.3f, OLD: %.3f %.3f %.3f\n", PX, PY, PZ, x_tmp, y_tmp, z_tmp);
+                fprintf(fp, "POS: %.3f %.3f %.3f, OLD: %.3f %.3f %.3f, OLD heading: %.3f\n", PX, PY, PZ, x_tmp, y_tmp, z_tmp, yaw_tmp);
                 // Convert from radians to degrees by multiplying by 57.2957795.
                 fprintf(fp, "Angles: %.3f %.3f %.3f, Speed: %.3f %.3f %.3f\n", P*57.2957795, Y*57.2957795, R*57.2957795, VX, VY, VZ);
                 fprintf(fp, "Signal: H=%.3f R=%.3f P=%.3f Y=%.3f\n", error_h +82, error_roll, error_pitch, error_yaw);
+                fprintf(fp, "Error in ref/measurement: X=%.3f, \t y=%.3f, \t H=%.3f\n", PX-x_tmp, PY-y_tmp, PZ-z_tmp);
                 fprintf(fp, "Error XY reg: X=%.3f Y=%.3f\t Error XY vel reg: X=%.3f Y=%.3f \n", ctrl_x->output(), ctrl_y->output(), ctrl_vel_x->output(), ctrl_vel_y->output());
                 fprintf(fp, "--------------------------------------------------------------------\n");
             }
             else
             {
                 printf("[%d]\n", tst);
-                printf("POS: %.3f %.3f %.3f, OLD: %.3f %.3f %.3f\n", PX, PY, PZ, x_tmp, y_tmp, z_tmp);
+                printf("POS: %.3f %.3f %.3f, OLD: %.3f %.3f %.3f, OLD heading: %.3f\n", PX, PY, PZ, x_tmp, y_tmp, z_tmp, yaw_tmp);
                 // Convert from radians to degrees by multiplying by 57.2957795.
                 printf("Angles: %.3f %.3f %.3f, Speed: %.3f %.3f %.3f\n", P*57.2957795, Y*57.2957795, R*57.2957795, VX, VY, VZ);
                 printf("Signal: H=%.3f R=%.3f P=%.3f Y=%.3f\n", error_h +82, error_roll, error_pitch, error_yaw);
+                printf("Error in ref/measurement: X=%.3f, \t y=%.3f, \t H=%.3f\n", PX-x_tmp, PY-y_tmp, PZ-z_tmp);
                 printf("Error XY reg: X=%.3f Y=%.3f\t Error XY vel reg: X=%.3f Y=%.3f \n", ctrl_x->output(), ctrl_y->output(), ctrl_vel_x->output(), ctrl_vel_y->output());
                 printf("--------------------------------------------------------------------\n");
             }
