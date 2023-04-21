@@ -170,8 +170,7 @@ h1kp = 60;   % K_P
 h1ti = 1; % tau_i
 
 Kff = 0; % MC: FeedForward
-enable_h1 = 1; % MC: Enables height controller for initial tuning
-enable_h2 = 0;
+enable_h
 
 % roll
 rkp = 0;

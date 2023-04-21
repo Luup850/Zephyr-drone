@@ -1,0 +1,203 @@
+# Result of drone configuration
+# from mobotware/drone_ctrl/trunk/doc/Matlab/hexacopter.m
+# simulink model name hexacopter_sim.slx
+# date 21-Apr-2023
+#
+[base]
+# NB! all motor actuator output are
+#     relative to this battery voltage, and
+#     should be scaled relative to this
+batteryVoltage 14.8
+# Mass in kg
+batteryMass 1.12
+batteryToCOG -0.1
+# Drone mass exclusive of battery (kg)
+droneMass 2.424
+# Moment of inertia [Nm^2]
+iRoll 0.0799225
+iPitch 0.0799225
+iYaw 0.137445
+#
+[motor]
+motor 3508-700KV
+resistance 0.083
+kv 700
+# mass in kg
+mass 0.187
+motorCount 6
+# X-configureation distribution circular
+# first motor - front right, counting clockwise
+# arm length from center to motor axle
+armLength 0.35
+#
+[propeller]
+# radius in meter (base for calculation)
+radius 0.17145
+# mass in kg (base for calculation)
+mass 0.017
+#
+# limits
+[limits]
+# max roll and tilt angle limit (deg)
+rollLimit 10
+# minimum motor voltage (at minimum RPM)
+minMotorVolt 1
+#
+#
+# Drone model data
+[model]
+# drag proportional to rotation (rad/s) power 4 (unit Nm s^4)
+dragKonstant 1.5e-09
+# trust proportional to rotation (rad/s) squared (unit N s^2)
+trustKonstant 2.7e-05
+# hover in RPM
+hoverRPM 4426.05
+# hover current (A)
+hoverCurrent 10.9485
+# hover voltage (V)
+hoverVoltage 7.23165
+#
+#
+# Height velocity controll
+[height_in_1_ctrl]
+# system transfer function (matlab style)
+num 0 0 0 2.99498 135.569 2045.84 10297.2 69.395 -4.37239e-06 5.78256e-05 -1.69914e-11 1.16511e-13
+den 1 62.7065 1507.98 16955 84179.7 122168 820.631 -0.000687838 0.00274128 2.27696e-06 -6.22698e-12 6.77135e-12
+# crossover frequency (rad/s)
+crossover 8.58161 (8.58161)
+kp 113.611
+# Has I-term
+tau_i 0.466113
+Ni 4
+# Has Lead-term
+tau_d 0.440435
+alpha 0.07
+# phase margin (deg)
+gamma_m 31.9968 (32)
+#
+#
+# Roll velocity control
+[rollVel]
+# system transfer function (matlab style)
+num 0 0 886.214
+den 3.14159 47.4632 0
+# crossover frequency (rad/s)
+crossover 17.6716 (17.6716)
+kp 1.02988
+# Has Lead-term
+tau_d 0.0800274
+alpha 0.5
+# phase margin (deg)
+gamma_m 59.9993 (60)
+#
+#
+# Roll angle control
+[roll]
+# system transfer function (matlab style)
+num 0 0 0 290.519 7260.48
+den 1 40.0994 958.608 7260.48 0
+# crossover frequency (rad/s)
+crossover 11.0533 (11.0533)
+kp 5.94141
+# Has Lead-term
+tau_d 0.202299
+alpha 0.2
+# phase margin (deg)
+gamma_m 79.9968 (80)
+#
+#
+# Pitch velocity control
+[pitchVel]
+# system transfer function (matlab style)
+num 0 0 886.214
+den 3.14159 47.4632 0
+# crossover frequency (rad/s)
+crossover 17.6716 (17.6716)
+kp 1.02988
+# Has Lead-term
+tau_d 0.0800274
+alpha 0.5
+# phase margin (deg)
+gamma_m 59.9993 (60)
+#
+#
+# Pitch angle control
+[pitch]
+# system transfer function (matlab style)
+num 0 0 0 290.519 7260.48
+den 1 40.0994 958.608 7260.48 0
+# crossover frequency (rad/s)
+crossover 11.0533 (11.0533)
+kp 5.94141
+# Has Lead-term
+tau_d 0.202299
+alpha 0.2
+# phase margin (deg)
+gamma_m 79.9968 (80)
+#
+#
+# Yaw angle velocity control
+[yawVel]
+# system transfer function (matlab style)
+num 0 0 0 9.47814
+den 0.0392699 3.73488 47.4632 0
+# crossover frequency (rad/s)
+crossover 7.30877 (7.30878)
+kp 27.3875
+# Has I-term
+tau_i 0.410465
+Ni 3
+# Has Lead-term
+tau_d 0.193495
+alpha 0.5
+# phase margin (deg)
+gamma_m 60 (60)
+#
+#
+# Yaw velocity ref to yaw angle
+[yaw]
+# system transfer function (matlab style)
+num 0 0 0 0 6610.23 68324.5
+den 1 105.444 2356.95 26567.2 68324.5 0
+# crossover frequency (rad/s)
+crossover 3.31725 (3.31725)
+kp 2.99352
+# Has I-term
+tau_i 1.20582
+Ni 4
+# Has Lead-term
+tau_d 0.426321
+alpha 0.5
+# phase margin (deg)
+gamma_m 49.9936 (50)
+#
+#
+# Roll ref to Y-velocity
+[y_vel]
+# system transfer function (matlab style)
+num 0 0 0 0 60071.6 2.986e+06 3.71053e+07
+den 1 64.8153 1949.7 39583.8 437798 1.06618e+06 0
+# crossover frequency (rad/s)
+crossover 3.58464 (3.58468)
+kp 0.082185
+# Has Lead-term
+tau_d 0.509317
+alpha 0.3
+# phase margin (deg)
+gamma_m 69.9963 (70)
+#
+#
+# Pitch ref to X-velocity
+[x_vel]
+# system transfer function (matlab style)
+num 0 0 0 0 60071.6 2.986e+06 3.71053e+07
+den 1 64.8153 1949.7 39583.8 437798 1.06618e+06 0
+# crossover frequency (rad/s)
+crossover 1.09344 (1.09348)
+kp 0.0330809
+# Has I-term
+tau_i 100
+Ni 4
+# phase margin (deg)
+gamma_m 69.4675 (70)
+#
