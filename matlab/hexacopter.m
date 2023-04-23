@@ -169,10 +169,10 @@ h1al = 0.1; % alpha
 h1kp = 60;   % K_P
 h1ti = 1; % tau_i
 
-h2vtd = 1; % tau_d
-h2val = 0.1; % alpha
-h2vkp = 60;   % K_P
-h2vti = 1;
+h1vtd = 0; % tau_d
+h1val = 0; % alpha
+h1vkp = 1;   % K_P
+h1vti = 0; % tau_i
 
 % roll
 rkp = 0;
@@ -298,7 +298,6 @@ title('Estimated TF from motor o/oo to pitch angle')
 hD = 0.2; % velocity drag (groundless estimate 30m/s => 6N drag)
 trust2height1 = tf(1,[totalMass hD 0]);
 Gh1a = Gtr * trust2height1
-ref_to_height = Gtr * trust2height1 * 5;
 Gh1 = minreal(Gpipo(2))
 % bode sammenligning
 figure(1002)
@@ -311,7 +310,9 @@ legend('physics','simulink')
 % result
 % Gh1a = tf([1.10],[1.13  15.41  2.70  0])
 % poles:  s = 0, -13, -0.18
-%% design height velocity controller
+%% Design height vel controller
+
+%% design height Pos controller
 %h1gm = 32;
 %h1al = 0.07;
 h1gm = 35;
@@ -328,20 +329,6 @@ showResult(debugPlot,resultFile,filename, 'height_in_1_ctrl', Gh1, ...
            h1w, h1kp, h1ti, h1Ni, h1td, h1al, ...
            h1gm, 'Height velocity controll');
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% MC: Design secondary height velocity controller
-h2vgm = 60;
-h2val = 0.1;
-h2vNi = 4;
-[h2vw, h2vkp, h2vti, h2vtd] = findpid(ref_to_height, h2vgm,  h2vNi, h2val)
-
-%% MC: Design height position controller
-Crd = tf([h2vtd 1],[h2vtd*h2val 1]);
-h2vcl =minreal((h2vkp*ref_to_height + tf([1], [1 0]) * 1/h2vti) / (1 + (h2vkp*ref_to_height + tf([1], [1 0]) * 1/h2vti)*Crd));
-h2 = h2vcl * tf(1,[1 0]);
-h2gm = 60;
-h2al = 0.2;
-h2Ni = 4;
-[h2w, h2kp] = findp(h2vcl, h2gm)
 %% Model extension to roll and pitch input to roll/pitch velocity
 % roll trust share
 % moment motor 1
@@ -507,20 +494,22 @@ Gxv = Gpacl * tf([1],[1 0]) * trustHoover;%(180/pi); % MC: trustHoover shouldnt 
 %% X-velocity controller
 xvgm = 70;
 %xvgm = 40;
-xal = 0.3;
-%xval = 0.2;
+%xval = 0.1;
+xval = 0.2;
 xvNi = 4;
 [xvw xvkp xvtd] = findpd(Gxv, xvgm, xval)
+%[xvw xvkp xvti xvtd] = findpid(Gxv, xvgm, xvNi, xval)
 Cxvd = tf([xvtd 1],[xvtd*xval 1]);
 Gxvcl = minreal(xvkp * Gxv / (1 + xvkp*Cxvd*Gxv));
+%Gxvcl = minreal((xvkp * Gxv + xvkp * Gxv * tf([1], [1*xvti 0])) / (1 + xvkp*Cxvd*Gxv)); % With integrator
 
 %% MC: X-Pos Controller
 Gx = Gxvcl * tf([1], [1 0]);
-xgm = 50;
-xal = 0.1;
+xgm = 60;
+xal = 0.2;
 xNi = 4;
-%[xw xkp] = findp(Gx, 40)
-[xw xkp xtd] = findpd(Gx, xvgm, xval)
+[xw xkp] = findp(Gx, xgm)
+%[xw xkp xtd] = findpd(Gx, xgm, xal)
 %[xw xkp xti xtd] = findpid(Gx, xvgm, xvNi, xval)
 %% debug and save result
 % showResult(plt, fil, fn, name, sys, w, kp, ti, Ni, td, al, gm, tle)
@@ -529,10 +518,4 @@ showResult(debugPlot,resultFile,filename, 'x_vel', Gxv, ...
            'Pitch ref to X-velocity');
 %
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% MC: Enable secondary height controller and disable first one used for simulation
-enable_h2 = 1;
-enable_h1 = 0;
-%Kff = 4;
-%h1kp = 1;
 end
