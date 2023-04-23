@@ -169,9 +169,10 @@ h1al = 0.1; % alpha
 h1kp = 60;   % K_P
 h1ti = 1; % tau_i
 
-Kff = 0; % MC: FeedForward
-enable_h1 = 1; % MC: Enables height controller for initial tuning
-enable_h2 = 0;
+h2vtd = 1; % tau_d
+h2val = 0.1; % alpha
+h2vkp = 60;   % K_P
+h2vti = 1;
 
 % roll
 rkp = 0;
@@ -227,22 +228,22 @@ pushEnabled = 0;
 heightInRef.time=[0,11]';
 % fixed height of 1m for calibration
 heightInRef.signals.values=[1,1]';
-%% MC: linear analysis - thrust to z
-load_system(model);
-open_system(model);
-ios(1) = linio('hexacopter_sim/base_controlled_drone/trust_in',1,'openinput');
-ios(2) = linio('hexacopter_sim/base_controlled_drone/platform',6,'openoutput');
-setlinio(model,ios);
+%% MC: linear analysis - thrust to z_vel
+%load_system(model);
+%open_system(model);
+%ios(1) = linio('hexacopter_sim/base_controlled_drone/trust_in',1,'openinput');
+%ios(2) = linio('hexacopter_sim/base_controlled_drone/platform',6,'openoutput');
+%setlinio(model,ios);
 % Use the snapshot times 2 and 10 seconds
-op = [4];
+%op = [4];
 % Linearize the model
-sys = linearize(model,ios,op);
-for M = 1:size(op,2)
-  [num,den] = ss2tf(sys.A(:,:,M), sys.B(:,:,M), sys.C(:,:,M), sys.D(:,:,M));
-  height_model = minreal(tf(num, den), 0.005)
-end
-kff_ctrl = 5 * height_model * 1/102.4;
-ref_to_height = height_model * tf([1], [1 0]);
+%sys = linearize(model,ios,op);
+%for M = 1:size(op,2)
+%  [num,den] = ss2tf(sys.A(:,:,M), sys.B(:,:,M), sys.C(:,:,M), sys.D(:,:,M));
+%  height_model = minreal(tf(num, den), 0.005)
+%end
+%kff_ctrl = 5 * (1/102.4);
+%ref_to_height = height_model * kff_ctrl;
 %% linear analysis - mixer in to trust
 load_system(model);
 open_system(model);
@@ -297,6 +298,7 @@ title('Estimated TF from motor o/oo to pitch angle')
 hD = 0.2; % velocity drag (groundless estimate 30m/s => 6N drag)
 trust2height1 = tf(1,[totalMass hD 0]);
 Gh1a = Gtr * trust2height1
+ref_to_height = Gtr * trust2height1 * 5;
 Gh1 = minreal(Gpipo(2))
 % bode sammenligning
 figure(1002)
@@ -310,14 +312,14 @@ legend('physics','simulink')
 % Gh1a = tf([1.10],[1.13  15.41  2.70  0])
 % poles:  s = 0, -13, -0.18
 %% design height velocity controller
-h1gm = 32;
-h1al = 0.07;
-%h1gm = 55;
-%h1al = 0.1;
+%h1gm = 32;
+%h1al = 0.07;
+h1gm = 35;
+h1al = 0.1;
 h1Ni = 4;
 %[hvw, hvkp, hvti, hvtd] = findpid(Ghv, hvgm, hvNi, hval)
 display("Height controller") % Marcus
-[h1w, h1kp, h1ti, h1td] = findpid(Gh1, h1gm,  h1Ni, h1al)
+[h1w, h1kp, h1ti, h1td] = findpid(Gh1a, h1gm,  h1Ni, h1al)
 %[h1w, h1kp, h1td] = findpd(Gh1a, h1gm, h1al)
 % result:
 % h1kp = 26.7; h1ti=1.2; h1td = 1.26;
@@ -326,6 +328,20 @@ showResult(debugPlot,resultFile,filename, 'height_in_1_ctrl', Gh1, ...
            h1w, h1kp, h1ti, h1Ni, h1td, h1al, ...
            h1gm, 'Height velocity controll');
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% MC: Design secondary height velocity controller
+h2vgm = 60;
+h2val = 0.1;
+h2vNi = 4;
+[h2vw, h2vkp, h2vti, h2vtd] = findpid(ref_to_height, h2vgm,  h2vNi, h2val)
+
+%% MC: Design height position controller
+Crd = tf([h2vtd 1],[h2vtd*h2val 1]);
+h2vcl =minreal((h2vkp*ref_to_height + tf([1], [1 0]) * 1/h2vti) / (1 + (h2vkp*ref_to_height + tf([1], [1 0]) * 1/h2vti)*Crd));
+h2 = h2vcl * tf(1,[1 0]);
+h2gm = 60;
+h2al = 0.2;
+h2Ni = 4;
+[h2w, h2kp] = findp(h2vcl, h2gm)
 %% Model extension to roll and pitch input to roll/pitch velocity
 % roll trust share
 % moment motor 1
@@ -513,4 +529,10 @@ showResult(debugPlot,resultFile,filename, 'x_vel', Gxv, ...
            'Pitch ref to X-velocity');
 %
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% MC: Enable secondary height controller and disable first one used for simulation
+enable_h2 = 1;
+enable_h1 = 0;
+%Kff = 4;
+%h1kp = 1;
 end

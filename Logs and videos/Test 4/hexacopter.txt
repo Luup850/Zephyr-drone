@@ -1,0 +1,59 @@
+# Result of drone configuration
+# from mobotware/drone_ctrl/trunk/doc/Matlab/hexacopter.m
+# simulink model name hexacopter_sim.slx
+# date 21-Apr-2023
+#
+[base]
+# NB! all motor actuator output are
+#     relative to this battery voltage, and
+#     should be scaled relative to this
+batteryVoltage 14.8
+# Mass in kg
+batteryMass 1.12
+batteryToCOG -0.1
+# Drone mass exclusive of battery (kg)
+droneMass 2.424
+# Moment of inertia [Nm^2]
+iRoll 0.0799225
+iPitch 0.0799225
+iYaw 0.137445
+#
+[motor]
+motor 3508-700KV
+resistance 0.083
+kv 700
+# mass in kg
+mass 0.187
+motorCount 6
+# X-configureation distribution circular
+# first motor - front right, counting clockwise
+# arm length from center to motor axle
+armLength 0.35
+#
+[propeller]
+# radius in meter (base for calculation)
+radius 0.17145
+# mass in kg (base for calculation)
+mass 0.017
+#
+# limits
+[limits]
+# max roll and tilt angle limit (deg)
+rollLimit 10
+# minimum motor voltage (at minimum RPM)
+minMotorVolt 1
+#
+#
+# Drone model data
+[model]
+# drag proportional to rotation (rad/s) power 4 (unit Nm s^4)
+dragKonstant 1.5e-09
+# trust proportional to rotation (rad/s) squared (unit N s^2)
+trustKonstant 2.7e-05
+# hover in RPM
+hoverRPM 4426.05
+# hover current (A)
+hoverCurrent 10.9485
+# hover voltage (V)
+hoverVoltage 7.23165
+#
