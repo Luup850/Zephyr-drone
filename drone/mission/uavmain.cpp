@@ -5,9 +5,9 @@
 #include <signal.h>
 #include <time.h>
 
+#include <sys/types.h>
 #include <cinttypes>
 #include <unistd.h>
-#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -15,6 +15,7 @@
 #include <ifaddrs.h>
 #include <netinet/in.h> 
 #include <arpa/inet.h>
+#include <signal.h>
 
 //#include "main.h"
 #include <optidata.h>
@@ -25,8 +26,9 @@
 
 // Defines
 #define LOG_TO_FILE true
+#define LOG true
 #define TS (1.0/60.0)
-#define HOVER_VALUE 82.0
+#define HOVER_VALUE 94.0
 
 bool startNatNetConnection(const char * argv0);
 void unpack(char * pData);
@@ -46,13 +48,35 @@ PID* ctrl_vel_x;
 PID* ctrl_vel_y;
 PID* ctrl_x;
 PID* ctrl_y;
- 
+
+
+// Timer stuff
+struct itimerval it;
+struct timeval tv;
+sigset_t signalset;
+int sig;
+
 
 // Pitch, yaw, roll
 double P, Y, R;
 
 int main(int argc, char **argv)
 {
+    //// Timer stuff
+    // Block timer signal (SIGALRM) to avoid program exits when signal arrives
+    sigemptyset(&signalset);
+    sigaddset(&signalset, SIGALRM);
+    pthread_sigmask(SIG_BLOCK, &signalset, NULL);
+    
+    // Setup and start timer to run 100 Hz (timer value = 10000 us)
+    getitimer(ITIMER_REAL, &it); 
+    tv.tv_sec = 0.0;
+    tv.tv_usec = 16666.6667;
+    it.it_interval = tv;
+    it.it_value = tv;
+    setitimer(ITIMER_REAL, &it, NULL);
+
+
     // Logging
     FILE *bs, *fp;
     if(LOG_TO_FILE)
@@ -69,7 +93,7 @@ int main(int argc, char **argv)
     serial_if *sf = new serial_if();
     Drone* drone;
     drone = new Drone();
-    ctrl_h = new PID(RegHeight, TS);
+    ctrl_h = new PID(RegPLead, TS);
     ctrl_yaw = new PID(RegPLead, TS);
     ctrl_vel_x = new PID(RegPLead, TS);
     ctrl_vel_y = new PID(RegPLead, TS);
@@ -95,17 +119,17 @@ int main(int argc, char **argv)
     //usleep(500000);
     bool isOK = startNatNetConnection(argv[0]);
     usleep(500000);
-    double x_tmp = PX, y_tmp = PY, z_tmp = PZ + 3.0 /*For set height*/, yaw_tmp = Y * (180.0/M_PI);
+    double x_tmp = PX, y_tmp = PY, z_tmp = PZ + 2.0 /* For set height*/, yaw_tmp = Y * (180.0/M_PI);
 
     char str[100];
     int count = 0;
 
     // PID values from model for height.
     // h1 Kp = 26.7, ti=1.2, td = 1.26. Default values in matlab are kp = 60, ti = 1, td = 1.
-    ctrl_h->set_gains(26.7,1.2, 1.26, 0.07);
+    ctrl_h->set_gains(4.5053, 0.0, 1.5541, 0.07);
     // MATLAB vel control PD: 0.0823, 0, 0.5087
-    ctrl_vel_x->set_gains(0.0823, 0, 0.5022, 0.3);
-    ctrl_vel_y->set_gains(0.0823, 0, 0.5022, 0.3);
+    ctrl_vel_x->set_gains(0.0823, 0, 0.5022, 0.1);
+    ctrl_vel_y->set_gains(0.0823, 0, 0.5022, 0.1);
     // Limit speed to 1 m/s
     // MATLAB PID pos control: 0.6749, 3.7413, 1.7077. PD 1.2168, 1.1303. P 0.5343
     ctrl_x->set_gains(2.2228,0,1.1248,0.3);
@@ -113,29 +137,35 @@ int main(int argc, char **argv)
     ctrl_x->limit_output(1, -1);
     ctrl_y->limit_output(1, -1);
 
-    ctrl_yaw->set_gains(3, 0, 0.4243, 0.5);
+    ctrl_yaw->set_gains(0.2, 0, 0.2243, 0.5);
     ctrl_yaw->yaw_control = true;
 
-    // Controller reference
+    // Controller reference. Sets all to current pose
     ctrl_x->ref = PX;
     ctrl_y->ref = PY;
     ctrl_yaw->ref = Y;
-    ctrl_h->ref = 3.0;
+    ctrl_h->ref = 2.0;
 
+    // Controller measurement
     ctrl_x->measurement = &PX;
     ctrl_y->measurement = &PY;
-    //ctrl_h->measurement = &PZ;
-    ctrl_h->measurement = &height_measurement;
-
+    ctrl_h->measurement = &PZ;
     ctrl_vel_x->measurement = &VX;
     ctrl_vel_y->measurement = &VY;
-
     ctrl_yaw->measurement = &Y;
 
-    // Control tick
+    // Control tick thread
     pthread_t control_thread;
     pthread_create(&control_thread, NULL, controllerTick, NULL);
-    usleep(50000);
+    
+    // Small wait to give time to get ready for takeoff
+    printf("Takeoff in...\n");
+    for(int i = 3; i > 0; i--)
+    {
+        printf("%d\n", i);
+        sleep(1);
+
+    }
 
     int tst = 0;
     while(isOK)
@@ -148,23 +178,21 @@ int main(int argc, char **argv)
         //ctrl_vel_x->tick();
         //ctrl_vel_y->tick();
         ctrl_pos->tick_matlab();
-        height_measurement = PZ + VZ * ctrl_h->tau_d;
         
-        // Divide with 4 to take into account Kff from next controller
-        double error_h = ctrl_h->out / 4.0;
 
-        if (error_h > 92.061)
-            error_h = 92.061;
+        double error_h = (ctrl_h->out / 5.0) + HOVER_VALUE;
+
         //double error_h = 50.0 - 82.0;
         double error_yaw = (ctrl_yaw->out);// * (180.0/M_PI); // Convert to degree
         //double error_yaw = 0;
         double error_roll = (ctrl_pos->out_roll) * (180.0/M_PI); // Convert to degrees
-        double error_pitch = -(ctrl_pos->out_pitch) * (180.0/M_PI); // Convert to degrees
+        double error_pitch = (ctrl_pos->out_pitch) * (180.0/M_PI); // Convert to degrees
         // Height roll pitch yaw.
-        sprintf(str, "ref %f %f %f %f", HOVER_VALUE + error_h, error_roll, error_pitch, error_yaw);
+        sprintf(str, "ref %f %f %f %f", error_h, error_roll, error_pitch, error_yaw);
         sf->sendmsg(str);
 
-        if( count > 5)
+        // Logging
+        if( count > 5 and LOG == true)
         {
             if (LOG_TO_FILE)
             {
@@ -173,9 +201,9 @@ int main(int argc, char **argv)
                 fprintf(fp, "POS: %.3f %.3f %.3f, OLD: %.3f %.3f %.3f, OLD heading: %.3f\n", PX, PY, PZ, x_tmp, y_tmp, z_tmp, yaw_tmp);
                 // Convert from radians to degrees by multiplying by 57.2957795.
                 fprintf(fp, "Angles: %.3f %.3f %.3f, Speed: %.3f %.3f %.3f\n", P*57.2957795, Y*57.2957795, R*57.2957795, VX, VY, VZ);
-                fprintf(fp, "Signal: H=%.3f R=%.3f P=%.3f Y=%.3f\n", error_h +82, error_roll, error_pitch, error_yaw);
+                fprintf(fp, "Signal: H=%.3f R=%.3f P=%.3f Y=%.3f\n", error_h, error_roll, error_pitch, error_yaw);
                 fprintf(fp, "Error in ref/measurement: X=%.3f, \t y=%.3f, \t H=%.3f\n", PX-x_tmp, PY-y_tmp, PZ-z_tmp);
-                fprintf(fp, "Error XY reg: X=%.3f Y=%.3f\t Error XY vel reg: X=%.3f Y=%.3f \n", ctrl_x->output(), ctrl_y->output(), ctrl_vel_x->output(), ctrl_vel_y->output());
+                fprintf(fp, "Error XY reg: X=%.3f Y=%.3f\t Error XY vel reg: X=%.3f Y=%.3f\t Error H reg: %.3f \n", ctrl_x->output(), ctrl_y->output(), ctrl_vel_x->output(), ctrl_vel_y->output(), ctrl_h->output());
                 fprintf(fp, "--------------------------------------------------------------------\n");
             }
             else
@@ -184,7 +212,7 @@ int main(int argc, char **argv)
                 printf("POS: %.3f %.3f %.3f, OLD: %.3f %.3f %.3f, OLD heading: %.3f\n", PX, PY, PZ, x_tmp, y_tmp, z_tmp, yaw_tmp);
                 // Convert from radians to degrees by multiplying by 57.2957795.
                 printf("Angles: %.3f %.3f %.3f, Speed: %.3f %.3f %.3f\n", P*57.2957795, Y*57.2957795, R*57.2957795, VX, VY, VZ);
-                printf("Signal: H=%.3f R=%.3f P=%.3f Y=%.3f\n", error_h +82, error_roll, error_pitch, error_yaw);
+                printf("Signal: H=%.3f R=%.3f P=%.3f Y=%.3f\n", error_h, error_roll, error_pitch, error_yaw);
                 printf("Error in ref/measurement: X=%.3f, \t y=%.3f, \t H=%.3f\n", PX-x_tmp, PY-y_tmp, PZ-z_tmp);
                 printf("Error XY reg: X=%.3f Y=%.3f\t Error XY vel reg: X=%.3f Y=%.3f \n", ctrl_x->output(), ctrl_y->output(), ctrl_vel_x->output(), ctrl_vel_y->output());
                 printf("--------------------------------------------------------------------\n");
@@ -290,7 +318,8 @@ void* controllerTick(void* arg)
 {
     while(true)
     {
-        usleep(TS * 1000000);
+        sigwait(&signalset, &sig);
+        //usleep(TS * 1000000);
         //printf("I ran!\n");
         ctrl_h->tick();
         ctrl_yaw->tick();

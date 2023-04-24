@@ -1,628 +1,894 @@
 [0]
-POS: 2.549 2.445 0.496, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.980 100.972 0.646, Speed: -0.000 -0.004 -0.000
-Signal: H=98.711 R=3.733 P=-3.730 Y=0.907
-Error in ref/measurement: X=-0.000, 	 y=-0.001, 	 H=-2.999
-Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.082 Y=0.082 
+POS: 0.431 3.789 0.412, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.834 94.949 0.356, Speed: -0.003 -0.007 0.002
+Signal: H=95.431 R=0.002 P=-0.025 Y=0.023
+Error in ref/measurement: X=-0.000, 	 y=-0.001, 	 H=-2.000
+Error XY reg: X=0.000 Y=0.001	 Error XY vel reg: X=0.000 Y=0.000	 Error H reg: 7.156 
 --------------------------------------------------------------------
 [1]
-POS: 2.556 2.453 0.503, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: -0.127 101.421 2.364, Speed: 0.041 0.028 0.033
-Signal: H=98.442 R=2.810 P=-2.638 Y=0.216
-Error in ref/measurement: X=0.007, 	 y=0.007, 	 H=-2.993
-Error XY reg: X=0.765 Y=0.735	 Error XY vel reg: X=0.062 Y=0.060 
+POS: 0.434 3.792 0.417, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.569 94.561 1.255, Speed: 0.014 0.004 0.019
+Signal: H=95.429 R=-0.039 P=0.026 Y=0.032
+Error in ref/measurement: X=0.003, 	 y=0.002, 	 H=-1.994
+Error XY reg: X=0.000 Y=0.000	 Error XY vel reg: X=-0.001 Y=-0.000	 Error H reg: 7.146 
 --------------------------------------------------------------------
 [2]
-POS: 2.627 2.490 0.597, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.366 101.194 6.196, Speed: 0.111 0.044 0.149
-Signal: H=95.896 R=0.611 P=-0.895 Y=0.034
-Error in ref/measurement: X=0.077, 	 y=0.044, 	 H=-2.898
-Error XY reg: X=0.264 Y=0.271	 Error XY vel reg: X=0.015 Y=0.019 
+POS: 0.466 3.798 0.482, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.967 94.155 4.241, Speed: 0.064 0.013 0.121
+Signal: H=95.395 R=-0.335 P=0.096 Y=0.081
+Error in ref/measurement: X=0.034, 	 y=0.007, 	 H=-1.930
+Error XY reg: X=-0.022 Y=-0.005	 Error XY vel reg: X=-0.006 Y=-0.001	 Error H reg: 6.977 
 --------------------------------------------------------------------
 [3]
-POS: 2.764 2.545 0.787, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 2.621 100.065 2.880, Speed: 0.277 0.103 0.387
-Signal: H=95.039 R=-1.174 P=0.044 Y=0.029
-Error in ref/measurement: X=0.215, 	 y=0.099, 	 H=-2.708
-Error XY reg: X=-0.083 Y=0.016	 Error XY vel reg: X=-0.022 Y=-0.005 
+POS: 0.547 3.808 0.628, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.080 93.429 2.788, Speed: 0.114 0.012 0.195
+Signal: H=95.292 R=-0.982 P=0.203 Y=0.215
+Error in ref/measurement: X=0.115, 	 y=0.017, 	 H=-1.783
+Error XY reg: X=-0.105 Y=-0.019	 Error XY vel reg: X=-0.017 Y=-0.003	 Error H reg: 6.458 
 --------------------------------------------------------------------
 [4]
-POS: 2.934 2.600 1.018, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.123 99.036 0.735, Speed: 0.201 0.065 0.269
-Signal: H=93.045 R=-2.994 P=0.621 Y=0.067
-Error in ref/measurement: X=0.385, 	 y=0.153, 	 H=-2.478
-Error XY reg: X=-0.441 Y=-0.163	 Error XY vel reg: X=-0.056 Y=-0.020 
+POS: 0.671 3.824 0.835, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.061 92.952 1.790, Speed: 0.152 0.018 0.245
+Signal: H=95.124 R=-1.982 P=0.395 Y=0.322
+Error in ref/measurement: X=0.239, 	 y=0.033, 	 H=-1.576
+Error XY reg: X=-0.279 Y=-0.041	 Error XY vel reg: X=-0.035 Y=-0.005	 Error H reg: 5.620 
 --------------------------------------------------------------------
 [5]
-POS: 3.122 2.660 1.263, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.839 97.244 -2.980, Speed: 0.368 0.137 0.466
-Signal: H=92.024 R=-4.701 P=1.180 Y=0.119
-Error in ref/measurement: X=0.573, 	 y=0.214, 	 H=-2.232
-Error XY reg: X=-0.824 Y=-0.312	 Error XY vel reg: X=-0.087 Y=-0.032 
+POS: 0.813 3.850 1.063, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.307 92.620 0.045, Speed: 0.156 0.029 0.247
+Signal: H=94.925 R=-3.342 P=0.698 Y=0.407
+Error in ref/measurement: X=0.381, 	 y=0.059, 	 H=-1.348
+Error XY reg: X=-0.527 Y=-0.078	 Error XY vel reg: X=-0.059 Y=-0.010	 Error H reg: 4.623 
 --------------------------------------------------------------------
 [6]
-POS: 3.257 2.719 1.435, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 4.041 96.941 -3.751, Speed: 0.254 0.129 0.317
-Signal: H=91.219 R=-5.170 P=1.769 Y=0.173
-Error in ref/measurement: X=0.708, 	 y=0.273, 	 H=-2.061
-Error XY reg: X=-1.000 Y=-0.448	 Error XY vel reg: X=-0.096 Y=-0.043 
+POS: 0.948 3.881 1.278, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.877 92.267 -1.810, Speed: 0.136 0.036 0.228
+Signal: H=94.725 R=-4.551 P=0.984 Y=0.460
+Error in ref/measurement: X=0.516, 	 y=0.090, 	 H=-1.134
+Error XY reg: X=-0.814 Y=-0.131	 Error XY vel reg: X=-0.080 Y=-0.014	 Error H reg: 3.624 
 --------------------------------------------------------------------
 [7]
-POS: 3.334 2.775 1.535, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 4.516 96.106 -3.895, Speed: 0.055 0.061 0.077
-Signal: H=91.142 R=-4.842 P=2.487 Y=0.220
-Error in ref/measurement: X=0.785, 	 y=0.329, 	 H=-1.960
-Error XY reg: X=-1.000 Y=-0.579	 Error XY vel reg: X=-0.091 Y=-0.053 
+POS: 1.048 3.913 1.465, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.057 92.234 -3.139, Speed: 0.090 0.033 0.195
+Signal: H=94.547 R=-5.126 P=1.276 Y=0.494
+Error in ref/measurement: X=0.616, 	 y=0.122, 	 H=-0.946
+Error XY reg: X=-1.000 Y=-0.195	 Error XY vel reg: X=-0.090 Y=-0.019	 Error H reg: 2.736 
 --------------------------------------------------------------------
 [8]
-POS: 3.349 2.828 1.568, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 4.015 95.417 -3.752, Speed: -0.014 0.053 0.012
-Signal: H=91.434 R=-4.490 P=3.160 Y=0.258
-Error in ref/measurement: X=0.800, 	 y=0.381, 	 H=-1.927
-Error XY reg: X=-1.000 Y=-0.704	 Error XY vel reg: X=-0.085 Y=-0.063 
+POS: 1.097 3.945 1.633, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.862 92.087 -3.731, Speed: 0.084 0.100 0.521
+Signal: H=94.393 R=-4.921 P=1.671 Y=0.516
+Error in ref/measurement: X=0.665, 	 y=0.154, 	 H=-0.778
+Error XY reg: X=-1.000 Y=-0.262	 Error XY vel reg: X=-0.087 Y=-0.026	 Error H reg: 1.966 
 --------------------------------------------------------------------
 [9]
-POS: 3.306 2.871 1.540, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 4.888 94.730 -3.696, Speed: -0.081 0.044 -0.069
-Signal: H=92.522 R=-3.992 P=3.882 Y=0.296
-Error in ref/measurement: X=0.756, 	 y=0.425, 	 H=-1.955
-Error XY reg: X=-1.000 Y=-0.818	 Error XY vel reg: X=-0.076 Y=-0.074 
+POS: 1.086 3.971 1.773, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.593 91.799 -3.857, Speed: -0.037 0.027 0.144
+Signal: H=94.258 R=-4.460 P=1.904 Y=0.551
+Error in ref/measurement: X=0.654, 	 y=0.180, 	 H=-0.638
+Error XY reg: X=-1.000 Y=-0.328	 Error XY vel reg: X=-0.079 Y=-0.031	 Error H reg: 1.289 
 --------------------------------------------------------------------
 [10]
-POS: 3.208 2.904 1.463, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 5.045 94.086 -3.795, Speed: -0.137 0.029 -0.110
-Signal: H=92.986 R=-3.819 P=4.226 Y=0.332
-Error in ref/measurement: X=0.659, 	 y=0.457, 	 H=-2.032
-Error XY reg: X=-1.000 Y=-0.917	 Error XY vel reg: X=-0.072 Y=-0.079 
+POS: 1.022 3.988 1.887, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.611 91.810 -3.687, Speed: -0.104 0.016 0.125
+Signal: H=94.144 R=-4.061 P=2.056 Y=0.577
+Error in ref/measurement: X=0.590, 	 y=0.198, 	 H=-0.524
+Error XY reg: X=-1.000 Y=-0.384	 Error XY vel reg: X=-0.072 Y=-0.034	 Error H reg: 0.720 
 --------------------------------------------------------------------
 [11]
-POS: 3.059 2.920 1.348, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 4.900 93.356 -4.136, Speed: -0.193 0.016 -0.133
-Signal: H=94.012 R=-3.530 P=4.540 Y=0.366
-Error in ref/measurement: X=0.510, 	 y=0.474, 	 H=-2.147
-Error XY reg: X=-1.000 Y=-0.989	 Error XY vel reg: X=-0.067 Y=-0.083 
+POS: 0.908 3.995 1.976, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.672 91.548 -3.784, Speed: -0.440 0.002 0.258
+Signal: H=94.055 R=-3.427 P=2.115 Y=0.595
+Error in ref/measurement: X=0.476, 	 y=0.204, 	 H=-0.436
+Error XY reg: X=-1.000 Y=-0.423	 Error XY vel reg: X=-0.061 Y=-0.035	 Error H reg: 0.273 
 --------------------------------------------------------------------
 [12]
-POS: 2.858 2.919 1.214, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 4.994 92.707 -4.301, Speed: -0.246 -0.006 -0.149
-Signal: H=95.078 R=-3.330 P=4.541 Y=0.402
-Error in ref/measurement: X=0.308, 	 y=0.473, 	 H=-2.281
-Error XY reg: X=-1.000 Y=-1.000	 Error XY vel reg: X=-0.062 Y=-0.082 
+POS: 0.751 3.989 2.039, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.859 91.775 -3.332, Speed: -0.186 -0.014 0.057
+Signal: H=93.988 R=-3.522 P=2.117 Y=0.603
+Error in ref/measurement: X=0.319, 	 y=0.199, 	 H=-0.372
+Error XY reg: X=-1.000 Y=-0.439	 Error XY vel reg: X=-0.063 Y=-0.035	 Error H reg: -0.062 
 --------------------------------------------------------------------
 [13]
-POS: 2.604 2.903 1.071, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 4.259 92.145 -4.101, Speed: -0.550 -0.036 -0.264
-Signal: H=95.973 R=-1.609 P=4.561 Y=0.437
-Error in ref/measurement: X=0.055, 	 y=0.457, 	 H=-2.424
-Error XY reg: X=-0.688 Y=-1.000	 Error XY vel reg: X=-0.031 Y=-0.081 
+POS: 0.553 3.972 2.078, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.316 91.596 -3.233, Speed: -0.231 -0.022 0.038
+Signal: H=93.941 R=-2.110 P=1.975 Y=0.623
+Error in ref/measurement: X=0.121, 	 y=0.181, 	 H=-0.333
+Error XY reg: X=-0.697 Y=-0.429	 Error XY vel reg: X=-0.038 Y=-0.033	 Error H reg: -0.294 
 --------------------------------------------------------------------
 [14]
-POS: 2.308 2.876 0.954, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.722 91.442 -1.876, Speed: -0.339 -0.035 -0.118
-Signal: H=96.531 R=1.201 P=4.584 Y=0.472
-Error in ref/measurement: X=-0.241, 	 y=0.430, 	 H=-2.541
-Error XY reg: X=-0.139 Y=-1.000	 Error XY vel reg: X=0.019 Y=-0.080 
+POS: 0.324 3.945 2.099, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.178 91.579 -1.595, Speed: -0.264 -0.031 0.014
+Signal: H=93.917 R=0.151 P=1.690 Y=0.635
+Error in ref/measurement: X=-0.107, 	 y=0.155, 	 H=-0.313
+Error XY reg: X=-0.277 Y=-0.395	 Error XY vel reg: X=0.002 Y=-0.030	 Error H reg: -0.415 
 --------------------------------------------------------------------
 [15]
-POS: 1.999 2.844 0.877, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 4.068 90.361 -0.013, Speed: -0.343 -0.038 -0.065
-Signal: H=97.057 R=4.379 P=4.305 Y=0.512
-Error in ref/measurement: X=-0.551, 	 y=0.398, 	 H=-2.618
-Error XY reg: X=0.489 Y=-0.952	 Error XY vel reg: X=0.076 Y=-0.075 
+POS: 0.087 3.916 2.101, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.411 91.423 0.048, Speed: -0.262 -0.035 -0.011
+Signal: H=93.909 R=2.978 P=1.307 Y=0.652
+Error in ref/measurement: X=-0.344, 	 y=0.126, 	 H=-0.311
+Error XY reg: X=0.204 Y=-0.343	 Error XY vel reg: X=0.051 Y=-0.024	 Error H reg: -0.454 
 --------------------------------------------------------------------
 [16]
-POS: 1.710 2.810 0.852, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.358 90.129 3.432, Speed: -0.282 -0.031 0.000
-Signal: H=96.471 R=6.373 P=4.015 Y=0.541
-Error in ref/measurement: X=-0.839, 	 y=0.363, 	 H=-2.643
-Error XY reg: X=1.000 Y=-0.887	 Error XY vel reg: X=0.111 Y=-0.070 
+POS: -0.125 3.892 2.086, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.778 91.297 2.710, Speed: -0.201 -0.015 -0.030
+Signal: H=93.916 R=4.515 P=1.136 Y=0.649
+Error in ref/measurement: X=-0.556, 	 y=0.102, 	 H=-0.325
+Error XY reg: X=0.697 Y=-0.287	 Error XY vel reg: X=0.078 Y=-0.022	 Error H reg: -0.418 
 --------------------------------------------------------------------
 [17]
-POS: 1.493 2.782 0.857, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 2.648 89.457 3.607, Speed: -0.215 -0.029 0.003
-Signal: H=96.191 R=5.931 P=3.652 Y=0.574
-Error in ref/measurement: X=-1.057, 	 y=0.336, 	 H=-2.638
-Error XY reg: X=1.000 Y=-0.819	 Error XY vel reg: X=0.104 Y=-0.065 
+POS: -0.283 3.883 2.051, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.354 91.280 4.333, Speed: -0.142 -0.002 -0.046
+Signal: H=93.942 R=5.681 P=0.983 Y=0.669
+Error in ref/measurement: X=-0.714, 	 y=0.092, 	 H=-0.360
+Error XY reg: X=1.000 Y=-0.242	 Error XY vel reg: X=0.099 Y=-0.019	 Error H reg: -0.292 
 --------------------------------------------------------------------
 [18]
-POS: 1.341 2.774 0.882, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.857 89.164 3.239, Speed: -0.140 0.004 0.040
-Signal: H=95.870 R=5.624 P=3.493 Y=0.606
-Error in ref/measurement: X=-1.208, 	 y=0.328, 	 H=-2.613
-Error XY reg: X=1.000 Y=-0.768	 Error XY vel reg: X=0.099 Y=-0.062 
+POS: -0.364 3.891 2.007, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.199 91.265 4.187, Speed: -0.202 0.066 -0.195
+Signal: H=93.980 R=5.533 P=1.142 Y=0.686
+Error in ref/measurement: X=-0.796, 	 y=0.101, 	 H=-0.405
+Error XY reg: X=1.000 Y=-0.225	 Error XY vel reg: X=0.096 Y=-0.022	 Error H reg: -0.099 
 --------------------------------------------------------------------
 [19]
-POS: 1.240 2.794 0.913, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.486 88.378 1.539, Speed: -0.082 0.033 0.039
-Signal: H=95.638 R=5.300 P=3.530 Y=0.635
-Error in ref/measurement: X=-1.310, 	 y=0.347, 	 H=-2.582
-Error XY reg: X=1.000 Y=-0.755	 Error XY vel reg: X=0.094 Y=-0.064 
+POS: -0.385 3.926 1.931, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.534 91.342 3.310, Speed: 0.020 0.088 -0.170
+Signal: H=94.036 R=4.760 P=1.261 Y=0.696
+Error in ref/measurement: X=-0.817, 	 y=0.136, 	 H=-0.481
+Error XY reg: X=1.000 Y=-0.248	 Error XY vel reg: X=0.083 Y=-0.024	 Error H reg: 0.179 
 --------------------------------------------------------------------
 [20]
-POS: 1.173 2.842 0.948, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.821 87.960 0.954, Speed: -0.061 0.063 0.034
-Signal: H=95.496 R=4.983 P=3.847 Y=0.660
-Error in ref/measurement: X=-1.376, 	 y=0.395, 	 H=-2.547
-Error XY reg: X=1.000 Y=-0.797	 Error XY vel reg: X=0.090 Y=-0.070 
+POS: -0.349 3.975 1.846, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.183 91.239 2.206, Speed: 0.059 0.059 -0.099
+Signal: H=94.107 R=4.491 P=1.681 Y=0.700
+Error in ref/measurement: X=-0.781, 	 y=0.185, 	 H=-0.565
+Error XY reg: X=1.000 Y=-0.313	 Error XY vel reg: X=0.078 Y=-0.031	 Error H reg: 0.536 
 --------------------------------------------------------------------
 [21]
-POS: 1.123 2.920 0.981, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.912 87.806 0.596, Speed: -0.050 0.097 0.033
-Signal: H=95.175 R=4.807 P=4.449 Y=0.680
-Error in ref/measurement: X=-1.426, 	 y=0.473, 	 H=-2.514
-Error XY reg: X=1.000 Y=-0.902	 Error XY vel reg: X=0.087 Y=-0.081 
+POS: -0.282 4.030 1.750, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.480 91.324 1.701, Speed: 0.204 0.143 -0.257
+Signal: H=94.191 R=4.118 P=2.323 Y=0.681
+Error in ref/measurement: X=-0.713, 	 y=0.240, 	 H=-0.662
+Error XY reg: X=1.000 Y=-0.409	 Error XY vel reg: X=0.071 Y=-0.042	 Error H reg: 0.956 
 --------------------------------------------------------------------
 [22]
-POS: 1.087 3.014 1.010, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 2.745 87.433 0.279, Speed: -0.046 0.142 0.037
-Signal: H=95.080 R=4.678 P=5.012 Y=0.693
-Error in ref/measurement: X=-1.462, 	 y=0.568, 	 H=-2.485
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.086 Y=-0.091 
+POS: -0.187 4.086 1.638, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.965 91.385 1.370, Speed: 0.111 0.065 -0.126
+Signal: H=94.289 R=4.186 P=2.705 Y=0.667
+Error in ref/measurement: X=-0.619, 	 y=0.296, 	 H=-0.773
+Error XY reg: X=1.000 Y=-0.524	 Error XY vel reg: X=0.072 Y=-0.049	 Error H reg: 1.443 
 --------------------------------------------------------------------
 [23]
-POS: 1.060 3.118 1.026, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.266 87.233 0.370, Speed: -0.027 0.114 0.012
-Signal: H=95.053 R=4.598 P=5.007 Y=0.706
-Error in ref/measurement: X=-1.490, 	 y=0.671, 	 H=-2.469
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.085 Y=-0.092 
+POS: -0.073 4.137 1.511, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.756 91.490 0.939, Speed: 0.126 0.048 -0.127
+Signal: H=94.396 R=3.856 P=3.311 Y=0.649
+Error in ref/measurement: X=-0.505, 	 y=0.347, 	 H=-0.900
+Error XY reg: X=1.000 Y=-0.641	 Error XY vel reg: X=0.066 Y=-0.060	 Error H reg: 1.980 
 --------------------------------------------------------------------
 [24]
-POS: 1.038 3.222 1.032, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.112 86.957 0.096, Speed: -0.015 0.118 0.003
-Signal: H=95.150 R=4.545 P=4.993 Y=0.721
-Error in ref/measurement: X=-1.511, 	 y=0.776, 	 H=-2.464
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.084 Y=-0.092 
+POS: 0.049 4.171 1.379, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.986 91.520 0.334, Speed: 0.144 0.025 -0.161
+Signal: H=94.512 R=3.846 P=3.642 Y=0.618
+Error in ref/measurement: X=-0.383, 	 y=0.380, 	 H=-1.033
+Error XY reg: X=1.000 Y=-0.743	 Error XY vel reg: X=0.065 Y=-0.065	 Error H reg: 2.560 
 --------------------------------------------------------------------
 [25]
-POS: 1.017 3.325 1.023, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.276 86.653 -0.666, Speed: -0.051 0.235 -0.022
-Signal: H=95.267 R=4.514 P=5.015 Y=0.732
-Error in ref/measurement: X=-1.532, 	 y=0.879, 	 H=-2.472
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.084 Y=-0.093 
+POS: 0.175 4.183 1.238, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 5.390 91.774 0.415, Speed: 0.140 -0.000 -0.162
+Signal: H=94.636 R=3.473 P=3.777 Y=0.598
+Error in ref/measurement: X=-0.257, 	 y=0.393, 	 H=-1.174
+Error XY reg: X=0.880 Y=-0.814	 Error XY vel reg: X=0.059 Y=-0.068	 Error H reg: 3.182 
 --------------------------------------------------------------------
 [26]
-POS: 0.992 3.426 0.997, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.802 86.662 -0.592, Speed: -0.052 0.158 -0.062
-Signal: H=95.656 R=4.539 P=4.980 Y=0.740
-Error in ref/measurement: X=-1.558, 	 y=0.980, 	 H=-2.498
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.085 Y=-0.092 
+POS: 0.298 4.174 1.093, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 5.550 91.739 -0.540, Speed: 0.136 -0.022 -0.165
+Signal: H=94.766 R=2.305 P=3.823 Y=0.594
+Error in ref/measurement: X=-0.134, 	 y=0.383, 	 H=-1.319
+Error XY reg: X=0.610 Y=-0.845	 Error XY vel reg: X=0.038 Y=-0.068	 Error H reg: 3.830 
 --------------------------------------------------------------------
 [27]
-POS: 0.956 3.523 0.959, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.645 86.464 -1.033, Speed: -0.050 0.107 -0.047
-Signal: H=95.896 R=4.581 P=4.947 Y=0.750
-Error in ref/measurement: X=-1.593, 	 y=1.077, 	 H=-2.537
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.086 Y=-0.092 
+POS: 0.404 4.139 0.945, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 5.885 91.798 -2.053, Speed: 0.105 -0.048 -0.159
+Signal: H=94.899 R=1.213 P=3.644 Y=0.586
+Error in ref/measurement: X=-0.028, 	 y=0.349, 	 H=-1.467
+Error XY reg: X=0.347 Y=-0.827	 Error XY vel reg: X=0.019 Y=-0.064	 Error H reg: 4.493 
 --------------------------------------------------------------------
 [28]
-POS: 0.906 3.617 0.911, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.977 86.115 -1.074, Speed: -0.067 0.099 -0.055
-Signal: H=96.366 R=4.619 P=4.902 Y=0.760
-Error in ref/measurement: X=-1.644, 	 y=1.171, 	 H=-2.584
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.087 Y=-0.092 
+POS: 0.478 4.080 0.796, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 5.746 91.790 -3.455, Speed: 0.066 -0.083 -0.178
+Signal: H=95.033 R=0.359 P=3.226 Y=0.576
+Error in ref/measurement: X=0.046, 	 y=0.290, 	 H=-1.616
+Error XY reg: X=0.122 Y=-0.757	 Error XY vel reg: X=0.005 Y=-0.056	 Error H reg: 5.163 
 --------------------------------------------------------------------
 [29]
-POS: 0.841 3.703 0.861, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.620 86.031 -1.309, Speed: -0.076 0.096 -0.050
-Signal: H=96.712 R=4.679 P=4.810 Y=0.771
-Error in ref/measurement: X=-1.708, 	 y=1.256, 	 H=-2.634
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.088 Y=-0.090 
+POS: 0.504 3.996 0.657, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 5.706 91.991 -4.186, Speed: -0.005 -0.105 -0.141
+Signal: H=95.162 R=-0.146 P=2.425 Y=0.545
+Error in ref/measurement: X=0.072, 	 y=0.206, 	 H=-1.754
+Error XY reg: X=-0.035 Y=-0.634	 Error XY vel reg: X=-0.004 Y=-0.042	 Error H reg: 5.811 
 --------------------------------------------------------------------
 [30]
-POS: 0.761 3.784 0.813, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.239 85.876 -1.006, Speed: -0.091 0.095 -0.043
-Signal: H=96.818 R=4.740 P=4.781 Y=0.780
-Error in ref/measurement: X=-1.788, 	 y=1.338, 	 H=-2.682
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.089 Y=-0.090 
+POS: 0.468 3.888 0.541, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 5.169 92.099 -4.829, Speed: -0.072 -0.123 -0.108
+Signal: H=95.274 R=-0.109 P=1.568 Y=0.515
+Error in ref/measurement: X=0.036, 	 y=0.098, 	 H=-1.870
+Error XY reg: X=-0.092 Y=-0.458	 Error XY vel reg: X=-0.003 Y=-0.027	 Error H reg: 6.369 
 --------------------------------------------------------------------
 [31]
-POS: 0.667 3.865 0.778, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.277 85.545 -1.154, Speed: -0.112 0.091 -0.032
-Signal: H=97.119 R=4.785 P=4.726 Y=0.791
-Error in ref/measurement: X=-1.882, 	 y=1.419, 	 H=-2.718
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.091 Y=-0.090 
+POS: 0.370 3.771 0.470, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.231 92.352 -4.088, Speed: -0.209 -0.201 -0.085
+Signal: H=95.354 R=0.536 P=0.423 Y=0.487
+Error in ref/measurement: X=-0.062, 	 y=-0.019, 	 H=-1.942
+Error XY reg: X=-0.025 Y=-0.238	 Error XY vel reg: X=0.009 Y=-0.008	 Error H reg: 6.772 
 --------------------------------------------------------------------
 [32]
-POS: 0.555 3.953 0.760, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.700 85.242 -2.622, Speed: -0.148 0.112 -0.021
-Signal: H=96.977 R=4.878 P=4.733 Y=0.803
-Error in ref/measurement: X=-1.995, 	 y=1.506, 	 H=-2.735
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.093 Y=-0.091 
+POS: 0.216 3.655 0.454, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.059 92.577 -2.738, Speed: -0.197 -0.121 0.010
+Signal: H=95.390 R=1.754 P=-0.808 Y=0.461
+Error in ref/measurement: X=-0.216, 	 y=-0.135, 	 H=-1.958
+Error XY reg: X=0.170 Y=0.007	 Error XY vel reg: X=0.031 Y=0.013	 Error H reg: 6.950 
 --------------------------------------------------------------------
 [33]
-POS: 0.385 4.090 0.747, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: -4.642 85.875 -6.976, Speed: -0.228 0.180 -0.012
-Signal: H=97.183 R=5.170 P=4.986 Y=0.794
-Error in ref/measurement: X=-2.164, 	 y=1.644, 	 H=-2.748
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.097 Y=-0.094 
+POS: 0.025 3.557 0.492, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.401 92.334 -1.872, Speed: -0.175 -0.080 0.053
+Signal: H=95.375 R=3.643 P=-2.011 Y=0.450
+Error in ref/measurement: X=-0.407, 	 y=-0.234, 	 H=-1.919
+Error XY reg: X=0.480 Y=0.250	 Error XY vel reg: X=0.065 Y=0.032	 Error H reg: 6.875 
 --------------------------------------------------------------------
 [34]
-POS: 0.148 4.293 0.738, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 2.129 85.231 -0.868, Speed: -0.272 0.246 -0.012
-Signal: H=97.226 R=5.451 P=5.251 Y=0.799
-Error in ref/measurement: X=-2.402, 	 y=1.846, 	 H=-2.757
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.104 Y=-0.101 
+POS: -0.178 3.491 0.567, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 0.763 92.467 0.253, Speed: -0.213 -0.055 0.096
+Signal: H=95.317 R=5.121 P=-2.711 Y=0.446
+Error in ref/measurement: X=-0.609, 	 y=-0.299, 	 H=-1.844
+Error XY reg: X=0.890 Y=0.467	 Error XY vel reg: X=0.091 Y=0.043	 Error H reg: 6.585 
 --------------------------------------------------------------------
 [35]
-POS: -0.091 4.509 0.730, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 6.697 84.787 4.464, Speed: -0.246 0.223 -0.025
-Signal: H=97.242 R=5.396 P=5.273 Y=0.821
-Error in ref/measurement: X=-2.640, 	 y=2.062, 	 H=-2.765
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.104 Y=-0.102 
+POS: -0.362 3.470 0.664, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 0.396 92.500 2.420, Speed: -0.185 0.000 0.104
+Signal: H=95.236 R=5.491 P=-3.137 Y=0.443
+Error in ref/measurement: X=-0.793, 	 y=-0.321, 	 H=-1.748
+Error XY reg: X=1.000 Y=0.605	 Error XY vel reg: X=0.098 Y=0.051	 Error H reg: 6.180 
 --------------------------------------------------------------------
 [36]
-POS: -0.265 4.697 0.752, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.859 84.747 3.614, Speed: -0.153 0.198 0.051
-Signal: H=96.676 R=5.098 P=5.156 Y=0.841
-Error in ref/measurement: X=-2.814, 	 y=2.250, 	 H=-2.743
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.099 Y=-0.099 
+POS: -0.510 3.501 0.767, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 0.071 92.278 1.862, Speed: -0.143 0.055 0.118
+Signal: H=95.145 R=5.489 P=-2.997 Y=0.477
+Error in ref/measurement: X=-0.942, 	 y=-0.289, 	 H=-1.644
+Error XY reg: X=1.000 Y=0.651	 Error XY vel reg: X=0.098 Y=0.048	 Error H reg: 5.723 
 --------------------------------------------------------------------
 [37]
-POS: -0.372 4.869 0.779, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.680 84.770 3.347, Speed: -0.178 0.330 -0.049
-Signal: H=97.045 R=4.794 P=5.147 Y=0.844
-Error in ref/measurement: X=-2.921, 	 y=2.423, 	 H=-2.716
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.093 Y=-0.099 
+POS: -0.618 3.584 0.870, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 0.454 92.160 1.424, Speed: -0.099 0.117 0.108
+Signal: H=95.052 R=5.127 P=-2.461 Y=0.509
+Error in ref/measurement: X=-1.050, 	 y=-0.207, 	 H=-1.542
+Error XY reg: X=1.000 Y=0.590	 Error XY vel reg: X=0.091 Y=0.040	 Error H reg: 5.258 
 --------------------------------------------------------------------
 [38]
-POS: -0.429 5.030 0.670, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 5.283 84.675 2.601, Speed: -0.045 0.159 -0.200
-Signal: H=98.857 R=4.537 P=5.250 Y=0.842
-Error in ref/measurement: X=-2.978, 	 y=2.584, 	 H=-2.825
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.089 Y=-0.100 
+POS: -0.692 3.710 0.963, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.365 92.066 1.358, Speed: -0.067 0.168 0.094
+Signal: H=94.964 R=5.008 P=-1.440 Y=0.523
+Error in ref/measurement: X=-1.124, 	 y=-0.080, 	 H=-1.448
+Error XY reg: X=1.000 Y=0.422	 Error XY vel reg: X=0.088 Y=0.022	 Error H reg: 4.820 
 --------------------------------------------------------------------
 [39]
-POS: -0.442 5.162 0.463, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 7.435 85.092 2.306, Speed: 0.013 0.119 -0.208
-Signal: H=100.640 R=4.318 P=5.003 Y=0.836
-Error in ref/measurement: X=-2.992, 	 y=2.716, 	 H=-3.032
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.084 Y=-0.095 
+POS: -0.737 3.867 1.040, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.670 91.994 1.381, Speed: -0.041 0.188 0.079
+Signal: H=94.889 R=4.908 P=-0.097 Y=0.540
+Error in ref/measurement: X=-1.169, 	 y=0.077, 	 H=-1.371
+Error XY reg: X=1.000 Y=0.163	 Error XY vel reg: X=0.086 Y=-0.001	 Error H reg: 4.445 
 --------------------------------------------------------------------
 [40]
-POS: -0.444 5.265 0.453, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 2.121 87.099 0.859, Speed: -0.002 0.069 0.089
-Signal: H=98.237 R=4.465 P=5.024 Y=0.789
-Error in ref/measurement: X=-2.993, 	 y=2.819, 	 H=-3.043
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.083 Y=-0.092 
+POS: -0.756 4.039 1.097, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.476 91.854 1.410, Speed: -0.003 0.181 0.046
+Signal: H=94.832 R=4.839 P=1.672 Y=0.566
+Error in ref/measurement: X=-1.188, 	 y=0.249, 	 H=-1.314
+Error XY reg: X=1.000 Y=-0.158	 Error XY vel reg: X=0.084 Y=-0.032	 Error H reg: 4.159 
 --------------------------------------------------------------------
 [41]
-POS: -0.431 5.329 0.555, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 8.481 88.329 2.161, Speed: 0.031 0.059 0.112
-Signal: H=97.616 R=4.493 P=4.945 Y=0.710
-Error in ref/measurement: X=-2.980, 	 y=2.883, 	 H=-2.941
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.081 Y=-0.089 
+POS: -0.752 4.190 1.130, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 5.929 91.709 1.140, Speed: 0.013 0.148 0.022
+Signal: H=94.794 R=4.756 P=2.970 Y=0.594
+Error in ref/measurement: X=-1.184, 	 y=0.400, 	 H=-1.282
+Error XY reg: X=1.000 Y=-0.501	 Error XY vel reg: X=0.081 Y=-0.054	 Error H reg: 3.971 
 --------------------------------------------------------------------
 [42]
-POS: -0.395 5.349 0.547, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 6.533 89.389 1.206, Speed: 0.055 -0.002 -0.108
-Signal: H=98.733 R=4.481 P=4.788 Y=0.646
-Error in ref/measurement: X=-2.945, 	 y=2.903, 	 H=-2.948
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.079 Y=-0.084 
+POS: -0.730 4.305 1.135, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 7.059 91.685 0.538, Speed: 0.030 0.102 -0.005
+Signal: H=94.780 R=4.710 P=4.251 Y=0.600
+Error in ref/measurement: X=-1.162, 	 y=0.514, 	 H=-1.277
+Error XY reg: X=1.000 Y=-0.816	 Error XY vel reg: X=0.080 Y=-0.077	 Error H reg: 3.902 
 --------------------------------------------------------------------
 [43]
-POS: -0.348 5.331 0.415, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 7.650 90.218 -0.052, Speed: 0.014 -0.013 0.065
-Signal: H=101.537 R=4.488 P=4.651 Y=0.586
-Error in ref/measurement: X=-2.898, 	 y=2.885, 	 H=-3.080
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.078 Y=-0.081 
+POS: -0.698 4.366 1.119, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 8.164 91.718 0.089, Speed: 0.045 0.044 -0.037
+Signal: H=94.787 R=4.691 P=4.810 Y=0.594
+Error in ref/measurement: X=-1.130, 	 y=0.575, 	 H=-1.293
+Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.079 Y=-0.086	 Error H reg: 3.935 
 --------------------------------------------------------------------
 [44]
-POS: -0.341 5.367 0.414, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.774 91.304 -4.028, Speed: -0.008 0.040 -0.158
-Signal: H=99.825 R=4.769 P=4.948 Y=0.529
-Error in ref/measurement: X=-2.890, 	 y=2.921, 	 H=-3.081
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.081 Y=-0.085 
+POS: -0.662 4.364 1.077, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 7.913 91.946 0.171, Speed: 0.035 -0.035 -0.053
+Signal: H=94.816 R=4.684 P=4.462 Y=0.564
+Error in ref/measurement: X=-1.094, 	 y=0.574, 	 H=-1.334
+Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.079 Y=-0.081	 Error H reg: 4.078 
 --------------------------------------------------------------------
 [45]
-POS: -0.302 5.383 0.401, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.254 89.990 0.462, Speed: -0.015 -0.013 -0.023
-Signal: H=99.640 R=4.580 P=4.789 Y=0.534
-Error in ref/measurement: X=-2.852, 	 y=2.937, 	 H=-3.094
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.080 Y=-0.084 
+POS: -0.626 4.304 1.015, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 7.361 92.200 -0.015, Speed: 0.041 -0.092 -0.082
+Signal: H=94.865 R=4.692 P=4.150 Y=0.519
+Error in ref/measurement: X=-1.057, 	 y=0.514, 	 H=-1.396
+Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.079 Y=-0.076	 Error H reg: 4.323 
 --------------------------------------------------------------------
 [46]
-POS: -0.301 5.378 0.400, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.871 89.998 0.696, Speed: 0.003 0.003 -0.002
-Signal: H=99.352 R=4.694 P=4.707 Y=0.563
-Error in ref/measurement: X=-2.850, 	 y=2.932, 	 H=-3.095
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.591 4.195 0.938, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 7.003 92.434 -0.278, Speed: 0.029 -0.143 -0.089
+Signal: H=94.929 R=4.717 P=3.899 Y=0.475
+Error in ref/measurement: X=-1.023, 	 y=0.405, 	 H=-1.473
+Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.079 Y=-0.071	 Error H reg: 4.644 
 --------------------------------------------------------------------
 [47]
-POS: -0.301 5.379 0.400, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.733 89.924 0.614, Speed: 0.003 -0.014 -0.001
-Signal: H=99.363 R=4.707 P=4.694 Y=0.570
-Error in ref/measurement: X=-2.851, 	 y=2.933, 	 H=-3.095
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.564 4.050 0.855, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 6.722 92.590 -0.538, Speed: 0.021 -0.187 -0.092
+Signal: H=95.004 R=4.729 P=3.103 Y=0.444
+Error in ref/measurement: X=-0.996, 	 y=0.260, 	 H=-1.557
+Error XY reg: X=1.000 Y=-0.877	 Error XY vel reg: X=0.080 Y=-0.058	 Error H reg: 5.019 
 --------------------------------------------------------------------
 [48]
-POS: -0.301 5.381 0.400, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.475 89.965 0.625, Speed: -0.001 0.009 0.001
-Signal: H=99.353 R=4.714 P=4.720 Y=0.571
-Error in ref/measurement: X=-2.851, 	 y=2.935, 	 H=-3.095
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.543 3.867 0.770, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 5.009 92.533 -0.746, Speed: 0.013 -0.205 -0.079
+Signal: H=95.080 R=4.692 P=1.519 Y=0.427
+Error in ref/measurement: X=-0.975, 	 y=0.076, 	 H=-1.642
+Error XY reg: X=1.000 Y=-0.569	 Error XY vel reg: X=0.081 Y=-0.030	 Error H reg: 5.400 
 --------------------------------------------------------------------
 [49]
-POS: -0.301 5.380 0.400, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.701 89.869 0.535, Speed: 0.001 0.004 0.000
-Signal: H=99.348 R=4.705 P=4.704 Y=0.572
-Error in ref/measurement: X=-2.851, 	 y=2.933, 	 H=-3.095
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.530 3.679 0.699, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.407 92.638 -0.444, Speed: 0.024 -0.409 -0.138
+Signal: H=95.148 R=4.628 P=-0.408 Y=0.430
+Error in ref/measurement: X=-0.961, 	 y=-0.112, 	 H=-1.712
+Error XY reg: X=1.000 Y=-0.200	 Error XY vel reg: X=0.081 Y=0.003	 Error H reg: 5.740 
 --------------------------------------------------------------------
 [50]
-POS: -0.301 5.379 0.400, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.724 89.960 0.638, Speed: 0.001 -0.003 -0.000
-Signal: H=99.342 R=4.712 P=4.712 Y=0.573
-Error in ref/measurement: X=-2.851, 	 y=2.933, 	 H=-3.095
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.520 3.505 0.648, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.204 92.584 -0.491, Speed: 0.016 -0.187 -0.052
+Signal: H=95.201 R=4.590 P=-2.006 Y=0.423
+Error in ref/measurement: X=-0.952, 	 y=-0.286, 	 H=-1.763
+Error XY reg: X=1.000 Y=0.191	 Error XY vel reg: X=0.082 Y=0.031	 Error H reg: 6.007 
 --------------------------------------------------------------------
 [51]
-POS: -0.301 5.381 0.400, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.606 89.898 0.585, Speed: -0.000 -0.001 -0.001
-Signal: H=99.380 R=4.708 P=4.711 Y=0.573
-Error in ref/measurement: X=-2.851, 	 y=2.934, 	 H=-3.095
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.516 3.361 0.625, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 0.832 92.608 -0.581, Speed: 0.002 -0.142 -0.010
+Signal: H=95.232 R=4.550 P=-3.529 Y=0.415
+Error in ref/measurement: X=-0.948, 	 y=-0.429, 	 H=-1.787
+Error XY reg: X=1.000 Y=0.558	 Error XY vel reg: X=0.082 Y=0.058	 Error H reg: 6.159 
 --------------------------------------------------------------------
 [52]
-POS: -0.302 5.380 0.399, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: -1.107 90.002 0.669, Speed: -0.000 0.003 -0.000
-Signal: H=99.362 R=4.716 P=4.720 Y=0.573
-Error in ref/measurement: X=-2.851, 	 y=2.934, 	 H=-3.096
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.518 3.271 0.619, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 0.251 92.722 -0.850, Speed: -0.007 -0.074 0.001
+Signal: H=95.243 R=4.516 P=-4.677 Y=0.391
+Error in ref/measurement: X=-0.950, 	 y=-0.520, 	 H=-1.793
+Error XY reg: X=1.000 Y=0.859	 Error XY vel reg: X=0.083 Y=0.078	 Error H reg: 6.216 
 --------------------------------------------------------------------
 [53]
-POS: -0.301 5.380 0.400, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.697 89.938 0.616, Speed: 0.001 -0.005 -0.001
-Signal: H=99.378 R=4.712 P=4.702 Y=0.574
-Error in ref/measurement: X=-2.851, 	 y=2.933, 	 H=-3.095
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.524 3.243 0.627, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: -0.963 92.937 -0.477, Speed: -0.004 0.005 0.015
+Signal: H=95.241 R=4.499 P=-5.026 Y=0.374
+Error in ref/measurement: X=-0.956, 	 y=-0.547, 	 H=-1.784
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.083 Y=0.084	 Error H reg: 6.204 
 --------------------------------------------------------------------
 [54]
-POS: -0.301 5.380 0.400, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.672 89.927 0.617, Speed: 0.000 -0.006 -0.002
-Signal: H=99.367 R=4.707 P=4.714 Y=0.575
-Error in ref/measurement: X=-2.851, 	 y=2.933, 	 H=-3.095
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.531 3.282 0.652, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 0.037 92.860 -0.165, Speed: -0.010 0.076 0.034
+Signal: H=95.224 R=4.510 P=-4.655 Y=0.368
+Error in ref/measurement: X=-0.963, 	 y=-0.509, 	 H=-1.759
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.083 Y=0.077	 Error H reg: 6.122 
 --------------------------------------------------------------------
 [55]
-POS: -0.302 5.380 0.399, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: -1.096 89.986 0.668, Speed: -0.000 -0.000 -0.001
-Signal: H=99.371 R=4.715 P=4.716 Y=0.574
-Error in ref/measurement: X=-2.851, 	 y=2.934, 	 H=-3.096
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.534 3.375 0.685, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.388 92.760 -0.228, Speed: -0.008 0.125 0.047
+Signal: H=95.198 R=4.520 P=-4.375 Y=0.384
+Error in ref/measurement: X=-0.966, 	 y=-0.416, 	 H=-1.726
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.082 Y=0.072	 Error H reg: 5.988 
 --------------------------------------------------------------------
 [56]
-POS: -0.301 5.380 0.400, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.645 89.885 0.571, Speed: 0.000 0.000 -0.001
-Signal: H=99.348 R=4.706 P=4.710 Y=0.576
-Error in ref/measurement: X=-2.851, 	 y=2.934, 	 H=-3.095
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.531 3.507 0.726, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.758 92.721 0.093, Speed: 0.017 0.321 0.098
+Signal: H=95.162 R=4.518 P=-3.568 Y=0.388
+Error in ref/measurement: X=-0.963, 	 y=-0.284, 	 H=-1.686
+Error XY reg: X=1.000 Y=0.887	 Error XY vel reg: X=0.082 Y=0.058	 Error H reg: 5.811 
 --------------------------------------------------------------------
 [57]
-POS: -0.301 5.380 0.400, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.687 89.867 0.552, Speed: 0.000 -0.001 -0.001
-Signal: H=99.351 R=4.707 P=4.697 Y=0.575
-Error in ref/measurement: X=-2.851, 	 y=2.934, 	 H=-3.095
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.519 3.662 0.771, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.009 92.754 0.601, Speed: 0.023 0.180 0.057
+Signal: H=95.122 R=4.537 P=-2.322 Y=0.403
+Error in ref/measurement: X=-0.951, 	 y=-0.128, 	 H=-1.640
+Error XY reg: X=1.000 Y=0.622	 Error XY vel reg: X=0.081 Y=0.037	 Error H reg: 5.610 
 --------------------------------------------------------------------
 [58]
-POS: -0.302 5.380 0.400, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.551 90.041 0.674, Speed: 0.001 -0.001 0.000
-Signal: H=99.343 R=4.725 P=4.709 Y=0.569
-Error in ref/measurement: X=-2.851, 	 y=2.934, 	 H=-3.095
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.493 3.823 0.814, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.366 92.590 0.741, Speed: 0.031 0.176 0.045
+Signal: H=95.082 R=4.528 P=-0.794 Y=0.413
+Error in ref/measurement: X=-0.925, 	 y=0.033, 	 H=-1.597
+Error XY reg: X=1.000 Y=0.302	 Error XY vel reg: X=0.080 Y=0.010	 Error H reg: 5.410 
 --------------------------------------------------------------------
 [59]
-POS: -0.302 5.380 0.400, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.771 90.104 0.827, Speed: -0.001 -0.003 0.002
-Signal: H=99.209 R=4.732 P=4.714 Y=0.567
-Error in ref/measurement: X=-2.851, 	 y=2.934, 	 H=-3.095
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.453 3.965 0.845, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 5.548 92.546 0.602, Speed: 0.060 0.149 0.029
+Signal: H=95.050 R=4.505 P=0.666 Y=0.422
+Error in ref/measurement: X=-0.885, 	 y=0.175, 	 H=-1.566
+Error XY reg: X=1.000 Y=-0.030	 Error XY vel reg: X=0.078 Y=-0.015	 Error H reg: 5.248 
 --------------------------------------------------------------------
 [60]
-POS: -0.302 5.381 0.400, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.557 89.878 0.424, Speed: 0.000 0.001 0.001
-Signal: H=99.361 R=4.705 P=4.709 Y=0.566
-Error in ref/measurement: X=-2.851, 	 y=2.934, 	 H=-3.095
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.398 4.080 0.867, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 7.207 92.575 0.525, Speed: 0.073 0.101 0.008
+Signal: H=95.027 R=4.501 P=1.891 Y=0.429
+Error in ref/measurement: X=-0.830, 	 y=0.290, 	 H=-1.545
+Error XY reg: X=1.000 Y=-0.334	 Error XY vel reg: X=0.077 Y=-0.037	 Error H reg: 5.137 
 --------------------------------------------------------------------
 [61]
-POS: -0.302 5.380 0.400, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.812 90.100 0.875, Speed: -0.000 0.002 0.002
-Signal: H=99.350 R=4.723 P=4.727 Y=0.564
-Error in ref/measurement: X=-2.851, 	 y=2.934, 	 H=-3.095
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.335 4.138 0.873, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 8.303 92.605 0.388, Speed: 0.074 0.032 0.004
+Signal: H=95.017 R=4.480 P=2.693 Y=0.434
+Error in ref/measurement: X=-0.767, 	 y=0.348, 	 H=-1.539
+Error XY reg: X=1.000 Y=-0.567	 Error XY vel reg: X=0.076 Y=-0.051	 Error H reg: 5.085 
 --------------------------------------------------------------------
 [62]
-POS: -0.301 5.378 0.400, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.109 90.318 0.975, Speed: 0.002 -0.010 0.008
-Signal: H=99.356 R=4.738 P=4.734 Y=0.559
-Error in ref/measurement: X=-2.851, 	 y=2.932, 	 H=-3.095
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.082 Y=-0.082 
+POS: -0.267 4.126 0.861, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 9.376 92.545 0.168, Speed: 0.082 -0.059 -0.019
+Signal: H=95.022 R=4.464 P=2.853 Y=0.432
+Error in ref/measurement: X=-0.698, 	 y=0.335, 	 H=-1.550
+Error XY reg: X=1.000 Y=-0.688	 Error XY vel reg: X=0.076 Y=-0.053	 Error H reg: 5.108 
 --------------------------------------------------------------------
 [63]
-POS: -0.263 5.346 0.480, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.266 87.237 2.332, Speed: 0.074 -0.079 0.213
-Signal: H=97.909 R=4.290 P=4.319 Y=0.590
-Error in ref/measurement: X=-2.812, 	 y=2.900, 	 H=-3.015
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.079 Y=-0.079 
+POS: -0.193 4.029 0.832, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 9.327 92.610 0.046, Speed: 0.078 -0.148 -0.041
+Signal: H=95.042 R=4.429 P=2.282 Y=0.421
+Error in ref/measurement: X=-0.625, 	 y=0.239, 	 H=-1.579
+Error XY reg: X=1.000 Y=-0.661	 Error XY vel reg: X=0.075 Y=-0.043	 Error H reg: 5.208 
 --------------------------------------------------------------------
 [64]
-POS: -0.120 5.184 0.722, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 4.758 69.875 13.522, Speed: 0.216 -0.227 0.288
-Signal: H=95.038 R=2.417 P=2.311 Y=1.042
-Error in ref/measurement: X=-2.669, 	 y=2.738, 	 H=-2.773
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.070 Y=-0.069 
+POS: -0.124 3.857 0.794, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 8.300 92.753 -0.388, Speed: 0.071 -0.227 -0.042
+Signal: H=95.073 R=4.420 P=1.008 Y=0.407
+Error in ref/measurement: X=-0.555, 	 y=0.067, 	 H=-1.618
+Error XY reg: X=1.000 Y=-0.470	 Error XY vel reg: X=0.076 Y=-0.021	 Error H reg: 5.366 
 --------------------------------------------------------------------
 [65]
-POS: 0.137 4.936 0.929, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 2.585 38.417 18.825, Speed: 0.361 -0.337 0.198
-Signal: H=94.140 R=-0.589 P=-0.515 Y=2.192
-Error in ref/measurement: X=-2.412, 	 y=2.489, 	 H=-2.567
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.059 Y=-0.060 
+POS: -0.061 3.626 0.754, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 6.221 92.854 -0.504, Speed: 0.063 -0.273 -0.040
+Signal: H=95.109 R=4.368 P=-0.909 Y=0.366
+Error in ref/measurement: X=-0.493, 	 y=-0.165, 	 H=-1.658
+Error XY reg: X=1.000 Y=-0.120	 Error XY vel reg: X=0.077 Y=0.012	 Error H reg: 5.545 
 --------------------------------------------------------------------
 [66]
-POS: 0.535 4.606 1.037, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: -0.182 4.258 19.015, Speed: 0.469 -0.363 0.055
-Signal: H=94.601 R=-2.897 P=-2.554 Y=3.783
-Error in ref/measurement: X=-2.014, 	 y=2.160, 	 H=-2.458
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.049 Y=-0.054 
+POS: -0.010 3.365 0.719, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.004 92.954 -1.118, Speed: 0.045 -0.293 -0.039
+Signal: H=95.142 R=4.302 P=-3.261 Y=0.331
+Error in ref/measurement: X=-0.442, 	 y=-0.425, 	 H=-1.692
+Error XY reg: X=1.000 Y=0.351	 Error XY vel reg: X=0.078 Y=0.053	 Error H reg: 5.711 
 --------------------------------------------------------------------
 [67]
-POS: 1.016 4.299 1.016, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: -4.478 -24.777 10.058, Speed: 0.581 -0.320 -0.071
-Signal: H=95.666 R=-3.633 P=-3.181 Y=5.425
-Error in ref/measurement: X=-1.534, 	 y=1.853, 	 H=-2.480
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.037 Y=-0.053 
+POS: 0.028 3.109 0.695, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.601 93.232 -0.789, Speed: 0.038 -0.272 -0.025
+Signal: H=95.168 R=4.211 P=-5.730 Y=0.296
+Error in ref/measurement: X=-0.404, 	 y=-0.681, 	 H=-1.716
+Error XY reg: X=1.000 Y=0.886	 Error XY vel reg: X=0.079 Y=0.096	 Error H reg: 5.838 
 --------------------------------------------------------------------
 [68]
-POS: 1.482 4.081 0.986, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: -6.323 -41.738 4.609, Speed: 0.560 -0.204 0.041
-Signal: H=95.162 R=-3.691 P=-3.567 Y=6.732
-Error in ref/measurement: X=-1.067, 	 y=1.634, 	 H=-2.509
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.031 Y=-0.058 
+POS: 0.052 2.893 0.682, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: -0.564 93.223 -1.001, Speed: 0.020 -0.209 -0.006
+Signal: H=95.184 R=3.922 P=-6.082 Y=0.294
+Error in ref/measurement: X=-0.380, 	 y=-0.897, 	 H=-1.729
+Error XY reg: X=0.926 Y=1.000	 Error XY vel reg: X=0.074 Y=0.102	 Error H reg: 5.918 
 --------------------------------------------------------------------
 [69]
-POS: 2.026 3.854 0.993, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: -6.648 -53.648 3.946, Speed: 0.556 -0.257 -0.038
-Signal: H=95.636 R=-3.546 P=-3.890 Y=7.641
-Error in ref/measurement: X=-0.523, 	 y=1.408, 	 H=-2.502
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.032 Y=-0.061 
+POS: 0.060 2.734 0.682, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 0.715 92.915 -1.252, Speed: 0.000 -0.140 0.008
+Signal: H=95.188 R=3.795 P=-5.649 Y=0.339
+Error in ref/measurement: X=-0.372, 	 y=-1.056, 	 H=-1.729
+Error XY reg: X=0.870 Y=1.000	 Error XY vel reg: X=0.071 Y=0.095	 Error H reg: 5.940 
 --------------------------------------------------------------------
 [70]
-POS: 2.418 3.617 1.029, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: -5.699 -52.696 7.723, Speed: 0.339 -0.278 0.071
-Signal: H=94.267 R=-4.089 P=-4.253 Y=7.974
-Error in ref/measurement: X=-0.132, 	 y=1.170, 	 H=-2.466
-Error XY reg: X=1.000 Y=-1.000	 Error XY vel reg: X=0.044 Y=-0.059 
+POS: 0.052 2.629 0.693, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.569 92.968 -0.907, Speed: -0.033 -0.191 0.027
+Signal: H=95.182 R=3.798 P=-5.492 Y=0.358
+Error in ref/measurement: X=-0.380, 	 y=-1.161, 	 H=-1.719
+Error XY reg: X=0.849 Y=1.000	 Error XY vel reg: X=0.071 Y=0.092	 Error H reg: 5.909 
 --------------------------------------------------------------------
 [71]
-POS: 2.699 3.312 1.028, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: -5.370 -45.675 14.196, Speed: 0.281 -0.384 -0.042
-Signal: H=95.352 R=-2.767 P=-2.802 Y=7.862
-Error in ref/measurement: X=0.150, 	 y=0.865, 	 H=-2.467
-Error XY reg: X=0.538 Y=-1.000	 Error XY vel reg: X=0.016 Y=-0.053 
+POS: 0.029 2.564 0.706, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.413 92.865 -0.840, Speed: -0.033 -0.057 0.020
+Signal: H=95.171 R=3.932 P=-5.208 Y=0.371
+Error in ref/measurement: X=-0.403, 	 y=-1.226, 	 H=-1.705
+Error XY reg: X=0.861 Y=1.000	 Error XY vel reg: X=0.073 Y=0.087	 Error H reg: 5.853 
 --------------------------------------------------------------------
 [72]
-POS: 2.876 3.020 1.019, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: -4.893 -29.621 13.833, Speed: 0.143 -0.271 0.021
-Signal: H=95.124 R=-1.853 P=-0.102 Y=7.378
-Error in ref/measurement: X=0.327, 	 y=0.574, 	 H=-2.476
-Error XY reg: X=-0.116 Y=-1.000	 Error XY vel reg: X=-0.028 Y=-0.053 
+POS: -0.001 2.529 0.725, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.232 92.966 -0.211, Speed: -0.034 -0.022 0.023
+Signal: H=95.156 R=4.187 P=-5.094 Y=0.361
+Error in ref/measurement: X=-0.432, 	 y=-1.261, 	 H=-1.687
+Error XY reg: X=0.902 Y=1.000	 Error XY vel reg: X=0.078 Y=0.085	 Error H reg: 5.779 
 --------------------------------------------------------------------
 [73]
-POS: 2.941 2.797 0.934, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: -5.668 -10.502 11.791, Speed: 0.055 -0.234 -0.225
-Signal: H=96.976 R=-2.552 P=2.375 Y=6.540
-Error in ref/measurement: X=0.392, 	 y=0.351, 	 H=-2.561
-Error XY reg: X=-0.526 Y=-1.000	 Error XY vel reg: X=-0.052 Y=-0.055 
+POS: -0.034 2.524 0.746, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.971 92.943 -0.123, Speed: -0.050 0.009 0.036
+Signal: H=95.138 R=4.643 P=-4.953 Y=0.357
+Error in ref/measurement: X=-0.465, 	 y=-1.266, 	 H=-1.666
+Error XY reg: X=0.960 Y=1.000	 Error XY vel reg: X=0.085 Y=0.082	 Error H reg: 5.690 
 --------------------------------------------------------------------
 [74]
-POS: 2.965 2.653 0.693, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: -0.033 16.048 5.109, Speed: -0.003 -0.078 -0.241
-Signal: H=99.303 R=-4.366 P=4.521 Y=5.407
-Error in ref/measurement: X=0.416, 	 y=0.207, 	 H=-2.802
-Error XY reg: X=-0.750 Y=-0.924	 Error XY vel reg: X=-0.065 Y=-0.061 
+POS: -0.064 2.545 0.768, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.115 92.874 0.700, Speed: -0.089 0.110 0.068
+Signal: H=95.119 R=4.717 P=-4.740 Y=0.360
+Error in ref/measurement: X=-0.496, 	 y=-1.245, 	 H=-1.644
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.086 Y=0.079	 Error H reg: 5.594 
 --------------------------------------------------------------------
 [75]
-POS: 2.959 2.631 0.559, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.431 41.953 2.100, Speed: -0.014 -0.026 -0.103
-Signal: H=99.016 R=-4.744 P=4.836 Y=4.036
-Error in ref/measurement: X=0.410, 	 y=0.185, 	 H=-2.936
-Error XY reg: X=-0.851 Y=-0.630	 Error XY vel reg: X=-0.070 Y=-0.049 
+POS: -0.089 2.590 0.783, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.275 92.720 -0.150, Speed: -0.024 0.065 0.020
+Signal: H=95.102 R=4.688 P=-4.576 Y=0.368
+Error in ref/measurement: X=-0.521, 	 y=-1.201, 	 H=-1.628
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.086 Y=0.076	 Error H reg: 5.511 
 --------------------------------------------------------------------
 [76]
-POS: 2.948 2.633 0.514, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 2.819 56.314 2.090, Speed: -0.002 0.001 -0.018
-Signal: H=98.729 R=-4.710 P=4.231 Y=2.946
-Error in ref/measurement: X=0.399, 	 y=0.187, 	 H=-2.981
-Error XY reg: X=-0.876 Y=-0.502	 Error XY vel reg: X=-0.071 Y=-0.041 
+POS: -0.107 2.654 0.798, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.565 92.993 0.126, Speed: -0.017 0.082 0.020
+Signal: H=95.089 R=4.622 P=-4.462 Y=0.376
+Error in ref/measurement: X=-0.538, 	 y=-1.137, 	 H=-1.614
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.085 Y=0.074	 Error H reg: 5.443 
 --------------------------------------------------------------------
 [77]
-POS: 2.930 2.620 0.501, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 3.535 57.770 -0.583, Speed: -0.015 0.019 -0.021
-Signal: H=98.572 R=-4.459 P=3.841 Y=2.436
-Error in ref/measurement: X=0.381, 	 y=0.173, 	 H=-2.995
-Error XY reg: X=-0.870 Y=-0.441	 Error XY vel reg: X=-0.070 Y=-0.035 
+POS: -0.121 2.730 0.809, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.985 93.032 0.214, Speed: -0.016 0.088 0.013
+Signal: H=95.077 R=4.562 P=-4.543 Y=0.352
+Error in ref/measurement: X=-0.553, 	 y=-1.060, 	 H=-1.602
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.084 Y=0.075	 Error H reg: 5.385 
 --------------------------------------------------------------------
 [78]
-POS: 2.921 2.643 0.496, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.173 55.866 -0.041, Speed: -0.009 0.009 0.004
-Signal: H=98.825 R=-4.442 P=3.953 Y=2.344
-Error in ref/measurement: X=0.372, 	 y=0.197, 	 H=-2.999
-Error XY reg: X=-0.855 Y=-0.426	 Error XY vel reg: X=-0.069 Y=-0.037 
+POS: -0.132 2.813 0.813, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.391 93.084 -0.066, Speed: -0.011 0.090 -0.001
+Signal: H=95.070 R=4.530 P=-4.523 Y=0.342
+Error in ref/measurement: X=-0.563, 	 y=-0.977, 	 H=-1.598
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.083 Y=0.075	 Error H reg: 5.352 
 --------------------------------------------------------------------
 [79]
-POS: 2.931 2.633 0.496, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 2.326 56.031 0.843, Speed: 0.010 0.002 0.002
-Signal: H=98.735 R=-4.420 P=3.864 Y=2.348
-Error in ref/measurement: X=0.381, 	 y=0.187, 	 H=-2.999
-Error XY reg: X=-0.845 Y=-0.427	 Error XY vel reg: X=-0.070 Y=-0.034 
+POS: -0.136 2.899 0.814, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.349 93.113 0.332, Speed: -0.004 0.090 -0.003
+Signal: H=95.069 R=4.490 P=-4.501 Y=0.322
+Error in ref/measurement: X=-0.568, 	 y=-0.891, 	 H=-1.598
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.083 Y=0.074	 Error H reg: 5.344 
 --------------------------------------------------------------------
 [80]
-POS: 2.927 2.639 0.495, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.837 55.824 0.160, Speed: 0.001 0.011 0.011
-Signal: H=98.713 R=-4.419 P=3.904 Y=2.343
-Error in ref/measurement: X=0.377, 	 y=0.193, 	 H=-3.000
-Error XY reg: X=-0.843 Y=-0.424	 Error XY vel reg: X=-0.069 Y=-0.035 
+POS: -0.133 2.983 0.809, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.981 93.210 0.302, Speed: 0.005 0.089 -0.004
+Signal: H=95.071 R=4.447 P=-4.540 Y=0.295
+Error in ref/measurement: X=-0.565, 	 y=-0.808, 	 H=-1.602
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.082 Y=0.075	 Error H reg: 5.355 
 --------------------------------------------------------------------
 [81]
-POS: 2.928 2.639 0.495, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.358 55.671 1.073, Speed: -0.000 0.012 -0.005
-Signal: H=98.778 R=-4.418 P=3.908 Y=2.350
-Error in ref/measurement: X=0.379, 	 y=0.193, 	 H=-3.000
-Error XY reg: X=-0.842 Y=-0.425	 Error XY vel reg: X=-0.069 Y=-0.035 
+POS: -0.122 3.061 0.799, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.912 93.354 0.267, Speed: 0.022 0.080 -0.020
+Signal: H=95.079 R=4.373 P=-4.546 Y=0.285
+Error in ref/measurement: X=-0.554, 	 y=-0.729, 	 H=-1.613
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.081 Y=0.075	 Error H reg: 5.393 
 --------------------------------------------------------------------
 [82]
-POS: 2.926 2.643 0.494, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.800 55.262 0.815, Speed: 0.000 -0.002 -0.006
-Signal: H=98.717 R=-4.416 P=3.933 Y=2.371
-Error in ref/measurement: X=0.377, 	 y=0.196, 	 H=-3.001
-Error XY reg: X=-0.839 Y=-0.432	 Error XY vel reg: X=-0.069 Y=-0.036 
+POS: -0.106 3.135 0.782, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.773 93.428 0.148, Speed: 0.025 0.082 -0.018
+Signal: H=95.092 R=4.352 P=-4.604 Y=0.273
+Error in ref/measurement: X=-0.538, 	 y=-0.655, 	 H=-1.629
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.081 Y=0.076	 Error H reg: 5.459 
 --------------------------------------------------------------------
 [83]
-POS: 2.927 2.642 0.494, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.081 55.390 0.943, Speed: -0.005 0.005 0.000
-Signal: H=98.731 R=-4.421 P=3.934 Y=2.376
-Error in ref/measurement: X=0.377, 	 y=0.196, 	 H=-3.001
-Error XY reg: X=-0.840 Y=-0.432	 Error XY vel reg: X=-0.069 Y=-0.036 
+POS: -0.085 3.208 0.761, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.534 93.414 0.141, Speed: 0.029 0.081 -0.022
+Signal: H=95.109 R=4.323 P=-4.603 Y=0.266
+Error in ref/measurement: X=-0.517, 	 y=-0.583, 	 H=-1.650
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.080 Y=0.076	 Error H reg: 5.546 
 --------------------------------------------------------------------
 [84]
-POS: 2.928 2.641 0.494, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.297 55.362 0.813, Speed: 0.008 -0.007 -0.011
-Signal: H=98.727 R=-4.422 P=3.930 Y=2.381
-Error in ref/measurement: X=0.378, 	 y=0.194, 	 H=-3.001
-Error XY reg: X=-0.839 Y=-0.434	 Error XY vel reg: X=-0.069 Y=-0.036 
+POS: -0.060 3.277 0.738, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.619 93.346 0.139, Speed: 0.032 0.080 -0.023
+Signal: H=95.129 R=4.315 P=-4.609 Y=0.274
+Error in ref/measurement: X=-0.491, 	 y=-0.513, 	 H=-1.674
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.080 Y=0.076	 Error H reg: 5.647 
 --------------------------------------------------------------------
 [85]
-POS: 2.926 2.642 0.494, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 0.988 55.384 0.937, Speed: -0.000 0.000 0.000
-Signal: H=98.738 R=-4.420 P=3.936 Y=2.382
-Error in ref/measurement: X=0.377, 	 y=0.196, 	 H=-3.001
-Error XY reg: X=-0.839 Y=-0.434	 Error XY vel reg: X=-0.069 Y=-0.036 
+POS: -0.030 3.351 0.709, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.887 93.323 -0.286, Speed: 0.029 0.076 -0.034
+Signal: H=95.153 R=4.294 P=-4.600 Y=0.278
+Error in ref/measurement: X=-0.461, 	 y=-0.440, 	 H=-1.702
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.079 Y=0.076	 Error H reg: 5.766 
 --------------------------------------------------------------------
 [86]
-POS: 2.927 2.642 0.494, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.122 55.374 0.880, Speed: -0.002 0.003 -0.000
-Signal: H=98.719 R=-4.419 P=3.932 Y=2.383
-Error in ref/measurement: X=0.378, 	 y=0.195, 	 H=-3.001
-Error XY reg: X=-0.839 Y=-0.434	 Error XY vel reg: X=-0.069 Y=-0.036 
+POS: 0.002 3.426 0.679, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.475 93.214 -0.202, Speed: 0.032 0.086 -0.032
+Signal: H=95.180 R=4.291 P=-4.559 Y=0.290
+Error in ref/measurement: X=-0.430, 	 y=-0.364, 	 H=-1.733
+Error XY reg: X=1.000 Y=0.999	 Error XY vel reg: X=0.079 Y=0.075	 Error H reg: 5.899 
 --------------------------------------------------------------------
 [87]
-POS: 2.927 2.642 0.494, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.142 55.352 0.825, Speed: 0.002 -0.002 -0.001
-Signal: H=98.734 R=-4.418 P=3.932 Y=2.383
-Error in ref/measurement: X=0.378, 	 y=0.195, 	 H=-3.001
-Error XY reg: X=-0.839 Y=-0.434	 Error XY vel reg: X=-0.069 Y=-0.036 
+POS: 0.036 3.504 0.651, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 3.815 93.135 0.048, Speed: 0.043 0.091 -0.026
+Signal: H=95.206 R=4.106 P=-3.631 Y=0.295
+Error in ref/measurement: X=-0.395, 	 y=-0.286, 	 H=-1.761
+Error XY reg: X=0.962 Y=0.831	 Error XY vel reg: X=0.075 Y=0.059	 Error H reg: 6.032 
 --------------------------------------------------------------------
 [88]
-POS: 2.927 2.642 0.494, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.038 55.383 0.911, Speed: -0.000 -0.001 0.000
-Signal: H=98.725 R=-4.419 P=3.935 Y=2.383
-Error in ref/measurement: X=0.377, 	 y=0.196, 	 H=-3.001
-Error XY reg: X=-0.839 Y=-0.434	 Error XY vel reg: X=-0.069 Y=-0.036 
+POS: 0.072 3.576 0.631, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.635 92.910 -0.581, Speed: 0.043 0.078 -0.014
+Signal: H=95.227 R=3.845 P=-2.972 Y=0.329
+Error in ref/measurement: X=-0.360, 	 y=-0.214, 	 H=-1.780
+Error XY reg: X=0.888 Y=0.664	 Error XY vel reg: X=0.070 Y=0.048	 Error H reg: 6.135 
 --------------------------------------------------------------------
 [89]
-POS: 2.927 2.642 0.494, OLD: 2.549 2.446 3.495, OLD heading: 100.878
-Angles: 1.118 55.356 0.858, Speed: -0.001 0.001 -0.001
-Signal: H=98.728 R=-4.418 P=3.932 Y=2.383
-Error in re
+POS: 0.108 3.630 0.621, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 5.577 92.846 -0.100, Speed: 0.037 0.048 -0.006
+Signal: H=95.239 R=3.518 P=-2.337 Y=0.362
+Error in ref/measurement: X=-0.324, 	 y=-0.160, 	 H=-1.791
+Error XY reg: X=0.810 Y=0.512	 Error XY vel reg: X=0.063 Y=0.038	 Error H reg: 6.196 
+--------------------------------------------------------------------
+[90]
+POS: 0.140 3.656 0.613, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 5.935 92.773 -0.898, Speed: 0.037 0.013 0.000
+Signal: H=95.248 R=3.186 P=-1.940 Y=0.379
+Error in ref/measurement: X=-0.292, 	 y=-0.134, 	 H=-1.798
+Error XY reg: X=0.734 Y=0.398	 Error XY vel reg: X=0.057 Y=0.031	 Error H reg: 6.238 
+--------------------------------------------------------------------
+[91]
+POS: 0.166 3.647 0.615, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 6.066 92.738 -1.049, Speed: 0.025 -0.027 0.002
+Signal: H=95.249 R=2.932 P=-1.855 Y=0.399
+Error in ref/measurement: X=-0.266, 	 y=-0.143, 	 H=-1.796
+Error XY reg: X=0.664 Y=0.342	 Error XY vel reg: X=0.053 Y=0.030	 Error H reg: 6.243 
+--------------------------------------------------------------------
+[92]
+POS: 0.176 3.603 0.620, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 5.792 92.719 -1.512, Speed: 0.004 -0.094 0.013
+Signal: H=95.246 R=2.759 P=-2.107 Y=0.390
+Error in ref/measurement: X=-0.256, 	 y=-0.187, 	 H=-1.791
+Error XY reg: X=0.612 Y=0.355	 Error XY vel reg: X=0.050 Y=0.034	 Error H reg: 6.228 
+--------------------------------------------------------------------
+[93]
+POS: 0.162 3.529 0.633, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 5.861 92.617 -2.243, Speed: -0.022 -0.095 0.009
+Signal: H=95.236 R=2.786 P=-2.646 Y=0.414
+Error in ref/measurement: X=-0.269, 	 y=-0.262, 	 H=-1.779
+Error XY reg: X=0.594 Y=0.441	 Error XY vel reg: X=0.051 Y=0.044	 Error H reg: 6.182 
+--------------------------------------------------------------------
+[94]
+POS: 0.126 3.427 0.647, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.784 92.913 -1.401, Speed: -0.045 -0.117 0.013
+Signal: H=95.224 R=2.982 P=-3.525 Y=0.381
+Error in ref/measurement: X=-0.306, 	 y=-0.363, 	 H=-1.764
+Error XY reg: X=0.620 Y=0.594	 Error XY vel reg: X=0.055 Y=0.059	 Error H reg: 6.121 
+--------------------------------------------------------------------
+[95]
+POS: 0.069 3.310 0.666, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.149 92.918 -1.110, Speed: -0.072 -0.136 0.019
+Signal: H=95.209 R=3.370 P=-4.590 Y=0.355
+Error in ref/measurement: X=-0.363, 	 y=-0.480, 	 H=-1.746
+Error XY reg: X=0.694 Y=0.802	 Error XY vel reg: X=0.063 Y=0.077	 Error H reg: 6.044 
+--------------------------------------------------------------------
+[96]
+POS: -0.003 3.192 0.689, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.821 93.076 -0.559, Speed: -0.085 -0.120 0.029
+Signal: H=95.190 R=3.899 P=-5.516 Y=0.348
+Error in ref/measurement: X=-0.435, 	 y=-0.598, 	 H=-1.722
+Error XY reg: X=0.809 Y=1.000	 Error XY vel reg: X=0.073 Y=0.092	 Error H reg: 5.948 
+--------------------------------------------------------------------
+[97]
+POS: -0.078 3.092 0.714, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.618 93.007 -0.129, Speed: -0.081 -0.094 0.033
+Signal: H=95.168 R=4.652 P=-5.534 Y=0.339
+Error in ref/measurement: X=-0.510, 	 y=-0.698, 	 H=-1.697
+Error XY reg: X=0.953 Y=1.000	 Error XY vel reg: X=0.086 Y=0.092	 Error H reg: 5.841 
+--------------------------------------------------------------------
+[98]
+POS: -0.147 3.016 0.739, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.274 92.912 0.719, Speed: -0.069 -0.069 0.021
+Signal: H=95.145 R=4.805 P=-5.344 Y=0.341
+Error in ref/measurement: X=-0.579, 	 y=-0.775, 	 H=-1.673
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.088 Y=0.089	 Error H reg: 5.727 
+--------------------------------------------------------------------
+[99]
+POS: -0.204 2.961 0.755, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.694 93.033 0.618, Speed: -0.053 -0.049 0.018
+Signal: H=95.127 R=4.712 P=-5.224 Y=0.342
+Error in ref/measurement: X=-0.636, 	 y=-0.829, 	 H=-1.657
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.087 Y=0.087	 Error H reg: 5.636 
+--------------------------------------------------------------------
+[100]
+POS: -0.246 2.925 0.766, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.789 93.225 1.035, Speed: -0.041 -0.035 0.005
+Signal: H=95.115 R=4.638 P=-5.141 Y=0.327
+Error in ref/measurement: X=-0.678, 	 y=-0.865, 	 H=-1.646
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.086 Y=0.085	 Error H reg: 5.577 
+--------------------------------------------------------------------
+[101]
+POS: -0.297 2.882 0.754, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 7.070 92.934 -3.824, Speed: -0.060 -0.053 -0.036
+Signal: H=95.117 R=4.738 P=-5.207 Y=0.357
+Error in ref/measurement: X=-0.729, 	 y=-0.908, 	 H=-1.658
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.087 Y=0.087	 Error H reg: 5.584 
+--------------------------------------------------------------------
+[102]
+POS: -0.366 2.803 0.700, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 8.891 93.852 1.407, Speed: -0.118 -0.249 -0.150
+Signal: H=95.152 R=4.822 P=-5.834 Y=0.245
+Error in ref/measurement: X=-0.798, 	 y=-0.987, 	 H=-1.712
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.091 Y=0.096	 Error H reg: 5.762 
+--------------------------------------------------------------------
+[103]
+POS: -0.404 2.667 0.643, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 6.631 94.295 7.266, Speed: -0.010 -0.185 -0.045
+Signal: H=95.206 R=4.452 P=-6.231 Y=0.101
+Error in ref/measurement: X=-0.836, 	 y=-1.123, 	 H=-1.768
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.086 Y=0.103	 Error H reg: 6.031 
+--------------------------------------------------------------------
+[104]
+POS: -0.357 2.485 0.633, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.164 94.567 5.214, Speed: 0.082 -0.193 0.014
+Signal: H=95.231 R=3.791 P=-6.205 Y=0.052
+Error in ref/measurement: X=-0.789, 	 y=-1.306, 	 H=-1.778
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.075 Y=0.103	 Error H reg: 6.156 
+--------------------------------------------------------------------
+[105]
+POS: -0.244 2.336 0.674, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 0.142 95.027 2.550, Speed: 0.309 -0.286 0.106
+Signal: H=95.209 R=2.843 P=-6.385 Y=-0.027
+Error in ref/measurement: X=-0.675, 	 y=-1.454, 	 H=-1.737
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.059 Y=0.107	 Error H reg: 6.043 
+--------------------------------------------------------------------
+[106]
+POS: -0.093 2.232 0.699, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.686 95.335 0.596, Speed: 0.528 -0.280 0.030
+Signal: H=95.178 R=2.412 P=-5.976 Y=-0.122
+Error in ref/measurement: X=-0.525, 	 y=-1.558, 	 H=-1.712
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.052 Y=0.100	 Error H reg: 5.889 
+--------------------------------------------------------------------
+[107]
+POS: 0.073 2.168 0.683, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 0.773 96.241 -0.481, Speed: 0.366 -0.107 -0.071
+Signal: H=95.179 R=2.809 P=-5.499 Y=-0.239
+Error in ref/measurement: X=-0.359, 	 y=-1.622, 	 H=-1.728
+Error XY reg: X=1.000 Y=1.000	 Error XY vel reg: X=0.059 Y=0.090	 Error H reg: 5.894 
+--------------------------------------------------------------------
+[108]
+POS: 0.217 2.141 0.638, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.219 96.506 -0.646, Speed: 0.160 -0.013 -0.061
+Signal: H=95.210 R=2.502 P=-5.143 Y=-0.329
+Error in ref/measurement: X=-0.215, 	 y=-1.649, 	 H=-1.773
+Error XY reg: X=0.845 Y=1.000	 Error XY vel reg: X=0.054 Y=0.084	 Error H reg: 6.052 
+--------------------------------------------------------------------
+[109]
+POS: 0.358 2.141 0.568, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.018 97.077 -0.457, Speed: 0.298 0.018 -0.159
+Signal: H=95.265 R=0.788 P=-4.797 Y=-0.437
+Error in ref/measurement: X=-0.074, 	 y=-1.649, 	 H=-1.843
+Error XY reg: X=0.526 Y=1.000	 Error XY vel reg: X=0.024 Y=0.081	 Error H reg: 6.327 
+--------------------------------------------------------------------
+[110]
+POS: 0.485 2.166 0.504, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.542 97.529 -1.907, Speed: 0.161 0.051 -0.086
+Signal: H=95.326 R=-0.220 P=-4.556 Y=-0.531
+Error in ref/measurement: X=0.053, 	 y=-1.625, 	 H=-1.908
+Error XY reg: X=0.221 Y=1.000	 Error XY vel reg: X=0.007 Y=0.079	 Error H reg: 6.628 
+--------------------------------------------------------------------
+[111]
+POS: 0.577 2.220 0.458, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.354 97.719 -5.698, Speed: 0.080 0.081 -0.039
+Signal: H=95.375 R=-1.231 P=-4.245 Y=-0.591
+Error in ref/measurement: X=0.145, 	 y=-1.570, 	 H=-1.954
+Error XY reg: X=-0.049 Y=1.000	 Error XY vel reg: X=-0.011 Y=0.076	 Error H reg: 6.874 
+--------------------------------------------------------------------
+[112]
+POS: 0.628 2.292 0.443, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 4.981 98.169 -1.463, Speed: 0.039 0.082 0.004
+Signal: H=95.399 R=-1.985 P=-4.102 Y=-0.668
+Error in ref/measurement: X=0.196, 	 y=-1.499, 	 H=-1.968
+Error XY reg: X=-0.252 Y=1.000	 Error XY vel reg: X=-0.024 Y=0.076	 Error H reg: 6.996 
+--------------------------------------------------------------------
+[113]
+POS: 0.651 2.352 0.456, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 5.549 98.459 -0.609, Speed: 0.045 0.150 0.039
+Signal: H=95.396 R=-2.537 P=-3.912 Y=-0.738
+Error in ref/measurement: X=0.219, 	 y=-1.438, 	 H=-1.956
+Error XY reg: X=-0.379 Y=1.000	 Error XY vel reg: X=-0.034 Y=0.074	 Error H reg: 6.981 
+--------------------------------------------------------------------
+[114]
+POS: 0.677 2.401 0.426, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.727 98.155 0.608, Speed: 0.044 0.083 0.020
+Signal: H=95.412 R=-2.958 P=-3.988 Y=-0.744
+Error in ref/measurement: X=0.245, 	 y=-1.390, 	 H=-1.985
+Error XY reg: X=-0.456 Y=1.000	 Error XY vel reg: X=-0.041 Y=0.076	 Error H reg: 7.058 
+--------------------------------------------------------------------
+[115]
+POS: 0.679 2.414 0.422, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.588 98.541 0.462, Speed: -0.014 -0.065 0.006
+Signal: H=95.422 R=-3.069 P=-4.511 Y=-0.747
+Error in ref/measurement: X=0.247, 	 y=-1.377, 	 H=-1.990
+Error XY reg: X=-0.517 Y=1.000	 Error XY vel reg: X=-0.041 Y=0.086	 Error H reg: 7.110 
+--------------------------------------------------------------------
+[116]
+POS: 0.681 2.417 0.420, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.007 98.438 0.076, Speed: 0.016 0.048 -0.005
+Signal: H=95.422 R=-3.174 P=-4.099 Y=-0.736
+Error in ref/measurement: X=0.249, 	 y=-1.374, 	 H=-1.991
+Error XY reg: X=-0.537 Y=1.000	 Error XY vel reg: X=-0.044 Y=0.079	 Error H reg: 7.112 
+--------------------------------------------------------------------
+[117]
+POS: 0.680 2.408 0.421, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 2.201 98.287 0.124, Speed: -0.007 -0.021 0.003
+Signal: H=95.423 R=-3.238 P=-4.421 Y=-0.742
+Error in ref/measurement: X=0.248, 	 y=-1.382, 	 H=-1.990
+Error XY reg: X=-0.547 Y=1.000	 Error XY vel reg: X=-0.045 Y=0.085	 Error H reg: 7.116 
+--------------------------------------------------------------------
+[118]
+POS: 0.682 2.419 0.420, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 0.772 98.555 0.201, Speed: 0.001 0.001 0.000
+Signal: H=95.423 R=-3.272 P=-4.214 Y=-0.759
+Error in ref/measurement: X=0.250, 	 y=-1.371, 	 H=-1.991
+Error XY reg: X=-0.551 Y=1.000	 Error XY vel reg: X=-0.046 Y=0.081	 Error H reg: 7.116 
+--------------------------------------------------------------------
+[119]
+POS: 0.681 2.414 0.421, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.670 98.509 0.422, Speed: 0.002 0.013 -0.001
+Signal: H=95.423 R=-3.271 P=-4.264 Y=-0.759
+Error in ref/measurement: X=0.249, 	 y=-1.377, 	 H=-1.991
+Error XY reg: X=-0.552 Y=1.000	 Error XY vel reg: X=-0.045 Y=0.082	 Error H reg: 7.115 
+--------------------------------------------------------------------
+[120]
+POS: 0.681 2.413 0.421, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.722 98.479 0.420, Speed: 0.003 -0.012 -0.000
+Signal: H=95.423 R=-3.280 P=-4.319 Y=-0.752
+Error in ref/measurement: X=0.249, 	 y=-1.377, 	 H=-1.991
+Error XY reg: X=-0.553 Y=1.000	 Error XY vel reg: X=-0.046 Y=0.083	 Error H reg: 7.116 
+--------------------------------------------------------------------
+[121]
+POS: 0.681 2.416 0.420, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.013 98.477 0.009, Speed: -0.001 -0.004 0.002
+Signal: H=95.423 R=-3.277 P=-4.267 Y=-0.750
+Error in ref/measurement: X=0.249, 	 y=-1.374, 	 H=-1.991
+Error XY reg: X=-0.553 Y=1.000	 Error XY vel reg: X=-0.046 Y=0.082	 Error H reg: 7.117 
+--------------------------------------------------------------------
+[122]
+POS: 0.681 2.415 0.420, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.244 98.371 0.016, Speed: 0.001 0.006 0.000
+Signal: H=95.423 R=-3.265 P=-4.268 Y=-0.757
+Error in ref/measurement: X=0.249, 	 y=-1.375, 	 H=-1.991
+Error XY reg: X=-0.553 Y=1.000	 Error XY vel reg: X=-0.046 Y=0.082	 Error H reg: 7.116 
+--------------------------------------------------------------------
+[123]
+POS: 0.681 2.414 0.421, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.567 98.478 0.366, Speed: 0.005 -0.005 -0.000
+Signal: H=95.423 R=-3.282 P=-4.294 Y=-0.753
+Error in ref/measurement: X=0.249, 	 y=-1.376, 	 H=-1.991
+Error XY reg: X=-0.553 Y=1.000	 Error XY vel reg: X=-0.046 Y=0.083	 Error H reg: 7.116 
+--------------------------------------------------------------------
+[124]
+POS: 0.681 2.415 0.421, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.203 98.515 0.318, Speed: 0.000 0.001 0.005
+Signal: H=95.423 R=-3.280 P=-4.281 Y=-0.744
+Error in ref/measurement: X=0.249, 	 y=-1.375, 	 H=-1.991
+Error XY reg: X=-0.553 Y=1.000	 Error XY vel reg: X=-0.046 Y=0.082	 Error H reg: 7.116 
+--------------------------------------------------------------------
+[125]
+POS: 0.681 2.415 0.420, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.196 98.380 0.010, Speed: -0.001 0.001 -0.001
+Signal: H=95.423 R=-3.270 P=-4.271 Y=-0.748
+Error in ref/measurement: X=0.249, 	 y=-1.375, 	 H=-1.991
+Error XY reg: X=-0.553 Y=1.000	 Error XY vel reg: X=-0.046 Y=0.082	 Error H reg: 7.116 
+--------------------------------------------------------------------
+[126]
+POS: 0.681 2.415 0.421, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.449 98.499 0.378, Speed: 0.001 0.003 0.001
+Signal: H=95.423 R=-3.281 P=-4.275 Y=-0.756
+Error in ref/measurement: X=0.249, 	 y=-1.376, 	 H=-1.991
+Error XY reg: X=-0.553 Y=1.000	 Error XY vel reg: X=-0.046 Y=0.082	 Error H reg: 7.116 
+--------------------------------------------------------------------
+[127]
+POS: 0.681 2.415 0.421, OLD: 0.432 3.790 2.411, OLD heading: 94.692
+Angles: 1.294 98.529 0.320, Speed: 0.000 -0.002 -0.001
+Signal: H=95.423 R=-3.283 P=-4.285 Y=-0.749
+Error in ref/measurement: X=0.249, 	 y=-1.376, 	 H=-1.991

@@ -1,7 +1,7 @@
 #ifndef PID_H
 #define PID_H
 #include <cstdlib>
-enum RegType { RegP, RegPI, RegPLead, RegPILead, RegHeight };
+enum RegType { RegP, RegPI, RegPLead, RegPILead };
 // Create a class called PID
 class PID {
 

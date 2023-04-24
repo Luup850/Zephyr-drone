@@ -54,5 +54,5 @@ void Controller::tick_matlab()
 
     out_roll = m_pid_x->out * sin(*psi) + cos(*psi) * m_pid_y->out;
 
-    out_pitch = m_pid_x->out * cos(*psi) + sin(*psi) * m_pid_y->out;
+    out_pitch = m_pid_x->out * cos(*psi) - sin(*psi) * m_pid_y->out;
 }

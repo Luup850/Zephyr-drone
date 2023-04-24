@@ -113,7 +113,7 @@ double PID::output()
     if(yaw_control == false)
         res = (ref - yl[0]) * kp + yi[0];
     else
-        res = angle_diff(ref, yl[0]) * kp + yi[0];
+        res = (angle_diff(ref, yl[0]) * kp + yi[0]) * 57.2957795; // Convert to degrees instead of radians to follow the matlab model
     
     if(res < m_min)
     {
@@ -135,15 +135,7 @@ double PID::output()
 // Need to run at the same speed as Ts
 void PID::tick()
 {
-    if(m_type == RegHeight)
-    {
-        yl[0] = *measurement;
-    }
-    else
-    {
-        lead();
-    }
-
+    lead();
     integral();
     output();
     // Last thing to do.
@@ -168,21 +160,26 @@ void PID::limit_output(double max, double min)
 double PID::angle_diff(double x, double y)
 {
     double out = 0.0;
-    double a = x + 180.0;
-    double b = y + 180.0;
+    double a = (x * 57.2957795) + 180.0;
+    double b = (y * 57.2957795) + 180.0;
 
     if (abs(a - b) <= 180)
-        if(a > b)
-            out = (b - a);
-        else
-            out = (b - a);
-    else
-        if(a > b)
-            out = (-360) + (a - b);
-        else
-            out = 360 + (a - b);
+    {
         out = (a - b);
+    }
+    else
+    {
+        if(a > b)
+        {
+            out = 360.0 - (a - b);
+        }
+        else
+        {
+            out = -(360.0 + (a - b));
+        }
+    }
 
     //printf("Test1 %.3f\n", out);
+    out = out / 57.2957795;
     return out;
 }

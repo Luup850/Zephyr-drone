@@ -79,11 +79,11 @@ signal.h
 -
 time.h
 -
+sys/types.h
+-
 cinttypes
 -
 unistd.h
--
-stdio.h
 -
 string.h
 -
@@ -96,6 +96,8 @@ ifaddrs.h
 netinet/in.h
 -
 arpa/inet.h
+-
+signal.h
 -
 optidata.h
 -
