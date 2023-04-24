@@ -64,16 +64,16 @@ hoverVoltage 7.23165
 num 0 0 0 2.95289 132.732 1988.77 9932.8 -0.000949512 0.00029279 7.20445e-10 2.11287e-13
 den 1 55.132 1059.25 6988.12 -14195 -241956 0.25511 -0.0230721 0.000208738 -2.02068e-10 2.11041e-11
 # crossover frequency (rad/s)
-crossover 0.322641 (1.98689)
-kp 3.82283
+crossover 1.0721 (4.07631)
+kp 13.8216
 # Has I-term
-tau_i 2.0132
+tau_i 0.98128
 Ni 4
 # Has Lead-term
-tau_d 1.59157
-alpha 0.1
+tau_d 0.927223
+alpha 0.07
 # phase margin (deg)
-gamma_m -120.142 (35)
+gamma_m -84.2026 (32)
 #
 #
 # Roll velocity control

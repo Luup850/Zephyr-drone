@@ -28,7 +28,7 @@
 #define LOG_TO_FILE true
 #define LOG true
 #define TS (1.0/60.0)
-#define HOVER_VALUE 94.0
+#define HOVER_VALUE 83.0
 
 bool startNatNetConnection(const char * argv0);
 void unpack(char * pData);
@@ -93,7 +93,7 @@ int main(int argc, char **argv)
     serial_if *sf = new serial_if();
     Drone* drone;
     drone = new Drone();
-    ctrl_h = new PID(RegPLead, TS);
+    ctrl_h = new PID(RegPILead, TS);
     ctrl_yaw = new PID(RegPLead, TS);
     ctrl_vel_x = new PID(RegPLead, TS);
     ctrl_vel_y = new PID(RegPLead, TS);
@@ -126,7 +126,7 @@ int main(int argc, char **argv)
 
     // PID values from model for height.
     // h1 Kp = 26.7, ti=1.2, td = 1.26. Default values in matlab are kp = 60, ti = 1, td = 1.
-    ctrl_h->set_gains(4.5053, 0.0, 1.5541, 0.07);
+    ctrl_h->set_gains(10.1072, 1.2, 5.26, 0.2);
     // MATLAB vel control PD: 0.0823, 0, 0.5087
     ctrl_vel_x->set_gains(0.0823, 0, 0.5022, 0.1);
     ctrl_vel_y->set_gains(0.0823, 0, 0.5022, 0.1);

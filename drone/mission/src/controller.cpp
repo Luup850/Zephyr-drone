@@ -51,8 +51,8 @@ void Controller::tick()
 
 void Controller::tick_matlab()
 {
+    // Output should be in degrees, hence the (180.0/M_PI).
+    out_roll  = (m_pid_x->out * sin(*psi) + cos(*psi) * m_pid_y->out) * (180.0/M_PI);
 
-    out_roll = m_pid_x->out * sin(*psi) + cos(*psi) * m_pid_y->out;
-
-    out_pitch = m_pid_x->out * cos(*psi) - sin(*psi) * m_pid_y->out;
+    out_pitch = (m_pid_x->out * cos(*psi) - sin(*psi) * m_pid_y->out) * (180.0/M_PI);
 }
