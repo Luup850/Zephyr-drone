@@ -320,7 +320,7 @@ h1al = 0.1;
 h1Ni = 4;
 %[hvw, hvkp, hvti, hvtd] = findpid(Ghv, hvgm, hvNi, hval)
 display("Height controller") % Marcus
-[h1w, h1kp, h1ti, h1td] = findpid(Gh1a, h1gm,  h1Ni, h1al)
+%[h1w, h1kp, h1ti, h1td] = findpid(Gh1a, h1gm,  h1Ni, h1al)
 %[h1w, h1kp, h1td] = findpd(Gh1a, h1gm, h1al)
 % result:
 % h1kp = 26.7; h1ti=1.2; h1td = 1.26;
