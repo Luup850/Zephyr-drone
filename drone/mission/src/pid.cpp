@@ -22,6 +22,8 @@ PID::PID(RegType type, double interval)
     // Initialize min/max
     m_min = -99999;
     m_max = 99999;
+    m_i_min = -99999;
+    m_i_max = 99999;
 
     enable_i = false;
     enable_lead = false;
@@ -101,8 +103,16 @@ double PID::integral()
     }
 
     // Integral
-    yi[0] = ((2 * tau_i * yi[1]) + (Ts * ui[1]) + (Ts * ui[0])) / (2 * tau_i);
+    double tmp = 0.0;
+    tmp = ((2 * tau_i * yi[1]) + (Ts * ui[1]) + (Ts * ui[0])) / (2 * tau_i);
     
+    if(tmp > m_i_max)
+        tmp = m_i_max;
+    else if(tmp < m_i_min)
+        tmp = m_i_min;
+
+    yi[0] = tmp;
+
     return yi[0];
 }
 
@@ -156,7 +166,7 @@ void PID::limit_output(double max, double min)
     m_max = max;
 }
 
-// x = ref, y = measurement.
+// x = ref, y = measurement. Returns output in radians.
 double PID::angle_diff(double x, double y)
 {
     double out = 0.0;
@@ -180,6 +190,13 @@ double PID::angle_diff(double x, double y)
     }
 
     //printf("Test1 %.3f\n", out);
+    // Return as radians
     out = out / 57.2957795;
     return out;
+}
+
+void PID::limit_integral(double max, double min)
+{
+    m_i_max = max;
+    m_i_min = min;
 }

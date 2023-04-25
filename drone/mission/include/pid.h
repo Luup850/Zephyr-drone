@@ -16,7 +16,7 @@ private:
 
     RegType m_type;
 
-    double m_min, m_max;
+    double m_min, m_max, m_i_min, m_i_max;
 
     double angle_diff(double x, double y);
 
@@ -45,6 +45,7 @@ public:
     // Returns the measurement with the lead applied
     double lead();
     double integral();
+    void limit_integral(double max, double min);
     double output();
     void set_gains(double Kp, double taui, double taud, double a);
     void limit_output(double max, double min);

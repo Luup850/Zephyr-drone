@@ -1,7 +1,7 @@
 # Result of drone configuration
 # from mobotware/drone_ctrl/trunk/doc/Matlab/hexacopter.m
 # simulink model name hexacopter_sim.slx
-# date 24-Apr-2023
+# date 25-Apr-2023
 #
 [base]
 # NB! all motor actuator output are

@@ -28,7 +28,7 @@
 #define LOG_TO_FILE true
 #define LOG true
 #define TS (1.0/60.0)
-#define HOVER_VALUE 83.0
+#define HOVER_VALUE 90.0
 
 bool startNatNetConnection(const char * argv0);
 void unpack(char * pData);
@@ -97,8 +97,8 @@ int main(int argc, char **argv)
     ctrl_yaw = new PID(RegPLead, TS);
     ctrl_vel_x = new PID(RegPLead, TS);
     ctrl_vel_y = new PID(RegPLead, TS);
-    ctrl_x = new PID(RegPLead, TS);
-    ctrl_y = new PID(RegPLead, TS);
+    ctrl_x = new PID(RegP, TS);
+    ctrl_y = new PID(RegP, TS);
     Controller* ctrl_pos = new Controller(&PX, &PY, &PZ, &R, &P, &Y, ctrl_vel_x, ctrl_vel_y);
 
 
@@ -119,21 +119,23 @@ int main(int argc, char **argv)
     //usleep(500000);
     bool isOK = startNatNetConnection(argv[0]);
     usleep(500000);
-    double x_tmp = PX, y_tmp = PY, z_tmp = PZ + 2.0 /* For set height*/, yaw_tmp = Y * (180.0/M_PI);
+    double x_tmp = PX, y_tmp = PY, z_tmp/* For set height*/, yaw_tmp = Y * (180.0/M_PI);
 
     char str[100];
     int count = 0;
 
     // PID values from model for height.
     // h1 Kp = 26.7, ti=1.2, td = 1.26. Default values in matlab are kp = 60, ti = 1, td = 1.
-    ctrl_h->set_gains(10.1072, 1.2, 5.26, 0.2);
+    // Bouncy but decent results findpid(Gh1a, 32,  3.5, 0.1).
+    ctrl_h->set_gains(4.8, 1.56, 1.4175, 0.1);
+    //ctrl_h->limit_integral(25,-25);
     // MATLAB vel control PD: 0.0823, 0, 0.5087
-    ctrl_vel_x->set_gains(0.0823, 0, 0.5022, 0.1);
-    ctrl_vel_y->set_gains(0.0823, 0, 0.5022, 0.1);
+    ctrl_vel_x->set_gains(0.1, 0, 0.4744, 0.2);
+    ctrl_vel_y->set_gains(0.1, 0, 0.4744, 0.2);
     // Limit speed to 1 m/s
     // MATLAB PID pos control: 0.6749, 3.7413, 1.7077. PD 1.2168, 1.1303. P 0.5343
-    ctrl_x->set_gains(2.2228,0,1.1248,0.3);
-    ctrl_y->set_gains(2.2228,0,1.1248,0.3);
+    ctrl_x->set_gains(0.9386, 0, 0, 0.2);
+    ctrl_y->set_gains(0.9386, 0, 0, 0.2);
     ctrl_x->limit_output(1, -1);
     ctrl_y->limit_output(1, -1);
 
@@ -145,6 +147,7 @@ int main(int argc, char **argv)
     ctrl_y->ref = PY;
     ctrl_yaw->ref = Y;
     ctrl_h->ref = 2.0;
+    z_tmp = ctrl_h->ref;
 
     // Controller measurement
     ctrl_x->measurement = &PX;
@@ -182,11 +185,14 @@ int main(int argc, char **argv)
 
         double error_h = (ctrl_h->out / 5.0) + HOVER_VALUE;
 
+        if(error_h > 100.0)
+            error_h = 100.0;
+
         //double error_h = 50.0 - 82.0;
         double error_yaw = (ctrl_yaw->out);// * (180.0/M_PI); // Convert to degree
         //double error_yaw = 0;
-        double error_roll = (ctrl_pos->out_roll) * (180.0/M_PI); // Convert to degrees
-        double error_pitch = (ctrl_pos->out_pitch) * (180.0/M_PI); // Convert to degrees
+        double error_roll = (ctrl_pos->out_roll); // Convert to degrees
+        double error_pitch = (ctrl_pos->out_pitch); // Convert to degrees
         // Height roll pitch yaw.
         sprintf(str, "ref %f %f %f %f", error_h, error_roll, error_pitch, error_yaw);
         sf->sendmsg(str);
