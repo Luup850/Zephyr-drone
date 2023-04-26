@@ -12,6 +12,18 @@ pid.h
 
 ../include/drone.h
 
+../include/logger.h
+stdio.h
+-
+unistd.h
+-
+chrono
+-
+string.h
+-
+time.h
+-
+
 ../include/main.h
 
 ../include/optidata.h
@@ -109,4 +121,6 @@ pid.h
 /home/local/mdch/mission/pid.h
 serial_if.h
 /home/local/mdch/mission/serial_if.h
+logger.h
+/home/local/mdch/mission/logger.h
 

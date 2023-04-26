@@ -204,6 +204,33 @@ src/drone.cpp.s:
 	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/drone.cpp.s
 .PHONY : src/drone.cpp.s
 
+src/logger.o: src/logger.cpp.o
+
+.PHONY : src/logger.o
+
+# target to build an object file
+src/logger.cpp.o:
+	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/logger.cpp.o
+.PHONY : src/logger.cpp.o
+
+src/logger.i: src/logger.cpp.i
+
+.PHONY : src/logger.i
+
+# target to preprocess a source file
+src/logger.cpp.i:
+	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/logger.cpp.i
+.PHONY : src/logger.cpp.i
+
+src/logger.s: src/logger.cpp.s
+
+.PHONY : src/logger.s
+
+# target to generate assembly for a file
+src/logger.cpp.s:
+	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/logger.cpp.s
+.PHONY : src/logger.cpp.s
+
 src/optidata.o: src/optidata.cpp.o
 
 .PHONY : src/optidata.o
@@ -330,6 +357,9 @@ help:
 	@echo "... src/drone.o"
 	@echo "... src/drone.i"
 	@echo "... src/drone.s"
+	@echo "... src/logger.o"
+	@echo "... src/logger.i"
+	@echo "... src/logger.s"
 	@echo "... src/optidata.o"
 	@echo "... src/optidata.i"
 	@echo "... src/optidata.s"

@@ -11,6 +11,9 @@ CMakeFiles/uav.dir/src/controller.cpp.o: ../src/controller.cpp
 CMakeFiles/uav.dir/src/drone.cpp.o: ../include/drone.h
 CMakeFiles/uav.dir/src/drone.cpp.o: ../src/drone.cpp
 
+CMakeFiles/uav.dir/src/logger.cpp.o: ../include/logger.h
+CMakeFiles/uav.dir/src/logger.cpp.o: ../src/logger.cpp
+
 CMakeFiles/uav.dir/src/optidata.cpp.o: ../include/main.h
 CMakeFiles/uav.dir/src/optidata.cpp.o: ../include/optidata.h
 CMakeFiles/uav.dir/src/optidata.cpp.o: ../src/optidata.cpp
@@ -23,6 +26,7 @@ CMakeFiles/uav.dir/src/serial_if.cpp.o: ../src/serial_if.cpp
 
 CMakeFiles/uav.dir/uavmain.cpp.o: ../include/controller.h
 CMakeFiles/uav.dir/uavmain.cpp.o: ../include/drone.h
+CMakeFiles/uav.dir/uavmain.cpp.o: ../include/logger.h
 CMakeFiles/uav.dir/uavmain.cpp.o: ../include/main.h
 CMakeFiles/uav.dir/uavmain.cpp.o: ../include/optidata.h
 CMakeFiles/uav.dir/uavmain.cpp.o: ../include/pid.h

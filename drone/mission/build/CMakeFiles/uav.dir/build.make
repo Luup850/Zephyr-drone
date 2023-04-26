@@ -109,9 +109,22 @@ CMakeFiles/uav.dir/src/drone.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/uav.dir/src/drone.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/mdch/mission/src/drone.cpp -o CMakeFiles/uav.dir/src/drone.cpp.s
 
+CMakeFiles/uav.dir/src/logger.cpp.o: CMakeFiles/uav.dir/flags.make
+CMakeFiles/uav.dir/src/logger.cpp.o: ../src/logger.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/mdch/mission/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/uav.dir/src/logger.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/uav.dir/src/logger.cpp.o -c /home/local/mdch/mission/src/logger.cpp
+
+CMakeFiles/uav.dir/src/logger.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/uav.dir/src/logger.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/local/mdch/mission/src/logger.cpp > CMakeFiles/uav.dir/src/logger.cpp.i
+
+CMakeFiles/uav.dir/src/logger.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/uav.dir/src/logger.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/local/mdch/mission/src/logger.cpp -o CMakeFiles/uav.dir/src/logger.cpp.s
+
 CMakeFiles/uav.dir/src/optidata.cpp.o: CMakeFiles/uav.dir/flags.make
 CMakeFiles/uav.dir/src/optidata.cpp.o: ../src/optidata.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/mdch/mission/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/uav.dir/src/optidata.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/mdch/mission/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/uav.dir/src/optidata.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/uav.dir/src/optidata.cpp.o -c /home/local/mdch/mission/src/optidata.cpp
 
 CMakeFiles/uav.dir/src/optidata.cpp.i: cmake_force
@@ -124,7 +137,7 @@ CMakeFiles/uav.dir/src/optidata.cpp.s: cmake_force
 
 CMakeFiles/uav.dir/src/pid.cpp.o: CMakeFiles/uav.dir/flags.make
 CMakeFiles/uav.dir/src/pid.cpp.o: ../src/pid.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/mdch/mission/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/uav.dir/src/pid.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/mdch/mission/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/uav.dir/src/pid.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/uav.dir/src/pid.cpp.o -c /home/local/mdch/mission/src/pid.cpp
 
 CMakeFiles/uav.dir/src/pid.cpp.i: cmake_force
@@ -137,7 +150,7 @@ CMakeFiles/uav.dir/src/pid.cpp.s: cmake_force
 
 CMakeFiles/uav.dir/src/serial_if.cpp.o: CMakeFiles/uav.dir/flags.make
 CMakeFiles/uav.dir/src/serial_if.cpp.o: ../src/serial_if.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/mdch/mission/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/uav.dir/src/serial_if.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/local/mdch/mission/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/uav.dir/src/serial_if.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/uav.dir/src/serial_if.cpp.o -c /home/local/mdch/mission/src/serial_if.cpp
 
 CMakeFiles/uav.dir/src/serial_if.cpp.i: cmake_force
@@ -154,6 +167,7 @@ uav_OBJECTS = \
 "CMakeFiles/uav.dir/src/PacketClient.cpp.o" \
 "CMakeFiles/uav.dir/src/controller.cpp.o" \
 "CMakeFiles/uav.dir/src/drone.cpp.o" \
+"CMakeFiles/uav.dir/src/logger.cpp.o" \
 "CMakeFiles/uav.dir/src/optidata.cpp.o" \
 "CMakeFiles/uav.dir/src/pid.cpp.o" \
 "CMakeFiles/uav.dir/src/serial_if.cpp.o"
@@ -165,12 +179,13 @@ uav: CMakeFiles/uav.dir/uavmain.cpp.o
 uav: CMakeFiles/uav.dir/src/PacketClient.cpp.o
 uav: CMakeFiles/uav.dir/src/controller.cpp.o
 uav: CMakeFiles/uav.dir/src/drone.cpp.o
+uav: CMakeFiles/uav.dir/src/logger.cpp.o
 uav: CMakeFiles/uav.dir/src/optidata.cpp.o
 uav: CMakeFiles/uav.dir/src/pid.cpp.o
 uav: CMakeFiles/uav.dir/src/serial_if.cpp.o
 uav: CMakeFiles/uav.dir/build.make
 uav: CMakeFiles/uav.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/local/mdch/mission/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable uav"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/local/mdch/mission/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable uav"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/uav.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

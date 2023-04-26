@@ -23,12 +23,13 @@
 #include "controller.h"
 #include "pid.h"
 #include "serial_if.h"
+#include "logger.h"
 
 // Defines
 #define LOG_TO_FILE true
-#define LOG true
+#define LOG false
 #define TS (1.0/60.0)
-#define HOVER_VALUE 90.0
+#define HOVER_VALUE 88.0
 
 bool startNatNetConnection(const char * argv0);
 void unpack(char * pData);
@@ -55,6 +56,9 @@ struct itimerval it;
 struct timeval tv;
 sigset_t signalset;
 int sig;
+
+// Logging
+Logger *lg;
 
 
 // Pitch, yaw, roll
@@ -101,6 +105,9 @@ int main(int argc, char **argv)
     ctrl_y = new PID(RegP, TS);
     Controller* ctrl_pos = new Controller(&PX, &PY, &PZ, &R, &P, &Y, ctrl_vel_x, ctrl_vel_y);
 
+//{PX, PY, PZ, P, Y, R, error_h, error_roll, error_pitch, error_yaw}
+    lg = new Logger("X, Y, Z, Pitch, Yaw, Roll, errorHeight, errorRoll, errorPitch, errorYaw");
+
 
     // Velocity calculations.
     pthread_t vel_thread;
@@ -128,7 +135,7 @@ int main(int argc, char **argv)
     // h1 Kp = 26.7, ti=1.2, td = 1.26. Default values in matlab are kp = 60, ti = 1, td = 1.
     // Bouncy but decent results findpid(Gh1a, 32,  3.5, 0.1).
     ctrl_h->set_gains(4.8, 1.56, 1.4175, 0.1);
-    //ctrl_h->limit_integral(25,-25);
+    //ctrl_h->limit_integral(25,0);
     // MATLAB vel control PD: 0.0823, 0, 0.5087
     ctrl_vel_x->set_gains(0.1, 0, 0.4744, 0.2);
     ctrl_vel_y->set_gains(0.1, 0, 0.4744, 0.2);
@@ -146,7 +153,7 @@ int main(int argc, char **argv)
     ctrl_x->ref = PX;
     ctrl_y->ref = PY;
     ctrl_yaw->ref = Y;
-    ctrl_h->ref = 2.0;
+    ctrl_h->ref = 3.0;
     z_tmp = ctrl_h->ref;
 
     // Controller measurement
@@ -170,16 +177,13 @@ int main(int argc, char **argv)
 
     }
 
+
+    // Control Loop
     int tst = 0;
     while(isOK)
     {
 
         usleep(50000);
-        //ctrl_h->tick();
-        //ctrl_x->tick();
-        //ctrl_y->tick();
-        //ctrl_vel_x->tick();
-        //ctrl_vel_y->tick();
         ctrl_pos->tick_matlab();
         
 
@@ -196,7 +200,9 @@ int main(int argc, char **argv)
         // Height roll pitch yaw.
         sprintf(str, "ref %f %f %f %f", error_h, error_roll, error_pitch, error_yaw);
         sf->sendmsg(str);
-
+        
+        double to_log[] = {PX, PY, PZ, P, Y, R, error_h, error_roll, error_pitch, error_yaw};
+        lg->log(to_log, 10);
         // Logging
         if( count > 5 and LOG == true)
         {
