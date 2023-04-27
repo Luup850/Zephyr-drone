@@ -253,7 +253,7 @@ load_system(model);
 open_system(model);
 ios(1) = linio('hexacopter_sim/base_controlled_drone/trust_in',1,'openinput');
 ios(2) = linio('hexacopter_sim/base_controlled_drone/drone_hardware',2,'openoutput');
-%ios(2) = linio('hexacopter_sim/base_controlled_drone/platform',1,'openoutput');
+%ios(2) = linio('hexacopter_sim/base_controlled_drone/z_pos',1,'openoutput');
 setlinio(model,ios);
 % Use the snapshot times 2 and 10 seconds
 op = [2,10];
@@ -341,7 +341,7 @@ display("Height controller") % Marcus
 % h1kp = 26.7; h1ti=1.2; h1td = 1.26;
 z = tf('z',Ts);
 h1_d = h1kp * (((120*z-120)*h1ti+z+1) / (120*h1ti*(z-1))) * (((120*z-120)*h1td+z+1)/(120*h1al*(z-1)*h1td+z+1));
-Gh1a_h1_discrete = c2d(Gh1a, Ts, 'zoh') * h1_d;
+Gh1a_h1_discrete = c2d(Gh1, Ts, 'zoh') * h1_d;
 
 %% debug and save result
 showResult(debugPlot,resultFile,filename, 'height_in_1_ctrl', Gh1, ...
