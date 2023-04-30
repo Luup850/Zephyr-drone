@@ -341,6 +341,7 @@ display("Height controller") % Marcus
 % h1kp = 26.7; h1ti=1.2; h1td = 1.26;
 z = tf('z',Ts);
 Gh1_discrete = c2d(Gh1, Ts, 'zoh') * 10.24; % Last part is to go from 0-1024 to 0-100 power.
+bode(Gh1_discrete * c2d(tf([5 1], [5*0.2 1]),Ts,'tustin') * c2d(tf([5 1], [5]),Ts,'tustin'));
 %h1_d = h1kp * (((120*z-120)*h1ti+z+1) / (120*h1ti*(z-1))) * (((120*z-120)*h1td+z+1)/(120*h1al*(z-1)*h1td+z+1));
 %Gh1_h1_discrete = c2d(Gh1, Ts, 'zoh') * h1_d;
 
