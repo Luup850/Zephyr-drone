@@ -1,7 +1,7 @@
-%h1kp = 1;
+h1kp = 1;
 h1ti = 0;
 h1al = 0.07;
-h1Ni = 3;
+h1Ni = 4;
 
 gm = 32;
 phi_d = asind((1-h1al)/(1+h1al)); % Phase increase at peak
@@ -14,12 +14,13 @@ target = 2.36
 h1td = 1 / (sqrt(h1al) * target)
 
 h1ti = h1Ni * (1/ target)
-% -16 db at target frequency 0.65.
-%h1kp = 10^(16/20)
+
+h1kp = 10^(33.1/20)
+%h1kp = 1;
 % Lead controller
 c_d = c2d(tf([h1td 1], [h1td*h1al 1]), Ts, 'tustin');
 c_i = c2d(tf([h1ti 1], [h1ti 0]),Ts,'tustin');
-c_i = 1;
+%c_i = 1;
 
 M_d = 1/h1al;
 M_i = sqrt(1+(1/(h1Ni^2)))
