@@ -10,7 +10,7 @@ private:
     //double yl[2], ul[2];
 
     // Integral values
-    double yi[2], ui[2];
+    //double yi[2], ui[2];
 
     int tick_count = 0;
 
@@ -23,6 +23,7 @@ private:
 public:
     // Public only for testing
     double yl[2], ul[2];
+    double yi[2], ui[2];
 
     double *measurement;
     double out;

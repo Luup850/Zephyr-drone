@@ -12,9 +12,10 @@ private:
     bool firstLog = true;
     clock_t m_time, m_prev_time;
     FILE *lg;
+    bool m_logOn;
 
 public:
-    Logger(char name[]);
+    Logger(char name[], bool logOn);
     void log(double var[], int len);
 };
 

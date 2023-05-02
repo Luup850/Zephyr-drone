@@ -1,23 +1,30 @@
 #include "logger.h"
 
-Logger::Logger(char name[])
+Logger::Logger(char name[], bool logOn)
 {
+    m_logOn = logOn;
     // Make log file with current time as name
-    auto now = std::chrono::system_clock::now();
-    auto now_c = std::chrono::system_clock::to_time_t(now);
-    char *time = ctime(&now_c);
-    time[strlen(time)-1] = '\0';
-    char filename[100];
-    sprintf(filename, "logs/%s.log", time);
-    lg = fopen(filename, "a+");
+    if(logOn)
+    {
+        auto now = std::chrono::system_clock::now();
+        auto now_c = std::chrono::system_clock::to_time_t(now);
+        char *time = ctime(&now_c);
+        time[strlen(time)-1] = '\0';
+        char filename[100];
+        sprintf(filename, "logs/%s.log", time);
+        lg = fopen(filename, "a+");
 
-    fprintf(lg, "Time");
-    fprintf(lg, ", %s", name);
-    fprintf(lg, "\n");
+        fprintf(lg, "Time");
+        fprintf(lg, ", %s", name);
+        fprintf(lg, "\n");
+    }
 }
 
 void Logger::log(double var[], int len)
 {
+    if(m_logOn == false)
+        return;
+
     double time;
     if(firstLog)
     {

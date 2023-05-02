@@ -26,10 +26,11 @@
 #include "logger.h"
 
 // Defines
-#define LOG_TO_FILE true
-#define LOG false
+#define LOG_TO_FILE false
+#define LOG true
 #define TS (1.0/60.0)
-#define HOVER_VALUE 88.0
+#define HOVER_VALUE 87.0
+#define DRONE_ID 24152
 
 bool startNatNetConnection(const char * argv0);
 void unpack(char * pData);
@@ -106,7 +107,7 @@ int main(int argc, char **argv)
     Controller* ctrl_pos = new Controller(&PX, &PY, &PZ, &R, &P, &Y, ctrl_vel_x, ctrl_vel_y);
 
 //{PX, PY, PZ, P, Y, R, error_h, error_roll, error_pitch, error_yaw}
-    lg = new Logger("X, Y, Z, Pitch, Yaw, Roll, errorHeight, errorRoll, errorPitch, errorYaw");
+    lg = new Logger("X, Y, Z, Pitch, Yaw, Roll, errorHeight, errorRoll, errorPitch, errorYaw, HLeadOut, HIntegralOut, HeightError", true);
 
 
     // Velocity calculations.
@@ -134,15 +135,15 @@ int main(int argc, char **argv)
     // PID values from model for height.
     // h1 Kp = 26.7, ti=1.2, td = 1.26. Default values in matlab are kp = 60, ti = 1, td = 1.
     // Bouncy but decent results findpid(Gh1a, 32,  3.5, 0.1).
-    ctrl_h->set_gains(4.8, 1.56, 1.4175, 0.1);
-    //ctrl_h->limit_integral(25,0);
+    ctrl_h->set_gains(45.1856, 1.6949, 1.6015, 0.07);
+    ctrl_h->limit_integral(1024,0);
     // MATLAB vel control PD: 0.0823, 0, 0.5087
-    ctrl_vel_x->set_gains(0.1, 0, 0.4744, 0.2);
-    ctrl_vel_y->set_gains(0.1, 0, 0.4744, 0.2);
+    ctrl_vel_x->set_gains(0.2917, 0, 0.3468, 0.3);
+    ctrl_vel_y->set_gains(0.2917, 0, 0.3468, 0.3);
     // Limit speed to 1 m/s
     // MATLAB PID pos control: 0.6749, 3.7413, 1.7077. PD 1.2168, 1.1303. P 0.5343
-    ctrl_x->set_gains(0.9386, 0, 0, 0.2);
-    ctrl_y->set_gains(0.9386, 0, 0, 0.2);
+    ctrl_x->set_gains(0.9398, 0, 0, 0.2);
+    ctrl_y->set_gains(0.9398, 0, 0, 0.2);
     ctrl_x->limit_output(1, -1);
     ctrl_y->limit_output(1, -1);
 
@@ -186,8 +187,8 @@ int main(int argc, char **argv)
         usleep(50000);
         ctrl_pos->tick_matlab();
         
-
-        double error_h = (ctrl_h->out / 5.0) + HOVER_VALUE;
+        // Divide by 10.24 since drone ref is 0-100 and sim is 0 1024.
+        double error_h = ((ctrl_h->out / 10.24) / 5.0) + HOVER_VALUE;
 
         if(error_h > 100.0)
             error_h = 100.0;
@@ -201,7 +202,7 @@ int main(int argc, char **argv)
         sprintf(str, "ref %f %f %f %f", error_h, error_roll, error_pitch, error_yaw);
         sf->sendmsg(str);
         
-        double to_log[] = {PX, PY, PZ, P, Y, R, error_h, error_roll, error_pitch, error_yaw};
+        double to_log[] = {PX, PY, PZ, P, Y, R, error_h, error_roll, error_pitch, error_yaw, ctrl_h->yl[0], ctrl_h->yi[0], PZ-z_tmp};
         lg->log(to_log, 10);
         // Logging
         if( count > 5 and LOG == true)
@@ -210,6 +211,7 @@ int main(int argc, char **argv)
             {
                 printf("save %d\n", tst);
                 fprintf(fp, "[%d]\n", tst);
+                fprintf(fp,"LeadH: %.3f, IntegralH: %.3f\n",ctrl_h->yl[0], ctrl_h->yi[0]);
                 fprintf(fp, "POS: %.3f %.3f %.3f, OLD: %.3f %.3f %.3f, OLD heading: %.3f\n", PX, PY, PZ, x_tmp, y_tmp, z_tmp, yaw_tmp);
                 // Convert from radians to degrees by multiplying by 57.2957795.
                 fprintf(fp, "Angles: %.3f %.3f %.3f, Speed: %.3f %.3f %.3f\n", P*57.2957795, Y*57.2957795, R*57.2957795, VX, VY, VZ);
@@ -221,6 +223,7 @@ int main(int argc, char **argv)
             else
             {
                 printf("[%d]\n", tst);
+                printf("LeadH: %.3f\n",ctrl_h->yl[0]);
                 printf("POS: %.3f %.3f %.3f, OLD: %.3f %.3f %.3f, OLD heading: %.3f\n", PX, PY, PZ, x_tmp, y_tmp, z_tmp, yaw_tmp);
                 // Convert from radians to degrees by multiplying by 57.2957795.
                 printf("Angles: %.3f %.3f %.3f, Speed: %.3f %.3f %.3f\n", P*57.2957795, Y*57.2957795, R*57.2957795, VX, VY, VZ);
@@ -271,7 +274,7 @@ void unpack(char * pData)
    frame->unpack(pData);
    
    // Marker from OptiTrack
-   drone_marker = frame->findMarker(24152); // Marker for the drone 24152.
+   drone_marker = frame->findMarker(DRONE_ID); // Marker for the drone 24152.
    if(drone_marker->valid)
    {
         //printf("%lf, %f, %f, %f\n", frame->get_timestamp(), drone_marker->pos[0], drone_marker->pos[1], drone_marker->pos[2]);
