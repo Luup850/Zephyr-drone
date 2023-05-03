@@ -15,13 +15,13 @@
 %
 % NB! might not work for systems with delay
 % 
-function [wc, Kp, taui, taud, ok] = findpid(G1, gm, Ni, al, w, time)
+function [wc, Kp, taui, taud, ok] = findpid_discrete(G1, gm, Ni, al, time, w)
     % find phase to look for
     phii = -90 + atan(Ni) * 180 / pi;
     phiM = asin((1-al)/(1+al)) * 180/pi;
     PG = -180 + gm - phiM - phii;
     % test if frequency range is specified
-    if nargin < 5
+    if nargin < 6
         % else use Bode plot default
         [M,P0,W]=bode(G1);
     else
@@ -55,8 +55,8 @@ function [wc, Kp, taui, taud, ok] = findpid(G1, gm, Ni, al, w, time)
     for j = 1:n
         td(j) = 1/(sqrt(al)*wcs(j));
         ti(j) = Ni/wcs(j);
-        Cd = tf([td(j) 1],[td(j)*al 1], time);
-        Ci = tf([ti(j) 1],[ti(j) 0], time);
+        Cd = c2d(tf([td(j) 1],[td(j)*al 1]),time, 'tustin');
+        Ci = c2d(tf([ti(j) 1],[ti(j) 0]), time, 'tustin');
         [mj,pj] = bode(G1*Cd*Ci,wcs(j));
         kp(j) = 1/mj;
         Gol(j) = kp(j)*Cd*G1*Ci;

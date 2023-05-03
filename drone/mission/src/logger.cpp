@@ -47,3 +47,17 @@ void Logger::log(double var[], int len)
         fprintf(lg, "\n");
     }
 }
+
+void Logger::log_params(char name[], double var[], int len)
+{
+    if(m_logOn == false)
+        return;
+
+    fprintf(lg, "------------------------[Parameters]------------------------\n");
+    fprintf(lg, "%s\n", name);
+    for(int i = 0; i < len; i++)
+    {
+        fprintf(lg, "%.3f, ", var[i]);
+    }
+    fprintf(lg, "\n------------------------[Parameters]------------------------\n");
+}

@@ -26,10 +26,11 @@
 #include "logger.h"
 
 // Defines
-#define LOG_TO_FILE false
-#define LOG true
+#define LOG_TO_FILE false // False: Log to console, True: Log to file
+#define LOG true // Log to console or file
+#define LOGGER_TOGGLE true // Logger class
 #define TS (1.0/60.0)
-#define HOVER_VALUE 87.0
+#define HOVER_VALUE 90.0
 #define DRONE_ID 24152
 
 bool startNatNetConnection(const char * argv0);
@@ -107,7 +108,7 @@ int main(int argc, char **argv)
     Controller* ctrl_pos = new Controller(&PX, &PY, &PZ, &R, &P, &Y, ctrl_vel_x, ctrl_vel_y);
 
 //{PX, PY, PZ, P, Y, R, error_h, error_roll, error_pitch, error_yaw}
-    lg = new Logger("X, Y, Z, Pitch, Yaw, Roll, errorHeight, errorRoll, errorPitch, errorYaw, HLeadOut, HIntegralOut, HeightError", true);
+    lg = new Logger("X, Y, Z, Pitch, Yaw, Roll, errorHeight, errorRoll, errorPitch, errorYaw, HLeadOut, HIntegralOut, HeightError", LOGGER_TOGGLE);
 
 
     // Velocity calculations.
@@ -135,7 +136,8 @@ int main(int argc, char **argv)
     // PID values from model for height.
     // h1 Kp = 26.7, ti=1.2, td = 1.26. Default values in matlab are kp = 60, ti = 1, td = 1.
     // Bouncy but decent results findpid(Gh1a, 32,  3.5, 0.1).
-    ctrl_h->set_gains(45.1856, 1.6949, 1.6015, 0.07);
+    //ctrl_h->set_gains(45.1856, 1.6949, 1.6015, 0.07);
+    ctrl_h->set_gains(28.9636, 6.4475, 1.8021, 0.09); // 21.9636, 6.4475, 1.8021, 0.09
     ctrl_h->limit_integral(1024,0);
     // MATLAB vel control PD: 0.0823, 0, 0.5087
     ctrl_vel_x->set_gains(0.2917, 0, 0.3468, 0.3);
@@ -178,6 +180,9 @@ int main(int argc, char **argv)
 
     }
 
+    // Log parameters
+    double to_log[] = {HOVER_VALUE, ctrl_x->ref, ctrl_y->ref, ctrl_yaw->ref, ctrl_h->ref, ctrl_h->kp, ctrl_h->tau_i, ctrl_h->tau_d, ctrl_h->alpha, ctrl_vel_x->tau_i, ctrl_vel_x->tau_d, ctrl_vel_x->alpha};
+    lg->log_params("HOVER_VALUE, ctrl_x->ref, ctrl_y->ref, ctrl_yaw->ref, ctrl_h->ref, ctrl_h->kp, ctrl_h->tau_i, ctrl_h->tau_d, ctrl_h->alpha, ctrl_vel_x->tau_i, ctrl_vel_x->tau_d, ctrl_vel_x->alpha",to_log, 12);
 
     // Control Loop
     int tst = 0;
@@ -331,11 +336,13 @@ void* velocity(void* arg)
 
 void* controllerTick(void* arg)
 {
+    //clock_t time = clock();
     while(true)
     {
         sigwait(&signalset, &sig);
         //usleep(TS * 1000000);
-        //printf("I ran!\n");
+        //printf("%.9f\n", (difftime(clock(), time)/CLOCKS_PER_SEC));
+        //time = clock();
         ctrl_h->tick();
         ctrl_yaw->tick();
         ctrl_x->tick();

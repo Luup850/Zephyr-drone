@@ -17,6 +17,7 @@ private:
 public:
     Logger(char name[], bool logOn);
     void log(double var[], int len);
+    void log_params(char name[], double var[], int len);
 };
 
 

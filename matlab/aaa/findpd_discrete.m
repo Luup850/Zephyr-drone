@@ -14,7 +14,7 @@
 % 
 % NB! do not work for systems with delay
 %
-function [wc, Kp, taud, ok] = findpd(G1, gm, al, time, w, N0)
+function [wc, Kp, taud, ok] = findpd_discrete(G1, gm, al, time, w, N0)
     % find phase to look for
     phiM = asin((1-al)/(1+al)) * 180/pi;
     PG = -180 + gm - phiM;
@@ -25,7 +25,7 @@ function [wc, Kp, taud, ok] = findpd(G1, gm, al, time, w, N0)
     else
         [M,P0,W]=bode(G1, w);
     end
-    if nargin < 5
+    if nargin < 6
         N = 0;
         % assume lowest frequency has
         % a phase less than +180 degree
