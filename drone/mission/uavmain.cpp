@@ -30,7 +30,7 @@
 #define LOG true // Log to console or file
 #define LOGGER_TOGGLE true // Logger class
 #define TS (1.0/60.0)
-#define HOVER_VALUE 90.0
+#define HOVER_VALUE 85.0
 #define DRONE_ID 24152
 
 bool startNatNetConnection(const char * argv0);
@@ -137,8 +137,8 @@ int main(int argc, char **argv)
     // h1 Kp = 26.7, ti=1.2, td = 1.26. Default values in matlab are kp = 60, ti = 1, td = 1.
     // Bouncy but decent results findpid(Gh1a, 32,  3.5, 0.1).
     //ctrl_h->set_gains(45.1856, 1.6949, 1.6015, 0.07);
-    ctrl_h->set_gains(28.9636, 6.4475, 1.8021, 0.09); // 21.9636, 6.4475, 1.8021, 0.09
-    ctrl_h->limit_integral(1024,0);
+    ctrl_h->set_gains(21.9636, 6.4475, 1.8021, 0.2); // 21.9636, 6.4475, 1.8021, 0.2
+    //ctrl_h->limit_integral(1024,0);
     // MATLAB vel control PD: 0.0823, 0, 0.5087
     ctrl_vel_x->set_gains(0.2917, 0, 0.3468, 0.3);
     ctrl_vel_y->set_gains(0.2917, 0, 0.3468, 0.3);
@@ -208,7 +208,7 @@ int main(int argc, char **argv)
         sf->sendmsg(str);
         
         double to_log[] = {PX, PY, PZ, P, Y, R, error_h, error_roll, error_pitch, error_yaw, ctrl_h->yl[0], ctrl_h->yi[0], PZ-z_tmp};
-        lg->log(to_log, 10);
+        lg->log(to_log, 13);
         // Logging
         if( count > 5 and LOG == true)
         {

@@ -29,6 +29,7 @@
 #include "uusb.h"
 
 UControl control;
+float zero = 0.0;
 
 /** constructor */
 UControl::UControl()
