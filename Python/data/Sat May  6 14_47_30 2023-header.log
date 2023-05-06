@@ -1,0 +1,5 @@
+Time, X, Y, Z, Pitch, Yaw, Roll, errorHeight, errorRoll, errorPitch, errorYaw, HLeadOut, HIntegralOut, HeightError
+------------------------[Parameters]------------------------
+HOVER_VALUE, ctrl_x->ref, ctrl_y->ref, ctrl_yaw->ref, ctrl_h->ref, ctrl_h->kp, ctrl_h->tau_i, ctrl_h->tau_d, ctrl_h->alpha, ctrl_vel_x->tau_i, ctrl_vel_x->tau_d, ctrl_vel_x->alpha
+83.000, 0.266, 0.741, -0.064, 3.000, 8.907, 3.849, 3.637, 0.070, 0.000, 0.347, 0.300, 
+------------------------[Parameters]------------------------
