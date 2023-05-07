@@ -28,9 +28,9 @@
 // Defines
 #define LOG_TO_FILE false // False: Log to console, True: Log to file
 #define LOG true // Log to console or file
-#define LOGGER_TOGGLE true // Logger class
+#define LOGGER_TOGGLE false // Logger class
 #define TS (1.0/60.0)
-#define HOVER_VALUE 85.0
+#define HOVER_VALUE 93.0
 #define DRONE_ID 24152
 
 bool startNatNetConnection(const char * argv0);
@@ -136,9 +136,9 @@ int main(int argc, char **argv)
     // PID values from model for height.
     // h1 Kp = 26.7, ti=1.2, td = 1.26. Default values in matlab are kp = 60, ti = 1, td = 1.
     // Bouncy but decent results findpid(Gh1a, 32,  3.5, 0.1).
-    //ctrl_h->set_gains(45.1856, 1.6949, 1.6015, 0.07);
-    ctrl_h->set_gains(21.9636, 6.4475, 1.8021, 0.2); // 21.9636, 6.4475, 1.8021, 0.2
-    //ctrl_h->limit_integral(1024,0);
+    //ctrl_h->set_gains(60, 1.0, 1.0, 0.07);
+    ctrl_h->set_gains(21.9636, 6.4475, 1.8021, 0.2); // Pt bedste: 21.9636, 6.4475, 1.8021, 0.2
+    //ctrl_h->limit_integral(400,0);
     // MATLAB vel control PD: 0.0823, 0, 0.5087
     ctrl_vel_x->set_gains(0.2917, 0, 0.3468, 0.3);
     ctrl_vel_y->set_gains(0.2917, 0, 0.3468, 0.3);
@@ -156,7 +156,7 @@ int main(int argc, char **argv)
     ctrl_x->ref = PX;
     ctrl_y->ref = PY;
     ctrl_yaw->ref = Y;
-    ctrl_h->ref = 3.0;
+    ctrl_h->ref = 2.0;
     z_tmp = ctrl_h->ref;
 
     // Controller measurement
@@ -204,7 +204,7 @@ int main(int argc, char **argv)
         double error_roll = (ctrl_pos->out_roll); // Convert to degrees
         double error_pitch = (ctrl_pos->out_pitch); // Convert to degrees
         // Height roll pitch yaw.
-        sprintf(str, "ref %f %f %f %f", error_h, error_roll, error_pitch, error_yaw);
+        sprintf(str, "ref %.3f %.3f %.3f %.3f", error_h, error_roll, error_pitch, error_yaw);
         sf->sendmsg(str);
         
         double to_log[] = {PX, PY, PZ, P, Y, R, error_h, error_roll, error_pitch, error_yaw, ctrl_h->yl[0], ctrl_h->yi[0], PZ-z_tmp};
@@ -227,8 +227,8 @@ int main(int argc, char **argv)
             }
             else
             {
-                printf("[%d]\n", tst);
-                printf("LeadH: %.3f\n",ctrl_h->yl[0]);
+                printf("LeadH: %.3f, IntegralH: %.3f\n",ctrl_h->ref - ctrl_h->yl[0], ctrl_h->yi[0]);
+                //printf("IH: %.3f\n",ctrl_h->yi[0]);
                 printf("POS: %.3f %.3f %.3f, OLD: %.3f %.3f %.3f, OLD heading: %.3f\n", PX, PY, PZ, x_tmp, y_tmp, z_tmp, yaw_tmp);
                 // Convert from radians to degrees by multiplying by 57.2957795.
                 printf("Angles: %.3f %.3f %.3f, Speed: %.3f %.3f %.3f\n", P*57.2957795, Y*57.2957795, R*57.2957795, VX, VY, VZ);

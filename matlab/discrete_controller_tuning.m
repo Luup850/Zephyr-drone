@@ -1,6 +1,6 @@
 h1gm = 32;
-h1Ni = 8;
-h1al = 0.2;
+h1Ni = 4;
+h1al = 0.07;
 w = logspace(0,3,3000);
 
 
