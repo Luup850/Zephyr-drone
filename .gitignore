@@ -2,3 +2,4 @@ drone/drone_ctrl/build
 drone/drone_ctrl/libraries
 drone/drone_ctrl/teensy3
 drone/drone_ctrl/tools
+*.pyc
