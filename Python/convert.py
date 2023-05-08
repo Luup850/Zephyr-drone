@@ -12,7 +12,6 @@ def convert_log_to_csv():
 
     # Get filename only
     log_file_names = [(x.split('\\')[-1])[:-4] for x in log_files]
-
     #for i,l in enumerate(log_file_names):
     #    print(l)
     columns = ['Time', 'X', 'Y', 'Z', 'Pitch', 'Yaw', 'Roll', 'errorHeight', 'errorRoll', 'errorPitch', 'errorYaw', 'HLeadOut', 'HIntegralOut', 'HeightError']
@@ -25,11 +24,23 @@ def convert_log_to_csv():
         with open(lg, 'rb') as f:
             log = f.readlines()
 
+        if(log_file_names[i] == 'Wed May  3 14_25_54 2023'):
+            # Special case: Remove first line
+            log = log[1:]
+
         # List of bytes to list of strings
         log = [x.decode('utf-8') for x in log]
 
         header = log[2:4]
-        if(header[0].split(',')[0] != 'HOVER_VALUE'):
+
+        # Check if file is empty
+        if(len(log) < 6):
+            print('Log file ' + str(log_file_names[i]) + ' is empty')
+            # Delete file
+            os.remove(lg)
+            continue
+        
+        if((header[0]).split(',')[0] != 'HOVER_VALUE'):
             print('Log file ' + str(log_file_names[i]) + ' uses old format')
             oldFormat = True
         
@@ -77,5 +88,3 @@ def convert_log_to_csv():
         # Save the dataframe as a csv
         df = pd.DataFrame(data, columns=columns)
         df.to_csv('.\\data\\'+ str(log_file_names[i]) + '-log.csv', index=False)
-
-convert_log_to_csv()
