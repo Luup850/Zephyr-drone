@@ -77,3 +77,5 @@ def convert_log_to_csv():
         # Save the dataframe as a csv
         df = pd.DataFrame(data, columns=columns)
         df.to_csv('.\\data\\'+ str(log_file_names[i]) + '-log.csv', index=False)
+
+convert_log_to_csv()
