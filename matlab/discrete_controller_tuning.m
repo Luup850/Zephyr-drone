@@ -4,7 +4,7 @@ h1al = 0.07;
 w = logspace(0,3,3000);
 
 
-[wc h1kp h1ti h1td ok] = findpid_discrete(bla, h1gm, h1Ni, h1al, Ts, w);
+[wc h1kp h1ti h1td ok] = findpid_discrete(Gh1b_d, h1gm, h1Ni, h1al, Ts, w);
 
 % Discrete controller open-loop
 c_d = c2d(tf([h1td 1], [h1td*h1al 1]), Ts, 'tustin');
