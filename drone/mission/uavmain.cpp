@@ -28,9 +28,9 @@
 // Defines
 #define LOG_TO_FILE false // False: Log to console, True: Log to file
 #define LOG true // Log to console or file
-#define LOGGER_TOGGLE false // Logger class
+#define LOGGER_TOGGLE true // Logger class
 #define TS (1.0/60.0)
-#define HOVER_VALUE 93.0
+#define HOVER_VALUE 430.0
 #define DRONE_ID 24152
 
 bool startNatNetConnection(const char * argv0);
@@ -99,7 +99,7 @@ int main(int argc, char **argv)
     serial_if *sf = new serial_if();
     Drone* drone;
     drone = new Drone();
-    ctrl_h = new PID(RegPILead, TS);
+    ctrl_h = new PID(RegPLead, TS);
     ctrl_yaw = new PID(RegPLead, TS);
     ctrl_vel_x = new PID(RegPLead, TS);
     ctrl_vel_y = new PID(RegPLead, TS);
@@ -136,8 +136,8 @@ int main(int argc, char **argv)
     // PID values from model for height.
     // h1 Kp = 26.7, ti=1.2, td = 1.26. Default values in matlab are kp = 60, ti = 1, td = 1.
     // Bouncy but decent results findpid(Gh1a, 32,  3.5, 0.1).
-    //ctrl_h->set_gains(60, 1.0, 1.0, 0.07);
-    ctrl_h->set_gains(21.9636, 6.4475, 1.8021, 0.2); // Pt bedste: 21.9636, 6.4475, 1.8021, 0.2
+    ctrl_h->set_gains(20.0, 0.0, 0.7448, 0.07); // Without kff 1024
+    //ctrl_h->set_gains(21.9636, 6.4475, 1.8021, 0.2); // Pt bedste: 21.9636, 6.4475, 1.8021, 0.2
     //ctrl_h->limit_integral(400,0);
     // MATLAB vel control PD: 0.0823, 0, 0.5087
     ctrl_vel_x->set_gains(0.2917, 0, 0.3468, 0.3);
@@ -156,7 +156,7 @@ int main(int argc, char **argv)
     ctrl_x->ref = PX;
     ctrl_y->ref = PY;
     ctrl_yaw->ref = Y;
-    ctrl_h->ref = 2.0;
+    ctrl_h->ref = 4.0;
     z_tmp = ctrl_h->ref;
 
     // Controller measurement
@@ -193,10 +193,8 @@ int main(int argc, char **argv)
         ctrl_pos->tick_matlab();
         
         // Divide by 10.24 since drone ref is 0-100 and sim is 0 1024.
-        double error_h = ((ctrl_h->out / 10.24) / 5.0) + HOVER_VALUE;
+        double error_h = ctrl_h->out + HOVER_VALUE;
 
-        if(error_h > 100.0)
-            error_h = 100.0;
 
         //double error_h = 50.0 - 82.0;
         double error_yaw = (ctrl_yaw->out);// * (180.0/M_PI); // Convert to degree
