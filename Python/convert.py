@@ -64,6 +64,7 @@ def convert_log_to_csv():
             header_data = header[1].split(',')[:-1]
             header_data = [x.strip() for x in header_data]
             # Create dataframe
+            #print(header_column)
             df_header = pd.DataFrame([header_data], columns=header_column)
             df_header.to_csv('.\\data\\'+ str(log_file_names[i]) + '-header.csv', index=False)
         else:
