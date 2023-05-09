@@ -25,8 +25,11 @@ def convert_log_to_csv():
             log = f.readlines()
 
         if(log_file_names[i] == 'Wed May  3 14_25_54 2023'):
-            # Special case: Remove first line
-            log = log[1:]
+            # Special case: Remove first line and last line
+            log = log[1:-1]
+        else:
+            # Remove last line
+            log = log[:-1]
 
         # List of bytes to list of strings
         log = [x.decode('utf-8') for x in log]
@@ -89,3 +92,5 @@ def convert_log_to_csv():
         # Save the dataframe as a csv
         df = pd.DataFrame(data, columns=columns)
         df.to_csv('.\\data\\'+ str(log_file_names[i]) + '-log.csv', index=False)
+
+convert_log_to_csv()
