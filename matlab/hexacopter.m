@@ -287,7 +287,7 @@ hD = 0.2; % velocity drag (groundless estimate 30m/s => 6N drag)
 trust2height1 = tf(1,[totalMass hD 0]);
 Gh1a = Gtr * trust2height1
 Gh1b = minreal(Gh1a,10e-3); % MC
-Gh1b_d = c2d(Gh1b, Ts, 'zoh');
+Gh1b_d = c2d(Gh1b, 1/120, 'zoh'); % 1/120, update rate on optiTrack
 Gh1 = minreal(Gpipo(2))
 % bode sammenligning
 figure(1002)
