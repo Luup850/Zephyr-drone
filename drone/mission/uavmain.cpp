@@ -28,9 +28,9 @@
 // Defines
 #define LOG_TO_FILE false // False: Log to console, True: Log to file
 #define LOG true // Log to console or file
-#define LOGGER_TOGGLE true // Logger class
+#define LOGGER_TOGGLE false // Logger class
 #define TS (1.0/60.0)
-#define HOVER_VALUE 430.0
+#define HOVER_VALUE 420.0 // 430-440 required for hover
 #define DRONE_ID 24152
 
 bool startNatNetConnection(const char * argv0);
@@ -136,7 +136,10 @@ int main(int argc, char **argv)
     // PID values from model for height.
     // h1 Kp = 26.7, ti=1.2, td = 1.26. Default values in matlab are kp = 60, ti = 1, td = 1.
     // Bouncy but decent results findpid(Gh1a, 32,  3.5, 0.1).
-    ctrl_h->set_gains(20.0, 0.0, 0.7448, 0.07); // Without kff 1024
+    //ctrl_h->set_gains(20.0, 0.0, 0.7448, 0.07); // Best so far
+    //ctrl_h->set_gains(22.3872, 6.66, 3.0237, 0.07);
+    // 1.7448 0.7448 0.3448
+    ctrl_h->set_gains(12.4451, 0, 2.8634, 0.07);
     //ctrl_h->set_gains(21.9636, 6.4475, 1.8021, 0.2); // Pt bedste: 21.9636, 6.4475, 1.8021, 0.2
     //ctrl_h->limit_integral(400,0);
     // MATLAB vel control PD: 0.0823, 0, 0.5087
