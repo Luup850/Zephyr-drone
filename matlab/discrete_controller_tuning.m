@@ -1,5 +1,5 @@
-h1gm = 40;
-h1Ni = 4;
+h1gm = 45;
+h1Ni = 4; % Try 8 as well
 h1al = 0.07;
 w = logspace(0,3,3000);
 
@@ -11,7 +11,8 @@ c_d = c2d(tf([h1td 1], [h1td*h1al 1]), Ts, 'tustin');
 c_i = c2d(tf([h1ti 1], [h1ti 0]),Ts,'tustin');
 Gh1b_d_c_ol = h1kp * Gh1b_d * c_d * c_i;
 % Discrete controller closed-loop (h1kp * c_i * c_d + hoverControl) * Gh1b_d
-Gh1b_d_c_cl = (h1kp * Gh1b_d * c_i * c_d) / (1 + h1kp * Gh1b_d * c_d * c_i);
+Gh1b_d_c_cl = feedback(Gh1b_d_c_ol, 1);
+step(Gh1b_d_c_cl)
 figure(1009)
 bode(Gh1b_d, Gh1b_d_c_ol)
 grid on
