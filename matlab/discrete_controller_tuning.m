@@ -41,7 +41,7 @@ Gh1b_d_p = Gh1b_d_p_cl * c2d(tf([1], [1 0]), Ts, 'zoh');
 [wc h1kp ok] = findp_discrete(Gh1b_d_p, h1gm, w)
 % dB = 0 is already a really good crossover frequency
 Gh1b_d_p_c_ol = h1kp * Gh1b_d_p;
-Gh1b_d_p_c_cl = feedback(Gh1b_d_p_c_ol,1);
+s = feedback(Gh1b_d_p_c_ol,1);
 
 
 
