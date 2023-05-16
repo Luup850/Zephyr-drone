@@ -1,0 +1,2 @@
+HOVER_VALUE,ctrl_x->ref,ctrl_y->ref,ctrl_yaw->ref,ctrl_h->ref,ctrl_h->kp,ctrl_h->tau_i,ctrl_h->tau_d,ctrl_h->alpha,ctrl_vel_x->tau_i,ctrl_vel_x->tau_d,ctrl_vel_x->alpha
+440.000,-0.501,1.372,0.057,4.000,12.445,0.000,0.745,0.070,0.000,0.347,0.300

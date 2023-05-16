@@ -19,18 +19,29 @@ grid on
 legend('Tf', 'Tf + Controller')
 
 %% Test with height vel and pos control
-h1vgm = 35;
+h1vgm = 60;
 h1vNi = 8;
-h1val = 0.6;
+h1val = 0.07;
+
+h1gm = 60;
+h1Ni = 4;
+h1al = 0.07;
+
 Gh1b_d_v = c2d(Gh1b * tf([1 0], [1]), Ts, 'zoh');
-[wc h1vkp h1vti h1vtd ok] = findpid_discrete(Gh1b_d_v, h1vgm, h1vti, h1val, Ts, w)
+[wc h1vkp h1vtd ok] = findpd_discrete(Gh1b_d_v, h1vgm, h1val, Ts, w)
 c_v_d = c2d(tf([h1vtd 1], [h1vtd*h1val 1]), Ts, 'tustin');
-c_v_i = c2d(tf([h1vti 1], [h1vti 0]),Ts,'tustin');
-Gh1b_d_p_cl = (h1vkp * Gh1b_d_v * c_v_i) / (1 + c_v_d * h1vkp * Gh1b_d_v * c_v_i);
+%c_v_i = c2d(tf([h1vti 1], [h1vti 0]),Ts,'tustin');
+c_v_i = 1;
+Gh1b_d_p_ol = h1vkp * Gh1b_d_v * c_v_i * c_v_d;
+bode(Gh1b_d_p_ol)
+Gh1b_d_p_cl = feedback(Gh1b_d_p_ol, 1);
 
 % Pos controller
 Gh1b_d_p = Gh1b_d_p_cl * c2d(tf([1], [1 0]), Ts, 'zoh');
-[wc h1kp ok] = findp_discrete(Gh1b_d_p, 32, w)
+[wc h1kp ok] = findp_discrete(Gh1b_d_p, h1gm, w)
+% dB = 0 is already a really good crossover frequency
+Gh1b_d_p_c_ol = h1kp * Gh1b_d_p;
+Gh1b_d_p_c_cl = feedback(Gh1b_d_p_c_ol,1);
 
 
 
