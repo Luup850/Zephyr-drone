@@ -109,7 +109,7 @@ int main(int argc, char **argv)
     Controller* ctrl_pos = new Controller(&PX, &PY, &PZ, &R, &P, &Y, ctrl_vel_x, ctrl_vel_y);
 
 //{PX, PY, PZ, P, Y, R, error_h, error_roll, error_pitch, error_yaw}
-    lg = new Logger("X, Y, Z, Pitch, Yaw, Roll, errorHeight, errorRoll, errorPitch, errorYaw, HLeadOut, HIntegralOut, HeightError", LOGGER_TOGGLE);
+    lg = new Logger("X, Y, Z, Pitch, Yaw, Roll, errorHeight, errorRoll, errorPitch, errorYaw, HLeadOut, HIntegralOut, HeightError, HVelLeadOut->yl[0], ctrl_vel_h->ref", LOGGER_TOGGLE);
 
 
     // Velocity calculations.
@@ -188,8 +188,8 @@ int main(int argc, char **argv)
     }
 
     // Log parameters
-    double to_log[] = {HOVER_VALUE, ctrl_x->ref, ctrl_y->ref, ctrl_yaw->ref, ctrl_h->ref, ctrl_h->kp, ctrl_h->tau_i, ctrl_h->tau_d, ctrl_h->alpha, ctrl_vel_x->tau_i, ctrl_vel_x->tau_d, ctrl_vel_x->alpha};
-    lg->log_params("HOVER_VALUE, ctrl_x->ref, ctrl_y->ref, ctrl_yaw->ref, ctrl_h->ref, ctrl_h->kp, ctrl_h->tau_i, ctrl_h->tau_d, ctrl_h->alpha, ctrl_vel_x->tau_i, ctrl_vel_x->tau_d, ctrl_vel_x->alpha",to_log, 12);
+    double to_log[] = {HOVER_VALUE, ctrl_x->ref, ctrl_y->ref, ctrl_yaw->ref, ctrl_h->ref, ctrl_h->kp, ctrl_h->tau_i, ctrl_h->tau_d, ctrl_h->alpha, ctrl_vel_x->tau_i, ctrl_vel_x->tau_d, ctrl_vel_x->alpha, ctrl_vel_h->kp, ctrl_vel_h->tau_i, ctrl_vel_h->tau_d};
+    lg->log_params("HOVER_VALUE, ctrl_x->ref, ctrl_y->ref, ctrl_yaw->ref, ctrl_h->ref, ctrl_h->kp, ctrl_h->tau_i, ctrl_h->tau_d, ctrl_h->alpha, ctrl_vel_x->tau_i, ctrl_vel_x->tau_d, ctrl_vel_x->alpha, ctrl_vel_h->kp, ctrl_vel_h->tau_i, ctrl_vel_h->tau_d",to_log, 15);
 
     // Control Loop
     int tst = 0;
@@ -212,7 +212,7 @@ int main(int argc, char **argv)
         sprintf(str, "ref %.3f %.3f %.3f %.3f", error_h, error_roll, error_pitch, error_yaw);
         sf->sendmsg(str);
         
-        double to_log[] = {PX, PY, PZ, P, Y, R, error_h, error_roll, error_pitch, error_yaw, ctrl_h->yl[0], ctrl_h->yi[0], PZ-z_tmp};
+        double to_log[] = {PX, PY, PZ, P, Y, R, error_h, error_roll, error_pitch, error_yaw, ctrl_h->yl[0], ctrl_h->yi[0], PZ-z_tmp, ctrl_vel_h->yl[0], ctrl_vel_h->ref};
         lg->log(to_log, 13);
         // Logging
         if( count > 5 and LOG == true)
