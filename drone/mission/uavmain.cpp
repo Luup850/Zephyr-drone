@@ -30,7 +30,7 @@
 #define LOG true // Log to console or file
 #define LOGGER_TOGGLE false // Logger class
 #define TS (1.0/60.0)
-#define HOVER_VALUE 420.0 // 430-440 required for hover
+#define HOVER_VALUE 430.0 // 430-440 required for hover
 #define DRONE_ID 24152
 
 bool startNatNetConnection(const char * argv0);
@@ -51,7 +51,6 @@ PID* ctrl_vel_x;
 PID* ctrl_vel_y;
 PID* ctrl_x;
 PID* ctrl_y;
-
 
 // Timer stuff
 struct itimerval it;
