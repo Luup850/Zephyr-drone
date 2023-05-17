@@ -28,7 +28,7 @@
 // Defines
 #define LOG_TO_FILE false // False: Log to console, True: Log to file
 #define LOG true // Log to console or file
-#define LOGGER_TOGGLE true // Logger class
+#define LOGGER_TOGGLE false // Logger class
 #define TS (1.0/60.0)
 #define HOVER_VALUE 430.0 // 430-440 required for hover
 #define DRONE_ID 24152
@@ -45,7 +45,6 @@ double VX = 0, VY = 0, VZ = 0;
 double height_measurement; // Height controller is weird. Trying to mimic it.
 
 // Controllers
-PID* ctrl_vel_h;
 PID* ctrl_h;
 PID* ctrl_yaw;
 PID* ctrl_vel_x;
@@ -99,8 +98,7 @@ int main(int argc, char **argv)
     serial_if *sf = new serial_if();
     Drone* drone;
     drone = new Drone();
-    ctrl_vel_h = new PID(RegPLead, TS);
-    ctrl_h = new PID(RegP, TS);
+    ctrl_h = new PID(RegPLead, TS);
     ctrl_yaw = new PID(RegPLead, TS);
     ctrl_vel_x = new PID(RegPLead, TS);
     ctrl_vel_y = new PID(RegPLead, TS);
@@ -140,9 +138,7 @@ int main(int argc, char **argv)
     //ctrl_h->set_gains(20.0, 0.0, 0.7448, 0.07); // Best so far
     //ctrl_h->set_gains(22.3872, 6.66, 3.0237, 0.07);
     // 1.7448 0.7448 0.3448
-    ctrl_vel_h->set_gains(44.6684, 0, 0.7559, 0.07);
-    ctrl_h->set_gains(16.4106, 0, 0, 0.00);
-    ctrl_h->limit_output(0.5, -0.5);
+    ctrl_h->set_gains(12.4451, 0, 2.8634, 0.07);
     //ctrl_h->set_gains(21.9636, 6.4475, 1.8021, 0.2); // Pt bedste: 21.9636, 6.4475, 1.8021, 0.2
     //ctrl_h->limit_integral(400,0);
     // MATLAB vel control PD: 0.0823, 0, 0.5087
@@ -169,7 +165,6 @@ int main(int argc, char **argv)
     ctrl_x->measurement = &PX;
     ctrl_y->measurement = &PY;
     ctrl_h->measurement = &PZ;
-    ctrl_vel_h->measurement = &VZ;
     ctrl_vel_x->measurement = &VX;
     ctrl_vel_y->measurement = &VY;
     ctrl_yaw->measurement = &Y;
@@ -200,7 +195,7 @@ int main(int argc, char **argv)
         ctrl_pos->tick_matlab();
         
         // Divide by 10.24 since drone ref is 0-100 and sim is 0 1024.
-        double error_h = ctrl_vel_h->out + HOVER_VALUE;
+        double error_h = ctrl_h->out + HOVER_VALUE;
 
 
         //double error_h = 50.0 - 82.0;
@@ -349,8 +344,6 @@ void* controllerTick(void* arg)
         //printf("%.9f\n", (difftime(clock(), time)/CLOCKS_PER_SEC));
         //time = clock();
         ctrl_h->tick();
-        ctrl_vel_h->ref = ctrl_h->output();
-        ctrl_vel_h->tick();
         ctrl_yaw->tick();
         ctrl_x->tick();
         ctrl_y->tick();
