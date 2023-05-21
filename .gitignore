@@ -4,3 +4,5 @@ drone/drone_ctrl/teensy3
 drone/drone_ctrl/tools
 *.pyc
 Docs/~$DTU Presentation.pptx
+Cpp/.vscode/launch.json
+Cpp/.vscode/settings.json
