@@ -168,7 +168,7 @@ def estimate_pose_from_aruco_marker(frame, mtx, dist):
         return frame, rvec, tvec, None, None, None
 
 # %%
-cam = cv2.VideoCapture(1)
+cam = cv2.VideoCapture(0)
 
 # Show camera feed
 while True:
