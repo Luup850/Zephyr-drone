@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "ArucoTracker"
   "ArucoTracker.pdb"
   "CMakeFiles/ArucoTracker.dir/main.cpp.o"
+  "CMakeFiles/ArucoTracker.dir/src/aruco_tracker.cpp.o"
 )
 
 # Per-language clean rules from dependency scanning.

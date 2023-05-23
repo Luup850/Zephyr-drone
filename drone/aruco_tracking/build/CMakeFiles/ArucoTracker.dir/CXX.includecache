@@ -31,26 +31,6 @@ opencv2/imgcodecs.hpp
 /home/local/mdch/aruco_tracking/main.cpp
 aruco_tracker.hpp
 -
-opencv2/core.hpp
--
-opencv2/videoio.hpp
--
-opencv2/highgui.hpp
--
-unistd.h
--
-iostream
--
-time.h
--
-stdio.h
--
-opencv2/core.hpp
--
-opencv2/imgcodecs.hpp
--
-aruco_tracker.hpp
--
 
 /usr/local/include/opencv4/opencv2/aruco.hpp
 opencv2/core.hpp

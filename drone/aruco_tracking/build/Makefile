@@ -150,6 +150,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/ArucoTracker.dir/build.make CMakeFiles/ArucoTracker.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+src/aruco_tracker.o: src/aruco_tracker.cpp.o
+
+.PHONY : src/aruco_tracker.o
+
+# target to build an object file
+src/aruco_tracker.cpp.o:
+	$(MAKE) -f CMakeFiles/ArucoTracker.dir/build.make CMakeFiles/ArucoTracker.dir/src/aruco_tracker.cpp.o
+.PHONY : src/aruco_tracker.cpp.o
+
+src/aruco_tracker.i: src/aruco_tracker.cpp.i
+
+.PHONY : src/aruco_tracker.i
+
+# target to preprocess a source file
+src/aruco_tracker.cpp.i:
+	$(MAKE) -f CMakeFiles/ArucoTracker.dir/build.make CMakeFiles/ArucoTracker.dir/src/aruco_tracker.cpp.i
+.PHONY : src/aruco_tracker.cpp.i
+
+src/aruco_tracker.s: src/aruco_tracker.cpp.s
+
+.PHONY : src/aruco_tracker.s
+
+# target to generate assembly for a file
+src/aruco_tracker.cpp.s:
+	$(MAKE) -f CMakeFiles/ArucoTracker.dir/build.make CMakeFiles/ArucoTracker.dir/src/aruco_tracker.cpp.s
+.PHONY : src/aruco_tracker.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +189,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... src/aruco_tracker.o"
+	@echo "... src/aruco_tracker.i"
+	@echo "... src/aruco_tracker.s"
 .PHONY : help
 
 
