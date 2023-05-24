@@ -30,6 +30,12 @@ class Tracker
         int fps_counter = 0;
         int fps = 0;
 
+        // Debug stuff
+        int counter = 0;
+        cv::Mat frame_2;
+        clock_t f1;
+        float t_diff, t0, t1, t2;
+
     cv::VideoCapture cam;
 
     private:
