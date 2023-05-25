@@ -11,12 +11,9 @@ int main(int argc, char** argv)
     //namedWindow( "Live", WINDOW_AUTOSIZE );
     //imshow("Live", tracker->frame);
     //waitKey(0);
-    for(int i = 0; i >= 0;i++)
+    while(tracker->update())
     {
-        namedWindow( "Live", WINDOW_AUTOSIZE );
-        imshow("Live", tracker->frame_hud);
-        waitKey(1);
-        tracker->update();
+        // Do stuff
     }
 
     return 0;
