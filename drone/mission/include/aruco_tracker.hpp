@@ -10,13 +10,16 @@
 #include <stdio.h>
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
-#define DRAW_HUD false
+#define DRAW_HUD true
 
 class Tracker
 {
     public:
         // Camera ID (Usually 0)
         Tracker(int camID);
+
+        double x_c,y_c,z_c;
+        double x_a,y_a,z_a;
 
         bool update();
 

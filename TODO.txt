@@ -1,0 +1,2 @@
+1. Use drone pitch and yaw to derive a rotation matrix R. Apply it to the points from the camera
+    - -y is forward, x is right.

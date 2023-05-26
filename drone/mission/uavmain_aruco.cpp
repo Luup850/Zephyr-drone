@@ -25,6 +25,9 @@
 #include "serial_if.h"
 #include "logger.h"
 
+// Custom Aruco Tracker
+#include "aruco_tracker.hpp"
+
 // Defines
 #define LOG_TO_FILE false // False: Log to console, True: Log to file
 #define LOG true // Log to console or file
@@ -52,6 +55,9 @@ PID* ctrl_vel_x;
 PID* ctrl_vel_y;
 PID* ctrl_x;
 PID* ctrl_y;
+
+// Tracker
+Tracker* tracker;
 
 // Timer stuff
 struct itimerval it;
@@ -107,6 +113,8 @@ int main(int argc, char **argv)
     ctrl_x = new PID(RegP, TS);
     ctrl_y = new PID(RegP, TS);
     Controller* ctrl_pos = new Controller(&PX, &PY, &PZ, &R, &P, &Y, ctrl_vel_x, ctrl_vel_y);
+
+    tracker = new Tracker(0);
 
 //{PX, PY, PZ, P, Y, R, error_h, error_roll, error_pitch, error_yaw}
     lg = new Logger("X, Y, Z, Pitch, Yaw, Roll, errorHeight, errorRoll, errorPitch, errorYaw, HLeadOut, HIntegralOut, HeightError, HVelLeadOut->yl[0], ctrl_vel_h->ref", LOGGER_TOGGLE);

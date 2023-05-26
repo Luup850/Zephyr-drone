@@ -10,7 +10,8 @@
 #include <stdio.h>
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
-#define DRAW_HUD false
+#define DRAW_HUD true
+#define ARUCO_DEBUG_PRINT false
 
 class Tracker
 {
@@ -18,7 +19,16 @@ class Tracker
         // Camera ID (Usually 0)
         Tracker(int camID);
 
+        double x_c,y_c,z_c;
+        double x_a,y_a,z_a;
+
         bool update();
+
+        // Uses camera x
+        double getY(double roll);
+
+        // Uses camera y
+        double getX(double pitch);
 
         // Distortion matrix
         cv::Mat distMat = (cv::Mat_<double>(1,5) << 0.4273174877, 0.3442052301, -0.0000898197, 0.0276518661, -2.8602810872);

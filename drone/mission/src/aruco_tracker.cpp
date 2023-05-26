@@ -150,6 +150,14 @@ bool Tracker::update()
     // Transform point from camera frame to aruco frame
     cv::Mat point_transformed = transformationMatrix * point;
 
+    x_c = tvecs[0][0];
+    y_c = tvecs[0][1];
+    z_c = tvecs[0][2];
+
+    x_a = point_transformed.at<double>(0, 0);
+    y_a = point_transformed.at<double>(1, 0);
+    z_a = point_transformed.at<double>(2, 0);
+
     printf("------------------[FPS: %.2d]--------------------\n", fps);
     printf("x: %.2f, y: %.2f, z: %.2f\n", point_transformed.at<double>(0, 0) * 100.0, point_transformed.at<double>(1, 0) * 100.0, point_transformed.at<double>(2, 0) * 100.0);
     // This is the actual pos of the marker relative to global frame

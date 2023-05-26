@@ -28,6 +28,10 @@ opencv2/core.hpp
 opencv2/imgcodecs.hpp
 -
 
+/home/local/mdch/aruco_tracking/main.cpp
+aruco_tracker.hpp
+-
+
 /home/local/mdch/aruco_tracking/src/aruco_tracker.cpp
 unistd.h
 -
@@ -50,6 +54,8 @@ opencv4/opencv2/aruco.hpp
 opencv4/opencv2/core.hpp
 -
 opencv4/opencv2/imgcodecs.hpp
+-
+math.h
 -
 aruco_tracker.hpp
 -
