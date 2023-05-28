@@ -22,6 +22,8 @@ class Tracker
         double x_c,y_c,z_c;
         double x_a,y_a,z_a;
 
+        double pitch,yaw,roll;
+
         bool update();
 
         // Uses camera x
@@ -45,6 +47,10 @@ class Tracker
 
         int fps_counter = 0;
         int fps = 0;
+
+        int tick = 0;
+
+        bool foundMarker = false;
 
         std::vector<cv::Vec3d> rvecs, tvecs;
 

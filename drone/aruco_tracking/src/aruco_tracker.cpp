@@ -33,13 +33,10 @@ Tracker::Tracker(int camID)
     // set resolution to 360p
     //cam.set(cv::CAP_PROP_FRAME_WIDTH, 1);
     //cam.set(cv::CAP_PROP_FRAME_HEIGHT, 1);
-    
 
     // Get camera default framerate
 
     dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_6X6_250);
-    detectorParams = cv::aruco::DetectorParameters::create();
-
     cam.read(frame);
     frame_hud = frame.clone();
     //start = clock();
@@ -47,10 +44,8 @@ Tracker::Tracker(int camID)
     printf("Tracker constructor\n");
 }
 
-// Returns true if a marker is found
 bool Tracker::update()
 {
-    bool foundMarker = false;
     //cv::Mat frame_old = frame.clone();
     cam.read(frame);
 
@@ -60,20 +55,14 @@ bool Tracker::update()
     if(DRAW_HUD)
         frame_hud = frame.clone();
 
-    //std::vector<int> markerIds; // Moved to header
-    //std::vector<std::vector<cv::Point2f>> markerCorners, rejectedCandidates; // Moved to header
+    std::vector<int> markerIds;
+    std::vector<std::vector<cv::Point2f>> markerCorners, rejectedCandidates;
     // Define detector parameters
-    //cv::Ptr<cv::aruco::DetectorParameters> detectorParams = cv::aruco::DetectorParameters::create(); // Moved to header and constructor
+    cv::Ptr<cv::aruco::DetectorParameters> detectorParams = cv::aruco::DetectorParameters::create();
     // Detect markers
     cv::aruco::detectMarkers(frame, dictionary, markerCorners, markerIds, detectorParams, rejectedCandidates);
 
     cv::aruco::estimatePoseSingleMarkers(markerCorners, 0.135, cameraMat, distMat, rvecs, tvecs);
-
-    if(markerIds.size() > 0)
-    {
-        foundMarker = true;
-        //printf("Found marker\n");
-    }
 
     // Draw fps onto frame_hud
     if(DRAW_HUD)
@@ -82,7 +71,7 @@ bool Tracker::update()
         cv::aruco::drawDetectedMarkers(frame_hud, markerCorners, markerIds);
 
         // Draw x y and z for first object
-        if (foundMarker)
+        if (markerIds.size() > 0)
         {
             auto x = tvecs[0][0] * 100.0;
             auto y = tvecs[0][1] * 100.0;
@@ -136,7 +125,7 @@ bool Tracker::update()
     ----------------------------------------------------------------------*/
 
     // Transform from camera frame to aruco frame
-    if(foundMarker)
+    if(markerIds.size() > 0)
     {
         cv::Mat rvec = (cv::Mat_<double>(3, 1) << rvecs[0][0], rvecs[0][1], rvecs[0][2]);
         cv::Mat tvec = (cv::Mat_<double>(3, 1) << tvecs[0][0], tvecs[0][1], tvecs[0][2]);
@@ -180,20 +169,16 @@ bool Tracker::update()
     if(ARUCO_DEBUG_PRINT)
     {
         printf("------------------[FPS: %.2d]--------------------\n", fps);
+       
     }
 
     if(DRAW_HUD)
     {
-        drawHUD();
-    }
-    
-    if(foundMarker)
-    {
-        return true;
+        return drawHUD();
     }
     else
     {
-        return false;
+        return true;
     }
 }
 

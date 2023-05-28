@@ -24,24 +24,32 @@
 #include "pid.h"
 #include "serial_if.h"
 #include "logger.h"
+#include "aruco_tracker.hpp"
 
 // Defines
 #define LOG_TO_FILE false // False: Log to console, True: Log to file
-#define LOG true // Log to console or file
+#define LOG false // Log to console or file
 #define LOGGER_TOGGLE false // Logger class
 #define TS (1.0/60.0)
 #define HOVER_VALUE 440.0 // 430-440 required for hover
 #define DRONE_ID 24152
 
+// Prototypes
 bool startNatNetConnection(const char * argv0);
 void unpack(char * pData);
 void* velocity(void* arg);
 void* controllerTick(void* arg);
+void* ArucoLogic(void *arg);
 
 UOptitrack * frame = nullptr;
 URigid *drone_marker;
 double PX, PY, PZ;
 double VX = 0, VY = 0, VZ = 0;
+// velx, vely, velz
+double velx = 0;
+double vely = 0;
+double velz = 0;
+
 double height_measurement; // Height controller is weird. Trying to mimic it.
 
 // Controllers
@@ -52,6 +60,8 @@ PID* ctrl_vel_x;
 PID* ctrl_vel_y;
 PID* ctrl_x;
 PID* ctrl_y;
+
+Tracker* tracker;
 
 // Timer stuff
 struct itimerval it;
@@ -77,7 +87,7 @@ int main(int argc, char **argv)
     // Setup and start timer to run 100 Hz (timer value = 10000 us)
     getitimer(ITIMER_REAL, &it); 
     tv.tv_sec = 0.0;
-    tv.tv_usec = 16666.6667;
+    tv.tv_usec = TS * 1000000; // 16666.6667 us = 60 Hz
     it.it_interval = tv;
     it.it_value = tv;
     setitimer(ITIMER_REAL, &it, NULL);
@@ -107,14 +117,18 @@ int main(int argc, char **argv)
     ctrl_x = new PID(RegP, TS);
     ctrl_y = new PID(RegP, TS);
     Controller* ctrl_pos = new Controller(&PX, &PY, &PZ, &R, &P, &Y, ctrl_vel_x, ctrl_vel_y);
+    tracker = new Tracker(0);
 
 //{PX, PY, PZ, P, Y, R, error_h, error_roll, error_pitch, error_yaw}
     lg = new Logger("X, Y, Z, Pitch, Yaw, Roll, errorHeight, errorRoll, errorPitch, errorYaw, HLeadOut, HIntegralOut, HeightError, HVelLeadOut->yl[0], ctrl_vel_h->ref", LOGGER_TOGGLE);
 
 
     // Velocity calculations.
-    pthread_t vel_thread;
-    pthread_create(&vel_thread, NULL, velocity, NULL);
+    //pthread_t vel_thread;
+    //pthread_create(&vel_thread, NULL, velocity, NULL);
+
+    pthread_t aruco_thread;
+    pthread_create(&aruco_thread, NULL, ArucoLogic, NULL);
     
     printf("###########################\n");
     printf("#  Starting test mission  #\n");
@@ -152,8 +166,8 @@ int main(int argc, char **argv)
     // MATLAB PID pos control: 0.6749, 3.7413, 1.7077. PD 1.2168, 1.1303. P 0.5343
     ctrl_x->set_gains(0.9398, 0, 0, 0.2);
     ctrl_y->set_gains(0.9398, 0, 0, 0.2);
-    ctrl_x->limit_output(0.5, -0.5);
-    ctrl_y->limit_output(0.5, -0.5);
+    ctrl_x->limit_output(1.0, -1.0);
+    ctrl_y->limit_output(1.0, -1.0);
 
     ctrl_yaw->set_gains(0.2, 0, 0.2243, 0.5);
     ctrl_yaw->yaw_control = true;
@@ -215,6 +229,7 @@ int main(int argc, char **argv)
         double to_log[] = {PX, PY, PZ, P, Y, R, error_h, error_roll, error_pitch, error_yaw, ctrl_h->yl[0], ctrl_h->yi[0], PZ-z_tmp, ctrl_vel_h->yl[0], ctrl_vel_h->ref};
         lg->log(to_log, 13);
         // Logging
+
         if( count > 5 and LOG == true)
         {
             if (LOG_TO_FILE)
@@ -341,10 +356,21 @@ void* velocity(void* arg)
 
 void* controllerTick(void* arg)
 {
-    //clock_t time = clock();
+    double PX_old = PX;
+    double PY_old = PY;
+    double PZ_old = PZ;
+
     while(true)
     {
         sigwait(&signalset, &sig);
+
+        VX = (PX - PX_old) / TS;
+        VY = (PY - PY_old) / TS;
+        VZ = (PZ - PZ_old) / TS;
+        PX_old = PX;
+        PY_old = PY;
+        PZ_old = PZ;
+
         //usleep(TS * 1000000);
         //printf("%.9f\n", (difftime(clock(), time)/CLOCKS_PER_SEC));
         //time = clock();
@@ -358,5 +384,37 @@ void* controllerTick(void* arg)
         ctrl_vel_y->ref = ctrl_y->output();
         ctrl_vel_x->tick();
         ctrl_vel_y->tick();
+    }
+}
+
+void* ArucoLogic(void *arg)
+{
+    bool didPrint = false;
+
+    while(true)
+    {
+        tracker->update();
+
+        if(tracker->foundMarker == true and didPrint == false)
+        {
+            printf("Found marker!\n");
+            didPrint = true;
+        }
+        else if(tracker->foundMarker == false and didPrint == true)
+        {
+            printf("Lost marker!\n");
+            didPrint = false;
+        }
+
+        if(tracker->foundMarker)
+        {
+            // Define mat consisting of tracker->x and tracker->y
+            cv::Mat xy = (cv::Mat_<double>(2,1) << tracker->getX(P), tracker->getY(R));
+
+            // Apply rotation around z-axis
+            cv::Mat rot = (cv::Mat_<double>(2,2) << cos(Y), -sin(Y), sin(Y), cos(Y));
+
+            cv::Mat xy_rot = rot * xy;
+        }
     }
 }
