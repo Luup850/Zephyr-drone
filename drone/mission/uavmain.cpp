@@ -28,9 +28,9 @@
 // Defines
 #define LOG_TO_FILE false // False: Log to console, True: Log to file
 #define LOG true // Log to console or file
-#define LOGGER_TOGGLE true // Logger class
+#define LOGGER_TOGGLE false // Logger class
 #define TS (1.0/60.0)
-#define HOVER_VALUE 430.0 // 430-440 required for hover
+#define HOVER_VALUE 440.0 // 430-440 required for hover
 #define DRONE_ID 24152
 
 bool startNatNetConnection(const char * argv0);
@@ -152,8 +152,8 @@ int main(int argc, char **argv)
     // MATLAB PID pos control: 0.6749, 3.7413, 1.7077. PD 1.2168, 1.1303. P 0.5343
     ctrl_x->set_gains(0.9398, 0, 0, 0.2);
     ctrl_y->set_gains(0.9398, 0, 0, 0.2);
-    ctrl_x->limit_output(1, -1);
-    ctrl_y->limit_output(1, -1);
+    ctrl_x->limit_output(0.5, -0.5);
+    ctrl_y->limit_output(0.5, -0.5);
 
     ctrl_yaw->set_gains(0.2, 0, 0.2243, 0.5);
     ctrl_yaw->yaw_control = true;

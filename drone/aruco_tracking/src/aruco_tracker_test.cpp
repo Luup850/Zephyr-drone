@@ -2,6 +2,7 @@
 //#include <opencv2/videoio.hpp>
 //#include <opencv2/highgui.hpp>
 //#include <opencv2/aruco.hpp>
+/*
 #include <unistd.h>
 #include <iostream>
 #include <time.h>
@@ -47,23 +48,22 @@ void Tracker::update()
     // Old frame
     //cv::Mat frame_old = frame.clone();
 
-    /*for(int i = 0; i < 5; i++)
+    for(int i = 0; i < 5; i++)
     {
         cam.grab();
-    }*/
+    }
     f1 = clock();
     // Time difference in seconds
     t0 = (float)(clock() - f1)/CLOCKS_PER_SEC;
     cam.read(frame);
     t1 = (float)(clock() - f1)/CLOCKS_PER_SEC;
-    /*cam.read(frame_2);
-    t2 = (float)(clock() - f1)/CLOCKS_PER_SEC;*/
+    cam.read(frame_2);
+    t2 = (float)(clock() - f1)/CLOCKS_PER_SEC;
     //frame_hud = frame.clone();
     printf("---------------------\n");
     printf("Time to grab frame 1: %f\n", t1 - t0);
     //printf("Time to grab frame 2: %f\n", t2 - t1);
     //printf("---------------------\n");
-    /*
     std::vector<int> markerIds;
     std::vector<std::vector<cv::Point2f>> markerCorners, rejectedCandidates;
     // Define detector parameters
@@ -88,7 +88,6 @@ void Tracker::update()
     if(DRAW_HUD)
         cv::putText(frame_hud, std::to_string(fps), cv::Point(10, 30), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 0), 2);
 
-    */
     // Calculate FPS
     fps_counter++;
     if (clock() - start > CLOCKS_PER_SEC)
@@ -101,7 +100,6 @@ void Tracker::update()
 }
 
 
-/*
 int main(int argc, char** argv)
 {
     VideoCapture cap;

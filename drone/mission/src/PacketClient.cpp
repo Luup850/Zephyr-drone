@@ -1022,8 +1022,8 @@ static void *CommandListenThread(void *dummy) {
 
     // debug - print message
     inet_ntop(AF_INET, &(TheirAddress.sin_addr), ip_as_str, INET_ADDRSTRLEN);
-    printf("[Client] Received command from %s: Command=%d, nDataBytes=%d\n",
-           ip_as_str, (int) PacketIn.iMessage, (int) PacketIn.nDataBytes);
+    //MC: printf("[Client] Received command from %s: Command=%d, nDataBytes=%d\n",
+    //MC:       ip_as_str, (int) PacketIn.iMessage, (int) PacketIn.nDataBytes);
 
     unsigned char *ptr = (unsigned char *) &PacketIn;
     sSender_Server *server_info = (sSender_Server *) (ptr + 4);
@@ -1035,7 +1035,7 @@ static void *CommandListenThread(void *dummy) {
 //        Unpack((char *) &PacketIn);
         break;
       case NAT_FRAMEOFDATA:
-        std::cout << "[Client] Received NAT_FRAMEOFDATA packet";
+        //MC: std::cout << "[Client] Received NAT_FRAMEOFDATA packet";
 //         Unpack((char *) &PacketIn);
         unpack((char *) &PacketIn);
         break;

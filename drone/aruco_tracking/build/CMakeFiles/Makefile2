@@ -74,12 +74,12 @@ clean: CMakeFiles/ArucoTracker.dir/clean
 CMakeFiles/ArucoTracker.dir/all:
 	$(MAKE) -f CMakeFiles/ArucoTracker.dir/build.make CMakeFiles/ArucoTracker.dir/depend
 	$(MAKE) -f CMakeFiles/ArucoTracker.dir/build.make CMakeFiles/ArucoTracker.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/local/mdch/aruco_tracking/build/CMakeFiles --progress-num=1,2,3 "Built target ArucoTracker"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/local/mdch/aruco_tracking/build/CMakeFiles --progress-num=1,2,3,4 "Built target ArucoTracker"
 .PHONY : CMakeFiles/ArucoTracker.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ArucoTracker.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/local/mdch/aruco_tracking/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/local/mdch/aruco_tracking/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ArucoTracker.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/local/mdch/aruco_tracking/build/CMakeFiles 0
 .PHONY : CMakeFiles/ArucoTracker.dir/rule

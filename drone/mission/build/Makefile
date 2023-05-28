@@ -150,6 +150,33 @@ src/PacketClient.cpp.s:
 	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/PacketClient.cpp.s
 .PHONY : src/PacketClient.cpp.s
 
+src/aruco_tracker.o: src/aruco_tracker.cpp.o
+
+.PHONY : src/aruco_tracker.o
+
+# target to build an object file
+src/aruco_tracker.cpp.o:
+	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/aruco_tracker.cpp.o
+.PHONY : src/aruco_tracker.cpp.o
+
+src/aruco_tracker.i: src/aruco_tracker.cpp.i
+
+.PHONY : src/aruco_tracker.i
+
+# target to preprocess a source file
+src/aruco_tracker.cpp.i:
+	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/aruco_tracker.cpp.i
+.PHONY : src/aruco_tracker.cpp.i
+
+src/aruco_tracker.s: src/aruco_tracker.cpp.s
+
+.PHONY : src/aruco_tracker.s
+
+# target to generate assembly for a file
+src/aruco_tracker.cpp.s:
+	$(MAKE) -f CMakeFiles/uav.dir/build.make CMakeFiles/uav.dir/src/aruco_tracker.cpp.s
+.PHONY : src/aruco_tracker.cpp.s
+
 src/controller.o: src/controller.cpp.o
 
 .PHONY : src/controller.o
@@ -351,6 +378,9 @@ help:
 	@echo "... src/PacketClient.o"
 	@echo "... src/PacketClient.i"
 	@echo "... src/PacketClient.s"
+	@echo "... src/aruco_tracker.o"
+	@echo "... src/aruco_tracker.i"
+	@echo "... src/aruco_tracker.s"
 	@echo "... src/controller.o"
 	@echo "... src/controller.i"
 	@echo "... src/controller.s"

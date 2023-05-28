@@ -40,6 +40,9 @@ class Tracker
         // Camera frame with HUD
         cv::Mat frame_hud;
 
+        cv::Mat rvec;
+        cv::Mat tvec;
+
         int fps_counter = 0;
         int fps = 0;
 

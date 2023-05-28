@@ -6,5 +6,5 @@ CXX_FLAGS =  -std=c++11 -Wall
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/local/mdch/mission/include 
+CXX_INCLUDES = -I/home/local/mdch/mission/include -isystem /usr/local/include/opencv4 
 

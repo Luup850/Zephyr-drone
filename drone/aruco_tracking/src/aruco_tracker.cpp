@@ -47,7 +47,6 @@ Tracker::Tracker(int camID)
 bool Tracker::update()
 {
     //cv::Mat frame_old = frame.clone();
-
     cam.read(frame);
 
     // Rectify frame with camera matrix and distortion matrix
@@ -126,43 +125,46 @@ bool Tracker::update()
     ----------------------------------------------------------------------*/
 
     // Transform from camera frame to aruco frame
-    cv::Mat rvec = (cv::Mat_<double>(3, 1) << rvecs[0][0], rvecs[0][1], rvecs[0][2]);
-    cv::Mat tvec = (cv::Mat_<double>(3, 1) << tvecs[0][0], tvecs[0][1], tvecs[0][2]);
+    if(markerIds.size() > 0)
+    {
+        cv::Mat rvec = (cv::Mat_<double>(3, 1) << rvecs[0][0], rvecs[0][1], rvecs[0][2]);
+        cv::Mat tvec = (cv::Mat_<double>(3, 1) << tvecs[0][0], tvecs[0][1], tvecs[0][2]);
 
-    // Create a transformation matrix using Rodrigues rotation conversion
-    cv::Mat rotationMatrix;
-    cv::Rodrigues(rvec, rotationMatrix);
-
-
-    // Create a 4x4 transformation matrix by combining rotation and translation
-    cv::Mat transformationMatrix = cv::Mat::eye(4, 4, CV_64F);
-    rotationMatrix.copyTo(transformationMatrix(cv::Rect(0, 0, 3, 3)));  // Copy rotation to top-left 3x3 submatrix
-    tvec.copyTo(transformationMatrix(cv::Rect(3, 0, 1, 3)));
-
-    cv::Mat point = (cv::Mat_<double>(4, 1) << 0, 0, 0, 1);
+        // Create a transformation matrix using Rodrigues rotation conversion
+        cv::Mat rotationMatrix;
+        cv::Rodrigues(rvec, rotationMatrix);
 
 
-    // Deep copy transformation matrix
-    cv::Mat transformationMatrixInverse = cv::Mat::eye(4, 4, CV_64F);
+        // Create a 4x4 transformation matrix by combining rotation and translation
+        cv::Mat transformationMatrix = cv::Mat::eye(4, 4, CV_64F);
+        rotationMatrix.copyTo(transformationMatrix(cv::Rect(0, 0, 3, 3)));  // Copy rotation to top-left 3x3 submatrix
+        tvec.copyTo(transformationMatrix(cv::Rect(3, 0, 1, 3)));
 
-    cv::invert(transformationMatrix, transformationMatrixInverse);
+        cv::Mat point = (cv::Mat_<double>(4, 1) << 0, 0, 0, 1);
 
 
-    
+        // Deep copy transformation matrix
+        cv::Mat transformationMatrixInverse = cv::Mat::eye(4, 4, CV_64F);
 
-    
+        cv::invert(transformationMatrix, transformationMatrixInverse);
 
-    cv::Mat point_inverse = transformationMatrix.inv() * point;
-    // Transform point from camera frame to aruco frame
-    cv::Mat point_transformed = transformationMatrix * point;
 
-    x_c = tvecs[0][0];
-    y_c = tvecs[0][1];
-    z_c = tvecs[0][2];
+        
 
-    x_a = point_inverse.at<double>(0, 0);
-    y_a = point_inverse.at<double>(1, 0);
-    z_a = point_inverse.at<double>(2, 0);
+        
+
+        cv::Mat point_inverse = transformationMatrix.inv() * point;
+        // Transform point from camera frame to aruco frame
+        cv::Mat point_transformed = transformationMatrix * point;
+
+        x_c = tvecs[0][0];
+        y_c = tvecs[0][1];
+        z_c = tvecs[0][2];
+
+        x_a = point_inverse.at<double>(0, 0);
+        y_a = point_inverse.at<double>(1, 0);
+        z_a = point_inverse.at<double>(2, 0);
+    }
 
     if(ARUCO_DEBUG_PRINT)
     {

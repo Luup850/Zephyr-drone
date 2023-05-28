@@ -1,5 +1,6 @@
 #include <aruco_tracker.hpp>
 
+
 using namespace cv;
 using namespace std;
 
@@ -16,7 +17,7 @@ int main(int argc, char** argv)
     {
         running = tracker->update();
 
-        printf("x: %.2lf, \ty: %.2lf, \tz: %.2lf\n", tracker->getX(0), tracker->getY(0), tracker->z_c);
+        //printf("x: %.2lf, \ty: %.2lf, \tz: %.2lf\n", tracker->getX(0), tracker->getY(0), tracker->z_c);
     }
 
     return 0;

@@ -16,6 +16,7 @@
 #include <opencv4/opencv2/aruco.hpp>
 #include <opencv4/opencv2/core.hpp>
 #include <opencv4/opencv2/imgcodecs.hpp>
+#include <math.h>
 
 #include <aruco_tracker.hpp>
 
@@ -28,7 +29,7 @@ Tracker::Tracker(int camID)
     cam.open(camID);
     cam.set(cv::CAP_PROP_BUFFERSIZE, 1);
     //cam.set(cv::CAP_PROP_FPS, 10);
-
+    
     // set resolution to 360p
     //cam.set(cv::CAP_PROP_FRAME_WIDTH, 1);
     //cam.set(cv::CAP_PROP_FRAME_HEIGHT, 1);
@@ -46,7 +47,6 @@ Tracker::Tracker(int camID)
 bool Tracker::update()
 {
     //cv::Mat frame_old = frame.clone();
-
     cam.read(frame);
 
     // Rectify frame with camera matrix and distortion matrix
@@ -125,43 +125,52 @@ bool Tracker::update()
     ----------------------------------------------------------------------*/
 
     // Transform from camera frame to aruco frame
-    cv::Mat rvec = (cv::Mat_<double>(3, 1) << rvecs[0][0], rvecs[0][1], rvecs[0][2]);
-    cv::Mat tvec = (cv::Mat_<double>(3, 1) << tvecs[0][0], tvecs[0][1], tvecs[0][2]);
+    if(markerIds.size() > 0)
+    {
+        cv::Mat rvec = (cv::Mat_<double>(3, 1) << rvecs[0][0], rvecs[0][1], rvecs[0][2]);
+        cv::Mat tvec = (cv::Mat_<double>(3, 1) << tvecs[0][0], tvecs[0][1], tvecs[0][2]);
 
-    // Create a transformation matrix using Rodrigues rotation conversion
-    cv::Mat rotationMatrix;
-    cv::Rodrigues(rvec, rotationMatrix);
+        // Create a transformation matrix using Rodrigues rotation conversion
+        cv::Mat rotationMatrix;
+        cv::Rodrigues(rvec, rotationMatrix);
 
-    // Create a 4x4 transformation matrix by combining rotation and translation
-    cv::Mat transformationMatrix = cv::Mat::eye(4, 4, CV_64F);
-    rotationMatrix.copyTo(transformationMatrix(cv::Rect(0, 0, 3, 3)));  // Copy rotation to top-left 3x3 submatrix
-    tvec.copyTo(transformationMatrix(cv::Rect(3, 0, 1, 3)));
 
-    cv::Mat point = (cv::Mat_<double>(4, 1) << 0, 0, 0, 1);
+        // Create a 4x4 transformation matrix by combining rotation and translation
+        cv::Mat transformationMatrix = cv::Mat::eye(4, 4, CV_64F);
+        rotationMatrix.copyTo(transformationMatrix(cv::Rect(0, 0, 3, 3)));  // Copy rotation to top-left 3x3 submatrix
+        tvec.copyTo(transformationMatrix(cv::Rect(3, 0, 1, 3)));
 
-    // Deep copy transformation matrix
-    cv::Mat transformationMatrixInverse = cv::Mat::eye(4, 4, CV_64F);
+        cv::Mat point = (cv::Mat_<double>(4, 1) << 0, 0, 0, 1);
 
-    cv::invert(transformationMatrix, transformationMatrixInverse);
 
-    
+        // Deep copy transformation matrix
+        cv::Mat transformationMatrixInverse = cv::Mat::eye(4, 4, CV_64F);
 
-    cv::Mat point_inverse = transformationMatrix.inv() * point;
-    // Transform point from camera frame to aruco frame
-    cv::Mat point_transformed = transformationMatrix * point;
+        cv::invert(transformationMatrix, transformationMatrixInverse);
 
-    x_c = tvecs[0][0];
-    y_c = tvecs[0][1];
-    z_c = tvecs[0][2];
 
-    x_a = point_transformed.at<double>(0, 0);
-    y_a = point_transformed.at<double>(1, 0);
-    z_a = point_transformed.at<double>(2, 0);
+        
 
-    printf("------------------[FPS: %.2d]--------------------\n", fps);
-    printf("x: %.2f, y: %.2f, z: %.2f\n", point_transformed.at<double>(0, 0) * 100.0, point_transformed.at<double>(1, 0) * 100.0, point_transformed.at<double>(2, 0) * 100.0);
-    // This is the actual pos of the marker relative to global frame
-    printf("x: %.2f, y: %.2f, z: %.2f Inverse\n", point_inverse.at<double>(0, 0) * 100.0, point_inverse.at<double>(1, 0) * 100.0, point_inverse.at<double>(2, 0) * 100.0);
+        
+
+        cv::Mat point_inverse = transformationMatrix.inv() * point;
+        // Transform point from camera frame to aruco frame
+        cv::Mat point_transformed = transformationMatrix * point;
+
+        x_c = tvecs[0][0];
+        y_c = tvecs[0][1];
+        z_c = tvecs[0][2];
+
+        x_a = point_inverse.at<double>(0, 0);
+        y_a = point_inverse.at<double>(1, 0);
+        z_a = point_inverse.at<double>(2, 0);
+    }
+
+    if(ARUCO_DEBUG_PRINT)
+    {
+        printf("------------------[FPS: %.2d]--------------------\n", fps);
+       
+    }
 
     if(DRAW_HUD)
     {
@@ -186,4 +195,15 @@ bool Tracker::drawHUD()
     {
         return true;
     }
+}
+
+double Tracker::getX(double pitch)
+{
+    return sqrt(pow(z_c, 2) + pow(y_c, 2)) * sin(pitch * (M_PI/180));
+}
+
+double Tracker::getY(double roll)
+{
+    return sqrt(pow(z_c, 2) + pow(x_c, 2)) * sin(roll * (M_PI/180));
+
 }
