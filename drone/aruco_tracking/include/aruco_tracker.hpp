@@ -55,5 +55,9 @@ class Tracker
         cv::Ptr<cv::aruco::Dictionary> dictionary;
         clock_t fps_clock, generic_clock;
 
+        std::vector<int> markerIds;
+        std::vector<std::vector<cv::Point2f>> markerCorners, rejectedCandidates;
+        cv::Ptr<cv::aruco::DetectorParameters> detectorParams;
+
 };
 #endif
