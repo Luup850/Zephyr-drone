@@ -11,7 +11,7 @@
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #define DRAW_HUD true
-#define ARUCO_DEBUG_PRINT false
+#define ARUCO_DEBUG_PRINT true
 
 class Tracker
 {
@@ -22,6 +22,20 @@ class Tracker
         double x_c,y_c,z_c;
         double x_a,y_a,z_a;
 
+        // Position of aruco code relative to camera with a rotation applied
+        // Rotation is defined by pitch yaw and role
+        double arucoPos[3];
+
+        // Local frame (relative to camera) fixed so that x y and z fit the drones frame.
+        // Given in meters.
+        double x_l,y_l,z_l;
+
+        // This is the rotation that is applied inverse to the aruco code
+        // This gives the position relative to the drone but ignoring the pitch yaw and roll of the drone.
+        double *pitch,*yaw,*roll;
+
+        // Updates the tracker
+        // Tracker takes a new frame and looks for aruco codes
         bool update();
 
         // Uses camera x
@@ -45,6 +59,10 @@ class Tracker
 
         int fps_counter = 0;
         int fps = 0;
+
+        int tick = 0;
+
+        bool foundMarker = false;
 
         std::vector<cv::Vec3d> rvecs, tvecs;
 

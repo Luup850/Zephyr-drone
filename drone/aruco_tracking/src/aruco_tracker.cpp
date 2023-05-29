@@ -28,6 +28,8 @@ Tracker::Tracker(int camID)
 {
     cam.open(camID);
     cam.set(cv::CAP_PROP_BUFFERSIZE, 1);
+    cam.set(cv::CAP_PROP_XI_AUTO_WB, 0);
+    cam.set(cv::CAP_PROP_TEMPERATURE,10);
     //cam.set(cv::CAP_PROP_FPS, 10);
     
     // set resolution to 360p
@@ -44,8 +46,11 @@ Tracker::Tracker(int camID)
     printf("Tracker constructor\n");
 }
 
+// Returns true if execution was successfully completed
+// Used to time the discretized controllers such that their sampletime can be dynamically adjusted
 bool Tracker::update()
 {
+    foundMarker = false;
     //cv::Mat frame_old = frame.clone();
     cam.read(frame);
 
@@ -64,18 +69,31 @@ bool Tracker::update()
 
     cv::aruco::estimatePoseSingleMarkers(markerCorners, 0.135, cameraMat, distMat, rvecs, tvecs);
 
+    if(markerIds.size() > 0)
+    {
+        foundMarker = true;
+        x_l = -tvecs[0][1];
+        y_l = tvecs[0][0];
+        z_l = -tvecs[0][2];
+        //printf("Found marker\n");
+    }
+
     // Draw fps onto frame_hud
     if(DRAW_HUD)
     {
         cv::putText(frame_hud, std::to_string(fps), cv::Point(10, 30), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 0), 2);
+        // Draw small red cross in center of frame
+        cv::line(frame_hud, cv::Point(frame_hud.cols / 2 - 5, frame_hud.rows / 2), cv::Point(frame_hud.cols / 2 + 5, frame_hud.rows / 2), cv::Scalar(0, 0, 255), 2);
+        cv::line(frame_hud, cv::Point(frame_hud.cols / 2, frame_hud.rows / 2 - 5), cv::Point(frame_hud.cols / 2, frame_hud.rows / 2 + 5), cv::Scalar(0, 0, 255), 2);
+
         cv::aruco::drawDetectedMarkers(frame_hud, markerCorners, markerIds);
 
         // Draw x y and z for first object
-        if (markerIds.size() > 0)
+        if (foundMarker)
         {
-            auto x = tvecs[0][0] * 100.0;
-            auto y = tvecs[0][1] * 100.0;
-            auto z = tvecs[0][2] * 100.0;
+            double x = x_l * 100.0;
+            double y = y_l * 100.0;
+            double z = z_l * 100.0;
 
             // limit x y z to 2 decmials
             x = (int)(x * 100 + .5);
@@ -85,25 +103,25 @@ bool Tracker::update()
             z = (int)(z * 100 + .5);
             z = (float)z / 100;
 
-            auto pitch = rvecs[0][0] * 57.2957795;
-            auto yaw = rvecs[0][1] * 57.2957795;
-            auto roll = rvecs[0][2] * 57.2957795;
+            //auto pitch = rvecs[0][0] * 57.2957795;
+            //auto yaw = rvecs[0][1] * 57.2957795;
+            //auto roll = rvecs[0][2] * 57.2957795;
 
             // limit pitch yaw roll to 2 decmials
-            pitch = (int)(pitch * 100 + .5);
-            pitch = (float)pitch / 100;
-            yaw = (int)(yaw * 100 + .5);
-            yaw = (float)yaw / 100;
-            roll = (int)(roll * 100 + .5);
-            roll = (float)roll / 100;
+            //pitch = (int)(pitch * 100 + .5);
+            //pitch = (float)pitch / 100;
+            //yaw = (int)(yaw * 100 + .5);
+            //yaw = (float)yaw / 100;
+            //roll = (int)(roll * 100 + .5);
+            //roll = (float)roll / 100;
 
             cv::putText(frame_hud, "x: " + std::to_string(x), cv::Point(10, 60), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 0), 2);
             cv::putText(frame_hud, "y: " + std::to_string(y), cv::Point(10, 90), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 0), 2);
             cv::putText(frame_hud, "z: " + std::to_string(z), cv::Point(10, 120), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 0), 2);
 
-            cv::putText(frame_hud, "pitch: " + std::to_string(pitch), cv::Point(10, 150), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 0), 2);
-            cv::putText(frame_hud, "yaw: " + std::to_string(yaw), cv::Point(10, 180), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 0), 2);
-            cv::putText(frame_hud, "roll: " + std::to_string(roll), cv::Point(10, 210), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 0), 2);
+            //cv::putText(frame_hud, "pitch: " + std::to_string(pitch), cv::Point(10, 150), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 0), 2);
+            //cv::putText(frame_hud, "yaw: " + std::to_string(yaw), cv::Point(10, 180), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 0), 2);
+            //cv::putText(frame_hud, "roll: " + std::to_string(roll), cv::Point(10, 210), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 0), 2);
 
             // Draw x and y lines on aruco marker
             cv::line(frame_hud, markerCorners[0][0], markerCorners[0][1], cv::Scalar(0, 255, 0), 2);
@@ -125,53 +143,41 @@ bool Tracker::update()
     ----------------------------------------------------------------------*/
 
     // Transform from camera frame to aruco frame
-    if(markerIds.size() > 0)
+    if(foundMarker)
     {
-        cv::Mat rvec = (cv::Mat_<double>(3, 1) << rvecs[0][0], rvecs[0][1], rvecs[0][2]);
-        cv::Mat tvec = (cv::Mat_<double>(3, 1) << tvecs[0][0], tvecs[0][1], tvecs[0][2]);
-
-        // Create a transformation matrix using Rodrigues rotation conversion
-        cv::Mat rotationMatrix;
-        cv::Rodrigues(rvec, rotationMatrix);
-
-
-        // Create a 4x4 transformation matrix by combining rotation and translation
-        cv::Mat transformationMatrix = cv::Mat::eye(4, 4, CV_64F);
-        rotationMatrix.copyTo(transformationMatrix(cv::Rect(0, 0, 3, 3)));  // Copy rotation to top-left 3x3 submatrix
-        tvec.copyTo(transformationMatrix(cv::Rect(3, 0, 1, 3)));
-
-        cv::Mat point = (cv::Mat_<double>(4, 1) << 0, 0, 0, 1);
-
-
-        // Deep copy transformation matrix
-        cv::Mat transformationMatrixInverse = cv::Mat::eye(4, 4, CV_64F);
-
-        cv::invert(transformationMatrix, transformationMatrixInverse);
-
-
-        
-
-        
-
-        cv::Mat point_inverse = transformationMatrix.inv() * point;
-        // Transform point from camera frame to aruco frame
-        cv::Mat point_transformed = transformationMatrix * point;
-
         x_c = tvecs[0][0];
         y_c = tvecs[0][1];
         z_c = tvecs[0][2];
 
-        x_a = point_inverse.at<double>(0, 0);
-        y_a = point_inverse.at<double>(1, 0);
-        z_a = point_inverse.at<double>(2, 0);
+        // Tvecs[0] to cv::Mat
+        cv::Mat tvecMat = cv::Mat::zeros(3, 1, CV_64F);
+        tvecMat.at<double>(0, 0) = x_l;
+        tvecMat.at<double>(1, 0) = y_l;
+        tvecMat.at<double>(2, 0) = z_l;
+
+        cv::Mat rotMat = cv::Mat::zeros(3, 3, CV_64F);
+        cv::Vec3d rollPitchYaw = cv::Vec3d(*roll, *pitch, *yaw);
+        cv::Rodrigues(rollPitchYaw, rotMat);
+
+        // Inverse rotation
+        cv::Mat pose_mat = rotMat.t() * tvecMat;
+        arucoPos[0] = pose_mat.at<double>(0, 0);
+        arucoPos[1] = pose_mat.at<double>(1, 0);
+        arucoPos[2] = pose_mat.at<double>(2, 0);
+
+        if(ARUCO_DEBUG_PRINT and tick % 20 == 0)
+        {
+            // Prints in centimeters
+            printf("x: %.2f \t y: %.2f \t z: %.2f\n", arucoPos[0] * 100.0, arucoPos[1] * 100.0, arucoPos[2] * 100.0);
+        }
     }
 
-    if(ARUCO_DEBUG_PRINT)
+    if(ARUCO_DEBUG_PRINT and tick % 20 == 0)
     {
-        printf("------------------[FPS: %.2d]--------------------\n", fps);
-       
+        printf("------------------[FPS: %.2d]--------------------\n", fps);   
     }
 
+    tick++;
     if(DRAW_HUD)
     {
         return drawHUD();
@@ -186,24 +192,20 @@ bool Tracker::drawHUD()
 {
     cv::namedWindow( "Live", cv::WINDOW_AUTOSIZE );
     cv::imshow("Live", frame_hud);
-
-    if(cv::waitKey(5) >= 0)
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
+    
+    cv::waitKey(5);
+    return true;
 }
 
 double Tracker::getX(double pitch)
 {
-    return sqrt(pow(z_c, 2) + pow(y_c, 2)) * sin(pitch * (M_PI/180));
+    return sqrt(pow(z_c, 2) + pow(y_c, 2)) * sin(pitch);
 }
 
 double Tracker::getY(double roll)
 {
-    return sqrt(pow(z_c, 2) + pow(x_c, 2)) * sin(roll * (M_PI/180));
+    printf("roll: %f\n", roll);
+    printf("Roll deg: %f\n", roll * (M_PI/180));
+    return sqrt(pow(z_c, 2) + pow(x_c, 2)) * sin(roll);
 
 }
