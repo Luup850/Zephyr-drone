@@ -83,17 +83,20 @@ def calibrate_camera():
     imgpoints = []  # 2d points in image plane
 
     # Get images from the calibration folder
-    images = [f for f in os.listdir(path + "/calibration") if f.endswith('.jpg')]
+    images = [f for f in os.listdir(path + "/callibImg") if f.endswith('.jpg')]
 
     for fname in images:
         # Read image
-        img = cv2.imread(path + "/calibration/" + fname)
+        img = cv2.imread(path + "/callibImg/" + fname)
+
+        # Resize image (480x640)
+        img = cv2.resize(img, (640, 480))
 
         # Convert image to grayscale
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
         # Find the chess board corners
-        ret, corners = cv2.findChessboardCorners(gray, (7, 6), None)
+        ret, corners = cv2.findChessboardCorners(gray, (9, 7), None)
 
         # If found, add object points, image points (after refining them)
         if ret:

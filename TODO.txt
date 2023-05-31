@@ -1,2 +1,4 @@
 1. Use drone pitch and yaw to derive a rotation matrix R. Apply it to the points from the camera
     - -y is forward, x is right.
+
+2. Align camera x y with OptiTrack. Currently yaw = 0 x axis pointing away from x axis of OptiTrack
