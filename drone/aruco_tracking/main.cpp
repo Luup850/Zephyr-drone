@@ -12,10 +12,11 @@ int main(int argc, char** argv)
     //namedWindow( "Live", WINDOW_AUTOSIZE );
     //imshow("Live", tracker->frame);
     //waitKey(0);
+    bool flipflop = false;
 
     double roll = 0;
     double pitch = 0;
-    double yaw = 0;
+    double yaw = 3.14/2.0;
 
     tracker->roll = &roll;
     tracker->pitch = &pitch;
@@ -26,6 +27,16 @@ int main(int argc, char** argv)
     {
         running = tracker->update();
 
+        if(flipflop == false and tracker->foundMarker)
+        {
+            flipflop = true;
+            printf("Found marker!\n");
+        }
+        else if(flipflop == true and !tracker->foundMarker)
+        {
+            flipflop = false;
+            printf("Lost marker!\n");
+        }
         //printf("x: %.2lf, \ty: %.2lf, \tz: %.2lf\n", tracker->getX(0), tracker->getY(0), tracker->z_c);
     }
 

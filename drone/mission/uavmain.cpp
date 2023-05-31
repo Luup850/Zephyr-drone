@@ -30,7 +30,8 @@
 #define LOG_TO_FILE false // False: Log to console, True: Log to file
 #define LOG false // Log to console or file
 #define LOGGER_TOGGLE false // Logger class
-#define TS (1.0/60.0)
+#define PRINT_CONTROLLER_FREQUENCY true
+#define TS (1.0/60.0) // Was 1/60
 #define HOVER_VALUE 440.0 // 430-440 required for hover
 #define DRONE_ID 24152
 
@@ -40,6 +41,7 @@ void unpack(char * pData);
 void* velocity(void* arg);
 void* controllerTick(void* arg);
 void* ArucoLogic(void *arg);
+void* TimerThread(void *arg);
 
 UOptitrack * frame = nullptr;
 URigid *drone_marker;
@@ -49,6 +51,8 @@ double VX = 0, VY = 0, VZ = 0;
 double velx = 0;
 double vely = 0;
 double velz = 0;
+
+double control_loop_freq = 0;
 
 double height_measurement; // Height controller is weird. Trying to mimic it.
 
@@ -69,9 +73,11 @@ struct timeval tv;
 sigset_t signalset;
 int sig;
 
+// Mission timer keeping track of mission.
+clock_t mission_timer;
+
 // Logging
 Logger *lg;
-
 
 // Pitch, yaw, roll
 double P, Y, R;
@@ -87,11 +93,10 @@ int main(int argc, char **argv)
     // Setup and start timer to run 100 Hz (timer value = 10000 us)
     getitimer(ITIMER_REAL, &it); 
     tv.tv_sec = 0.0;
-    tv.tv_usec = TS * 1000000; // 16666.6667 us = 60 Hz
+    tv.tv_usec = ((TS) * 1000000); // 16666.6667 us = 60 Hz
     it.it_interval = tv;
     it.it_value = tv;
     setitimer(ITIMER_REAL, &it, NULL);
-
 
     // Logging
     FILE *bs, *fp;
@@ -123,13 +128,11 @@ int main(int argc, char **argv)
     lg = new Logger("X, Y, Z, Pitch, Yaw, Roll, errorHeight, errorRoll, errorPitch, errorYaw, HLeadOut, HIntegralOut, HeightError, HVelLeadOut->yl[0], ctrl_vel_h->ref", LOGGER_TOGGLE);
 
 
-    // Velocity calculations.
+    // Velocity calculations. (Moved to controller tick)
     //pthread_t vel_thread;
     //pthread_create(&vel_thread, NULL, velocity, NULL);
 
-    pthread_t aruco_thread;
-    pthread_create(&aruco_thread, NULL, ArucoLogic, NULL);
-    
+
     printf("###########################\n");
     printf("#  Starting test mission  #\n");
     printf("###########################\n");
@@ -154,22 +157,22 @@ int main(int argc, char **argv)
     //ctrl_h->set_gains(20.0, 0.0, 0.7448, 0.07); // Best so far
     //ctrl_h->set_gains(22.3872, 6.66, 3.0237, 0.07);
     // 1.7448 0.7448 0.3448
+
+    // PID values
     ctrl_vel_h->set_gains(44.6684, 0, 0.7559, 0.07);
-    ctrl_h->set_gains(16.4106, 0, 0, 0.00);
-    ctrl_h->limit_output(0.5, -0.5);
-    //ctrl_h->set_gains(21.9636, 6.4475, 1.8021, 0.2); // Pt bedste: 21.9636, 6.4475, 1.8021, 0.2
-    //ctrl_h->limit_integral(400,0);
-    // MATLAB vel control PD: 0.0823, 0, 0.5087
+    ctrl_h->set_gains(18.4106, 0, 0, 0.00);
     ctrl_vel_x->set_gains(0.2917, 0, 0.3468, 0.3);
     ctrl_vel_y->set_gains(0.2917, 0, 0.3468, 0.3);
-    // Limit speed to 1 m/s
-    // MATLAB PID pos control: 0.6749, 3.7413, 1.7077. PD 1.2168, 1.1303. P 0.5343
     ctrl_x->set_gains(0.9398, 0, 0, 0.2);
     ctrl_y->set_gains(0.9398, 0, 0, 0.2);
+    ctrl_yaw->set_gains(0.2, 0, 0.2243, 0.5);
+
+    // Limit controller speeds
+    ctrl_h->limit_output(0.5, -0.5);
     ctrl_x->limit_output(1.0, -1.0);
     ctrl_y->limit_output(1.0, -1.0);
 
-    ctrl_yaw->set_gains(0.2, 0, 0.2243, 0.5);
+    // Set controller mode for yaw
     ctrl_yaw->yaw_control = true;
 
     // Controller reference. Sets all to current pose
@@ -179,7 +182,7 @@ int main(int argc, char **argv)
     ctrl_h->ref = 4.0;
     z_tmp = ctrl_h->ref;
 
-    // Controller measurement
+    // Controller measurements
     ctrl_x->measurement = &PX;
     ctrl_y->measurement = &PY;
     ctrl_h->measurement = &PZ;
@@ -188,9 +191,18 @@ int main(int argc, char **argv)
     ctrl_vel_y->measurement = &VY;
     ctrl_yaw->measurement = &Y;
 
+    // Tracker measurements. Used to align local frame with global frame
+    tracker->pitch = &P;
+    tracker->yaw = &Y;
+    tracker->roll = &R;
+
     // Control tick thread
     pthread_t control_thread;
     pthread_create(&control_thread, NULL, controllerTick, NULL);
+
+    // Aruco tick. Called after variables are set.
+    pthread_t aruco_thread;
+    pthread_create(&aruco_thread, NULL, ArucoLogic, NULL);
     
     // Small wait to give time to get ready for takeoff
     printf("Takeoff in...\n");
@@ -200,6 +212,8 @@ int main(int argc, char **argv)
         sleep(1);
 
     }
+    printf("Takeoff!\n");
+    mission_timer = clock();
 
     // Log parameters
     double to_log[] = {HOVER_VALUE, ctrl_x->ref, ctrl_y->ref, ctrl_yaw->ref, ctrl_h->ref, ctrl_h->kp, ctrl_h->tau_i, ctrl_h->tau_d, ctrl_h->alpha, ctrl_vel_x->tau_i, ctrl_vel_x->tau_d, ctrl_vel_x->alpha, ctrl_vel_h->kp, ctrl_vel_h->tau_i, ctrl_vel_h->tau_d};
@@ -207,11 +221,27 @@ int main(int argc, char **argv)
 
     // Control Loop
     int tst = 0;
+    bool ArucoEnabled = false;
     while(isOK)
     {
+        usleep(5000);
 
-        usleep(50000);
+        // Enable ArucoTracker after 5 seconds
+        if((difftime(clock(), mission_timer)/CLOCKS_PER_SEC) > 5)
+        {
+            if(tracker->foundMarker and ArucoEnabled == false)
+            {
+                ctrl_x->ref = PX + tracker->arucoPos[0];
+                ctrl_y->ref = PY + tracker->arucoPos[1];
+                //ctrl_y->ref = PY + 1.0;
+
+                printf("\n\nAruco tracking enabled!\n\n");
+                ArucoEnabled = true;
+            }
+        }
+
         ctrl_pos->tick_matlab();
+
         
         // Divide by 10.24 since drone ref is 0-100 and sim is 0 1024.
         double error_h = ctrl_vel_h->out + HOVER_VALUE;
@@ -363,6 +393,7 @@ void* controllerTick(void* arg)
     while(true)
     {
         sigwait(&signalset, &sig);
+        //usleep(0.05 * 1000000);
 
         VX = (PX - PX_old) / TS;
         VY = (PY - PY_old) / TS;
@@ -389,32 +420,10 @@ void* controllerTick(void* arg)
 
 void* ArucoLogic(void *arg)
 {
-    bool didPrint = false;
+    //bool didPrint = false;
 
     while(true)
     {
         tracker->update();
-
-        if(tracker->foundMarker == true and didPrint == false)
-        {
-            printf("Found marker!\n");
-            didPrint = true;
-        }
-        else if(tracker->foundMarker == false and didPrint == true)
-        {
-            printf("Lost marker!\n");
-            didPrint = false;
-        }
-
-        if(tracker->foundMarker)
-        {
-            // Define mat consisting of tracker->x and tracker->y
-            cv::Mat xy = (cv::Mat_<double>(2,1) << tracker->getX(P), tracker->getY(R));
-
-            // Apply rotation around z-axis
-            cv::Mat rot = (cv::Mat_<double>(2,2) << cos(Y), -sin(Y), sin(Y), cos(Y));
-
-            cv::Mat xy_rot = rot * xy;
-        }
     }
 }
