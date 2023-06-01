@@ -30,10 +30,12 @@ Tracker::Tracker(int camID)
     cam.set(cv::CAP_PROP_BUFFERSIZE, 1);
     cam.set(cv::CAP_PROP_XI_AUTO_WB, 0);
     cam.set(cv::CAP_PROP_TEMPERATURE,10);
-    cam.set(cv::CAP_PROP_FRAME_WIDTH, 480);
-    cam.set(cv::CAP_PROP_FRAME_HEIGHT, 360);
+    // Print resolutioon
+    //printf("Resolution: %d x %d\n", (int)cam.get(cv::CAP_PROP_FRAME_WIDTH), (int)cam.get(cv::CAP_PROP_FRAME_HEIGHT));
+    cam.set(cv::CAP_PROP_FRAME_WIDTH, 320);
+    cam.set(cv::CAP_PROP_FRAME_HEIGHT, 240);
+    printf("Resolution: %d x %d\n", (int)cam.get(cv::CAP_PROP_FRAME_WIDTH), (int)cam.get(cv::CAP_PROP_FRAME_HEIGHT));
     //cam.set(cv::CAP_PROP_FPS, 10);
-    
     // set resolution to 360p
     //cam.set(cv::CAP_PROP_FRAME_WIDTH, 1);
     //cam.set(cv::CAP_PROP_FRAME_HEIGHT, 1);
@@ -76,14 +78,42 @@ bool Tracker::update()
     // Detect markers
     cv::aruco::detectMarkers(frame, dictionary, markerCorners, markerIds, detectorParams, rejectedCandidates);
 
+    // Define object points
+    cv::Mat objPoints(4, 1, CV_32FC3);
+    objPoints.ptr<cv::Vec3f>(0)[0] = cv::Vec3f(-0.16/2.f, 0.16/2.f, 0);
+    objPoints.ptr<cv::Vec3f>(0)[1] = cv::Vec3f(0.16/2.f, 0.16/2.f, 0);
+    objPoints.ptr<cv::Vec3f>(0)[2] = cv::Vec3f(0.16/2.f, -0.16/2.f, 0);
+    objPoints.ptr<cv::Vec3f>(0)[3] = cv::Vec3f(-0.16/2.f, -0.16/2.f, 0);
+
+    // Aruco image scaling is done here. Old value was 0.135
     cv::aruco::estimatePoseSingleMarkers(markerCorners, 0.135, cameraMat, distMat, rvecs, tvecs);
+    //for (int i = 0; i < markerCorners.size(); i++) 
+    //{
+    //    printf("Marker id: %d\n", markerCorners.size());
+    //    printf("Got marker\n");
+    //    cv::solvePnP(objPoints, markerCorners.at(i), cameraMat, distMat, rvecs.at(i), tvecs.at(i));
+    //}
 
     if(markerIds.size() > 0)
     {
         foundMarker = true;
-        x_l = -tvecs[0][1];
-        y_l = tvecs[0][0];
+        // Align camera with drone frame
+        x_l = tvecs[0][0];
+        y_l = tvecs[0][1];
         z_l = -tvecs[0][2];
+
+        // Offset and scaling fix
+        /*
+            y:-0.47 to -1.43 is equal to 6 cm.
+            x:2.04 to 6.65 is equal to 6 cm.
+
+            Y: 1/6 = 0.1666666666666667
+            X: 4.61/6 = 0.7683333333333333
+            Middle is x5.1 y0.51
+        */
+        //x_l = (tvecs[0][0] - 5.0) * 0.7683;
+        //y_l = tvecs[0][1] * 0.16667;
+        //z_l = -tvecs[0][2];
         //printf("Found marker\n");
     }
     else
@@ -110,12 +140,12 @@ bool Tracker::update()
             double z = z_l * 100.0;
 
             // limit x y z to 2 decmials
-            x = (int)(x * 100 + .5);
-            x = (float)x / 100;
-            y = (int)(y * 100 + .5);
-            y = (float)y / 100;
-            z = (int)(z * 100 + .5);
-            z = (float)z / 100;
+            //x = (int)(x * 100 + .5);
+            //x = (float)x / 100;
+            //y = (int)(y * 100 + .5);
+            //y = (float)y / 100;
+            //z = (int)(z * 100 + .5);
+            //z = (float)z / 100;
 
             //auto pitch = rvecs[0][0] * 57.2957795;
             //auto yaw = rvecs[0][1] * 57.2957795;
@@ -159,9 +189,6 @@ bool Tracker::update()
     // Transform from camera frame to aruco frame
     if(foundMarker)
     {
-        x_c = tvecs[0][0];
-        y_c = tvecs[0][1];
-        z_c = tvecs[0][2];
 
         // Tvecs[0] to cv::Mat
         cv::Mat tvecMat = cv::Mat::zeros(3, 1, CV_64F);
@@ -182,6 +209,7 @@ bool Tracker::update()
         if(ARUCO_DEBUG_PRINT and tick % 20 == 0)
         {
             // Prints in centimeters
+            printf("Pitch: %.2f \t Yaw: %.2f \t Roll: %.2f\n", *pitch * 57.2957795, *yaw * 57.2957795, *roll * 57.2957795);
             printf("x: %.2f \t y: %.2f \t z: %.2f\n", arucoPos[0] * 100.0, arucoPos[1] * 100.0, arucoPos[2] * 100.0);
         }
     }

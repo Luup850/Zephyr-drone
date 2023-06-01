@@ -39,14 +39,23 @@ class Tracker
         bool update();
 
         // Distortion matrix (Normal res) (640x480)
-        cv::Mat distMat = (cv::Mat_<double>(1,5) << 0.4273174877, 0.3442052301, -0.0000898197, 0.0276518661, -2.8602810872);
-        // Camera matrix (Normal res)
-        cv::Mat cameraMat = (cv::Mat_<double>(3,3) << 809.7256631082, 0.0, 266.4705282079, 0, 817.1412927192, 273.6516853926, 0, 0, 1);
-
-        // (480x360) scaling 0.75
         //cv::Mat distMat = (cv::Mat_<double>(1,5) << 0.4273174877, 0.3442052301, -0.0000898197, 0.0276518661, -2.8602810872);
         // Camera matrix (Normal res)
-        //cv::Mat cameraMat = (cv::Mat_<double>(3,3) << 809.7256631082 * 0.75, 0.0, 266.4705282079 * 0.75, 0.0, 817.1412927192 * 0.75, 273.6516853926 * 0.75, 0.0, 0.0, 1);
+        //cv::Mat cameraMat = (cv::Mat_<double>(3,3) << 809.7256631082, 0.0, 266.4705282079, 0, 817.1412927192, 273.6516853926, 0, 0, 1);
+
+
+        // New resolution (320x240). Rescale distMat and cameraMat
+        // Distortion matrix (Low res) (320x240)
+        //cv::Mat distMat = (cv::Mat_<double>(1,5) << 1.38493297, -2.34673702, 0.06514933, -0.30943907, 2.00649459);
+        // Camera matrix (Low res)
+        //cv::Mat cameraMat = (cv::Mat_<double>(3,3) << 296.5411452868, 0.0, 132.0972617302, 0.0, 1416.7153105574, 109.3390825543, 0, 0, 1);
+
+        // New resolution (320x240) that actually works
+        // Distortion matrix (Low res) (320x240)
+        cv::Mat distMat = (cv::Mat_<double>(1,5) << -0.3832795, 0.15241031, -0.0072451, -0.00629277, -0.11769157);
+        // Camera matrix (Low res)
+        cv::Mat cameraMat = (cv::Mat_<double>(3,3) << 258.76440325, 0.0, 159.73475449, 0.0, 345.87451716, 148.08435765, 0, 0, 1);
+
 
         // Camera frame
         cv::Mat frame;
