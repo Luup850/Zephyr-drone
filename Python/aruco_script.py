@@ -83,11 +83,11 @@ def calibrate_camera():
     imgpoints = []  # 2d points in image plane
 
     # Get images from the calibration folder
-    images = [f for f in os.listdir(path + "/calibration_320x240") if f.endswith('.jpg')]
+    images = [f for f in os.listdir(path + "/calibration") if f.endswith('.jpg')]
     #print(len(images))
     for fname in images:
         # Read image
-        img = cv2.imread(path + "/calibration_320x240/" + fname)
+        img = cv2.imread(path + "/calibration/" + fname)
         #print(path + "/calibration_320x240/" + fname)
 
         # Convert image to grayscale
@@ -100,7 +100,7 @@ def calibrate_camera():
         if ret:
             objpoints.append(objp)
 
-            # Refine the corners
+            # Refine the corners (11, 11)
             corners2 = cv2.cornerSubPix(gray, corners, (11, 11), (-1, -1), criteria)
 
             # Add image points
@@ -108,8 +108,9 @@ def calibrate_camera():
 
             # Draw and display the corners
             img = cv2.drawChessboardCorners(img, (7, 6), corners2, ret)
-            cv2.imshow('img', img)
-            cv2.waitKey(500)
+            #cv2.imshow('img', img)
+            #print("Got one!")
+            #cv2.waitKey(500)
 
     # Calibrate camera
     ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
@@ -125,9 +126,18 @@ def undistort_image(img, mtx, dist):
 
 ret, mtx, dist, rvecs, tvecs = calibrate_camera()
 
+
+
 print("CameraMatrix", mtx)
 print("Distortion Coefficients", dist)
-
+# [[809.72566311   0.         266.47052821], [  0.         817.14129272 273.65168539],[  0.           0.           1.        ]]
+mtx2 = np.array([[809.72566311, 0., 160.0], [0., 817.14129272, 120.0], [0., 0., 1.]])
+pic = cv2.imread("C:\\Users\\Marcus\\Documents\\GitHub\\Zephyr-drone\\Python\\calibration_320x240_v2\\21.jpg")
+undist = undistort_image(pic, mtx2, dist)
+# Set undist side by side with original image
+undist = np.hstack((undist, pic))
+cv2.imshow('img', undist)
+cv2.waitKey(0)
 #dst = cv2.imread("C:\\Users\\Marcus\\Documents\\GitHub\\Zephyr-drone\\Python\\calibration\\19.jpg")
 
 #img = undistort_image(dst, mtx, dist)
