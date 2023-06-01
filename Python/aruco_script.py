@@ -83,20 +83,18 @@ def calibrate_camera():
     imgpoints = []  # 2d points in image plane
 
     # Get images from the calibration folder
-    images = [f for f in os.listdir(path + "/callibImg") if f.endswith('.jpg')]
-
+    images = [f for f in os.listdir(path + "/calibration_320x240") if f.endswith('.jpg')]
+    #print(len(images))
     for fname in images:
         # Read image
-        img = cv2.imread(path + "/callibImg/" + fname)
-
-        # Resize image (480x640)
-        img = cv2.resize(img, (640, 480))
+        img = cv2.imread(path + "/calibration_320x240/" + fname)
+        #print(path + "/calibration_320x240/" + fname)
 
         # Convert image to grayscale
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
         # Find the chess board corners
-        ret, corners = cv2.findChessboardCorners(gray, (9, 7), None)
+        ret, corners = cv2.findChessboardCorners(gray, (7, 6), None)
 
         # If found, add object points, image points (after refining them)
         if ret:
@@ -110,6 +108,8 @@ def calibrate_camera():
 
             # Draw and display the corners
             img = cv2.drawChessboardCorners(img, (7, 6), corners2, ret)
+            cv2.imshow('img', img)
+            cv2.waitKey(500)
 
     # Calibrate camera
     ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
@@ -124,6 +124,9 @@ def undistort_image(img, mtx, dist):
     return dst
 
 ret, mtx, dist, rvecs, tvecs = calibrate_camera()
+
+print("CameraMatrix", mtx)
+print("Distortion Coefficients", dist)
 
 #dst = cv2.imread("C:\\Users\\Marcus\\Documents\\GitHub\\Zephyr-drone\\Python\\calibration\\19.jpg")
 
@@ -170,9 +173,9 @@ def estimate_pose_from_aruco_marker(frame, mtx, dist):
     else:
         return frame, rvec, tvec, None, None, None
 
+exit(0)
 # %%
 cam = cv2.VideoCapture(0)
-
 # Show camera feed
 while True:
     ret, frame = cam.read()
