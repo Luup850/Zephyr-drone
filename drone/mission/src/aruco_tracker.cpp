@@ -19,7 +19,7 @@
 #include <math.h>
 
 #include <aruco_tracker.hpp>
-
+#include <chrono>
 
 //using namespace cv;
 //using namespace std;
@@ -98,8 +98,8 @@ bool Tracker::update()
     {
         foundMarker = true;
         // Align camera with drone frame
-        x_l = tvecs[0][0];
-        y_l = tvecs[0][1];
+        x_l = tvecs[0][1];
+        y_l = -tvecs[0][0];
         z_l = -tvecs[0][2];
 
         // Offset and scaling fix
@@ -218,6 +218,10 @@ bool Tracker::update()
     {
         printf("------------------[FPS: %.2d]--------------------\n", fps);   
     }
+    if(ARUCO_LOG and enable_log)
+    {
+        log();
+    }
 
     tick++;
     if(DRAW_HUD)
@@ -237,4 +241,37 @@ bool Tracker::drawHUD()
     
     cv::waitKey(5);
     return true;
+}
+
+void Tracker::log()
+{
+    if(firstLog and enable_log)
+    {
+        firstLog = false;
+        printf("ARUCO: Logging to file...\n");
+        auto now = std::chrono::system_clock::now();
+        auto now_c = std::chrono::system_clock::to_time_t(now);
+        char *time = ctime(&now_c);
+        time[strlen(time)-1] = '\0';
+        char filename[100];
+        sprintf(filename, "aruco_logs/%s.log", time);
+        fp = fopen(filename, "a+");
+        fprintf(fp, "Units are seconds, meters, and radians\n");
+        fprintf(fp, "Time, FPS, x, y, z, x_raw, y_raw, z_raw, pitch, yaw, roll");
+        fprintf(fp, "\n");
+        log_prev_time = clock();
+        log_start_time = clock();
+    }
+    else if(enable_log)
+    {
+        if((difftime(clock(), log_prev_time)/CLOCKS_PER_SEC) > 0.250)
+        {
+            // This is where we log stuff
+            //printf("Logging...\n");
+            double time = difftime(clock(), log_start_time)/CLOCKS_PER_SEC;
+            fprintf(fp, "%.2f, %d, %.4f, %.4f, %.4f, %.4f, %.4f, %.4f, %.4f, %.4f, %.4f\n", 
+                        time, fps, arucoPos[0], arucoPos[1], arucoPos[2], x_l, y_l, z_l, *pitch, *yaw, *roll);
+            log_prev_time = clock();
+        }
+    }
 }

@@ -29,9 +29,9 @@
 // Defines
 #define LOG_TO_FILE false // False: Log to console, True: Log to file
 #define LOG false // Log to console or file
-#define LOGGER_TOGGLE false // Logger class
-#define PRINT_CONTROLLER_FREQUENCY true
-#define TS (1.0/60.0) // Was 1/60
+#define LOGGER_TOGGLE true // Logger class
+#define PRINT_CONTROLLER_FREQUENCY false
+#define TS (1.0/20.0) // Was 1/60
 #define HOVER_VALUE 440.0 // 430-440 required for hover
 #define DRONE_ID 24152
 
@@ -55,6 +55,9 @@ double velz = 0;
 double control_loop_freq = 0;
 
 double height_measurement; // Height controller is weird. Trying to mimic it.
+
+// Global flag enabling aruco tracking
+bool ArucoEnabled = false;
 
 // Controllers
 PID* ctrl_vel_h;
@@ -172,6 +175,9 @@ int main(int argc, char **argv)
     ctrl_x->limit_output(1.0, -1.0);
     ctrl_y->limit_output(1.0, -1.0);
 
+    ctrl_pos->min = -8.0;
+    ctrl_pos->max = 8.0;
+
     // Set controller mode for yaw
     ctrl_yaw->yaw_control = true;
 
@@ -221,7 +227,7 @@ int main(int argc, char **argv)
 
     // Control Loop
     int tst = 0;
-    bool ArucoEnabled = false;
+    bool printOnce = false;
     while(isOK)
     {
         usleep(5000);
@@ -229,13 +235,17 @@ int main(int argc, char **argv)
         // Enable ArucoTracker after 5 seconds
         if((difftime(clock(), mission_timer)/CLOCKS_PER_SEC) > 5)
         {
+            if(ArucoEnabled == false and printOnce == false)
+            {
+                printf("\n\nSearching for aruco marker!\n\n");
+                printOnce = true;
+            }
+
             if(tracker->foundMarker and ArucoEnabled == false)
             {
                 ctrl_x->ref = PX + tracker->arucoPos[0];
                 ctrl_y->ref = PY + tracker->arucoPos[1];
                 //ctrl_y->ref = PY + 1.0;
-
-                printf("\n\nAruco tracking enabled!\n\n");
                 ArucoEnabled = true;
             }
         }
@@ -256,8 +266,11 @@ int main(int argc, char **argv)
         sprintf(str, "ref %.3f %.3f %.3f %.3f", error_h, error_roll, error_pitch, error_yaw);
         sf->sendmsg(str);
         
+        // Enable the logs. Enable them at the same time so their time stamps are the same.
+        // Both run on 0.250 seconds.
         double to_log[] = {PX, PY, PZ, P, Y, R, error_h, error_roll, error_pitch, error_yaw, ctrl_h->yl[0], ctrl_h->yi[0], PZ-z_tmp, ctrl_vel_h->yl[0], ctrl_vel_h->ref};
         lg->log(to_log, 13);
+        tracker->enable_log = true;
         // Logging
 
         if( count > 5 and LOG == true)
@@ -389,11 +402,34 @@ void* controllerTick(void* arg)
     double PX_old = PX;
     double PY_old = PY;
     double PZ_old = PZ;
+    bool didOnce = false; // Set ref and measurement for the first time
+    bool lostMarker = false;
 
     while(true)
     {
         sigwait(&signalset, &sig);
         //usleep(0.05 * 1000000);
+
+        // Enable Aruco detection
+        if(ArucoEnabled and didOnce == false and tracker->foundMarker and lostMarker == false)
+        {
+            printf("\n\nAruco found!\n\n");
+            didOnce = true;
+            ctrl_x->ref = 0.0;
+            ctrl_y->ref = 0.0;
+            ctrl_x->measurement = &tracker->arucoPos[0];
+            ctrl_y->measurement = &tracker->arucoPos[1];
+        }
+        else if(didOnce == true and tracker->foundMarker == false)
+        {
+            lostMarker = true;
+            printf("\n\nAruco lost!\n Trying to maintain position, please take manual control!\n");
+            didOnce = false;
+            ctrl_x->ref = PX;
+            ctrl_y->ref = PY;
+            ctrl_x->measurement = &PX;
+            ctrl_y->measurement = &PY;
+        }
 
         VX = (PX - PX_old) / TS;
         VY = (PY - PY_old) / TS;

@@ -10,25 +10,26 @@ void Callibrate();
 
 int main(int argc, char** argv)
 {
-    TakeImages(40);
+    //TakeImages(40);
     Tracker* tracker = new Tracker(0);
-    //tracker->update();
+    tracker->update();
 
-    //namedWindow( "Live", WINDOW_AUTOSIZE );
-    //imshow("Live", tracker->frame);
-    //waitKey(0);
+    namedWindow( "Live", WINDOW_AUTOSIZE );
+    imshow("Live", tracker->frame);
+    waitKey(0);
     bool flipflop = false;
 
     double roll = 0;
     double pitch = 0;
-    double yaw = 3.14/2.0;
+    double yaw = 0;
 
     tracker->roll = &roll;
     tracker->pitch = &pitch;
     tracker->yaw = &yaw;
 
     bool running = true;
-    /*while(running)
+    tracker->enable_log = true;
+    while(running)
     {
         running = tracker->update();
 
@@ -43,7 +44,7 @@ int main(int argc, char** argv)
             printf("Lost marker!\n");
         }
         //printf("x: %.2lf, \ty: %.2lf, \tz: %.2lf\n", tracker->getX(0), tracker->getY(0), tracker->z_c);
-    }*/
+    }
 
     return 0;
 

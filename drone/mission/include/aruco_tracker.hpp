@@ -12,6 +12,7 @@
 #include <opencv2/imgcodecs.hpp>
 #define DRAW_HUD true
 #define ARUCO_DEBUG_PRINT false
+#define ARUCO_LOG true // Fast way to disable log
 
 class Tracker
 {
@@ -34,8 +35,8 @@ class Tracker
         // This gives the position relative to the drone but ignoring the pitch yaw and roll of the drone.
         double *pitch,*yaw,*roll;
 
-        // Updates the tracker
-        // Tracker takes a new frame and looks for aruco codes
+        // Returns true if execution was successfully completed
+        // Used to time the discretized controllers such that their sampletime can be dynamically adjusted
         bool update();
 
         // Distortion matrix (Normal res) (640x480)
@@ -76,10 +77,22 @@ class Tracker
 
         cv::VideoCapture cam;
 
+        // Logging starts when this is true.
+        bool enable_log = false;
+
+
     private:
         bool drawHUD();
         cv::Ptr<cv::aruco::Dictionary> dictionary;
-        clock_t fps_clock, generic_clock;
+        clock_t fps_clock, generic_clock, log_prev_time, log_start_time;
+
+        void log();
+        
+        bool firstLog = true;
+
+        // Filepointer for log file
+        FILE *fp;
+
 
 };
 #endif

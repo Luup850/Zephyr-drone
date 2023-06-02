@@ -12,6 +12,8 @@ class Controller
         double setpoint_x, setpoint_y, setpoint_z;
         double out_pitch, out_roll;
 
+        double min = -10.0,max = 10.0;
+
         void tick();
         void tick_matlab();
         Controller(double *px, double *py, double *pz, double *roll, double *pitch, double *yaw, PID *pid_x, PID *pid_y);

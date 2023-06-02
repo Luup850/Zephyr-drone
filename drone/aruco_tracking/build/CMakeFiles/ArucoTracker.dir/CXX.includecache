@@ -28,10 +28,6 @@ opencv2/core.hpp
 opencv2/imgcodecs.hpp
 -
 
-/home/local/mdch/aruco_tracking/main.cpp
-aruco_tracker.hpp
--
-
 /home/local/mdch/aruco_tracking/src/aruco_tracker.cpp
 unistd.h
 -
@@ -59,31 +55,7 @@ math.h
 -
 aruco_tracker.hpp
 -
-
-/home/local/mdch/aruco_tracking/src/aruco_tracker_test.cpp
-unistd.h
--
-iostream
--
-time.h
--
-stdio.h
--
-pthread.h
--
-opencv4/opencv2/opencv.hpp
--
-opencv4/opencv2/videoio.hpp
--
-opencv4/opencv2/highgui.hpp
--
-opencv4/opencv2/aruco.hpp
--
-opencv4/opencv2/core.hpp
--
-opencv4/opencv2/imgcodecs.hpp
--
-aruco_tracker.hpp
+chrono
 -
 
 /usr/local/include/opencv4/opencv2/aruco.hpp
