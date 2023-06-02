@@ -29,10 +29,10 @@
 // Defines
 #define LOG_TO_FILE false // False: Log to console, True: Log to file
 #define LOG false // Log to console or file
-#define LOGGER_TOGGLE true // Logger class
+#define LOGGER_TOGGLE false // Logger class
 #define PRINT_CONTROLLER_FREQUENCY false
 #define TS (1.0/20.0) // Was 1/60
-#define HOVER_VALUE 440.0 // 430-440 required for hover
+#define HOVER_VALUE 445.0 // 430-440 required for hover
 #define DRONE_ID 24152
 
 // Prototypes
@@ -175,8 +175,8 @@ int main(int argc, char **argv)
     ctrl_x->limit_output(1.0, -1.0);
     ctrl_y->limit_output(1.0, -1.0);
 
-    ctrl_pos->min = -8.0;
-    ctrl_pos->max = 8.0;
+    ctrl_pos->min = -10.0;
+    ctrl_pos->max = 10.0;
 
     // Set controller mode for yaw
     ctrl_yaw->yaw_control = true;
@@ -185,7 +185,7 @@ int main(int argc, char **argv)
     ctrl_x->ref = PX;
     ctrl_y->ref = PY;
     ctrl_yaw->ref = Y;
-    ctrl_h->ref = 4.0;
+    ctrl_h->ref = 3.0;
     z_tmp = ctrl_h->ref;
 
     // Controller measurements
@@ -233,7 +233,7 @@ int main(int argc, char **argv)
         usleep(5000);
 
         // Enable ArucoTracker after 5 seconds
-        if((difftime(clock(), mission_timer)/CLOCKS_PER_SEC) > 5)
+        if((difftime(clock(), mission_timer)/CLOCKS_PER_SEC) > 8)
         {
             if(ArucoEnabled == false and printOnce == false)
             {
@@ -403,7 +403,9 @@ void* controllerTick(void* arg)
     double PY_old = PY;
     double PZ_old = PZ;
     bool didOnce = false; // Set ref and measurement for the first time
+    bool didOnce2 = false;
     bool lostMarker = false;
+    int lostCount = 0;
 
     while(true)
     {
@@ -422,6 +424,14 @@ void* controllerTick(void* arg)
         }
         else if(didOnce == true and tracker->foundMarker == false)
         {
+            if(didOnce2 == false)
+            {
+                printf("Cant see marker anymore!\n");
+                didOnce2 = true;
+            }
+
+            if(lostCount > 300)
+            {
             lostMarker = true;
             printf("\n\nAruco lost!\n Trying to maintain position, please take manual control!\n");
             didOnce = false;
@@ -429,6 +439,11 @@ void* controllerTick(void* arg)
             ctrl_y->ref = PY;
             ctrl_x->measurement = &PX;
             ctrl_y->measurement = &PY;
+            }
+            else
+            {
+                lostCount++;
+            }
         }
 
         VX = (PX - PX_old) / TS;

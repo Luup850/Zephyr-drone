@@ -12,11 +12,11 @@ int main(int argc, char** argv)
 {
     //TakeImages(40);
     Tracker* tracker = new Tracker(0);
-    tracker->update();
+    //tracker->update();
 
-    namedWindow( "Live", WINDOW_AUTOSIZE );
-    imshow("Live", tracker->frame);
-    waitKey(0);
+    //namedWindow( "Live", WINDOW_AUTOSIZE );
+    //imshow("Live", tracker->frame);
+    //waitKey(0);
     bool flipflop = false;
 
     double roll = 0;
@@ -28,7 +28,7 @@ int main(int argc, char** argv)
     tracker->yaw = &yaw;
 
     bool running = true;
-    tracker->enable_log = true;
+    //tracker->enable_log = true;
     while(running)
     {
         running = tracker->update();

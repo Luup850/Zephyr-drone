@@ -12,7 +12,7 @@
 #include <opencv2/imgcodecs.hpp>
 #define DRAW_HUD true
 #define ARUCO_DEBUG_PRINT false
-#define ARUCO_LOG true // Fast way to disable log
+#define ARUCO_LOG false // Fast way to disable log
 
 class Tracker
 {
