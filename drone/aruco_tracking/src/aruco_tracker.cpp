@@ -32,16 +32,6 @@ Tracker::Tracker(int camID)
     cam.set(cv::CAP_PROP_TEMPERATURE,10);
     cam.set(cv::CAP_PROP_AUTO_EXPOSURE, 1);
 
-    //cam.set(3 , 640  ); // width        
-    //cam.set(4 , 480  ); // height       
-    //cam.set(10, 10  ); // brightness     min: 0   , max: 255 , increment:1  
-    //cam.set(11, 200   ); // contrast       min: 0   , max: 255 , increment:1     
-    //cam.set(12, 70   ); // saturation     min: 0   , max: 255 , increment:1
-    //cam.set(13, 13   ); // hue         
-    //cam.set(14, 50   ); // gain           min: 0   , max: 127 , increment:1
-    //cam.set(15, -3   ); // exposure       min: -7  , max: -1  , increment:1
-    //cam.set(17, 5000 ); // white_balance  min: 4000, max: 7000, increment:1
-    //cam.set(28, 0    ); // focus          min: 0   , max: 255 , increment:5
 
     //cam.set(cv::CAP_PROP_AUTO_EXPOSURE, 3);
     //cam.set(cv::CAP_PROP_EXPOSURE, 1);
@@ -53,8 +43,8 @@ Tracker::Tracker(int camID)
 
     // Print resolutioon
     //printf("Resolution: %d x %d\n", (int)cam.get(cv::CAP_PROP_FRAME_WIDTH), (int)cam.get(cv::CAP_PROP_FRAME_HEIGHT));
-    cam.set(cv::CAP_PROP_FRAME_WIDTH, 320);
-    cam.set(cv::CAP_PROP_FRAME_HEIGHT, 240);
+    //cam.set(cv::CAP_PROP_FRAME_WIDTH, 320);
+    //cam.set(cv::CAP_PROP_FRAME_HEIGHT, 240);
     printf("Resolution: %d x %d\n", (int)cam.get(cv::CAP_PROP_FRAME_WIDTH), (int)cam.get(cv::CAP_PROP_FRAME_HEIGHT));
     //cam.set(cv::CAP_PROP_FPS, 10);
     // set resolution to 360p
@@ -81,11 +71,11 @@ bool Tracker::update()
     cam.read(frame);
 
     // Normalize frame
-    cv::normalize(frame, frame, -50, 205, cv::NORM_MINMAX, CV_8UC1);
+    //cv::normalize(frame, frame, -50, 205, cv::NORM_MINMAX, CV_8UC1);
 
     // Apply sharpness
-    cv::Mat kernel = (cv::Mat_<float>(3,3) << 0, -1, 0, -1, 5, -1, 0, -1, 0);
-    cv::filter2D(frame, frame, -1, kernel);
+    //cv::Mat kernel = (cv::Mat_<float>(3,3) << 0, -1, 0, -1, 5, -1, 0, -1, 0);
+    //cv::filter2D(frame, frame, -1, kernel);
 
     // Normalize frame
     //cv::normalize(frame, frame, 0, 255, cv::NORM_MINMAX, CV_8UC1);

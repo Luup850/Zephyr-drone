@@ -31,8 +31,8 @@
 #define LOG false // Log to console or file
 #define LOGGER_TOGGLE false // Logger class
 #define PRINT_CONTROLLER_FREQUENCY false
-#define TS (1.0/20.0) // Was 1/60
-#define HOVER_VALUE 445.0 // 430-440 required for hover
+#define TS (1.0/10.0) // Was 1/60
+#define HOVER_VALUE 510.0 // 430-440 required for hover
 #define DRONE_ID 24152
 
 // Prototypes
@@ -185,7 +185,7 @@ int main(int argc, char **argv)
     ctrl_x->ref = PX;
     ctrl_y->ref = PY;
     ctrl_yaw->ref = Y;
-    ctrl_h->ref = 3.0;
+    ctrl_h->ref = 3.5;
     z_tmp = ctrl_h->ref;
 
     // Controller measurements
@@ -404,6 +404,7 @@ void* controllerTick(void* arg)
     double PZ_old = PZ;
     bool didOnce = false; // Set ref and measurement for the first time
     bool didOnce2 = false;
+    bool didOnce3 = false;
     bool lostMarker = false;
     int lostCount = 0;
 
@@ -416,6 +417,7 @@ void* controllerTick(void* arg)
         if(ArucoEnabled and didOnce == false and tracker->foundMarker and lostMarker == false)
         {
             printf("\n\nAruco found!\n\n");
+            printf("Aruco pos: %f, %f\n", tracker->arucoPos[0], tracker->arucoPos[1]);
             didOnce = true;
             ctrl_x->ref = 0.0;
             ctrl_y->ref = 0.0;
@@ -426,11 +428,11 @@ void* controllerTick(void* arg)
         {
             if(didOnce2 == false)
             {
-                printf("Cant see marker anymore!\n");
+                printf("\nAruco not visible anymore!\n");
                 didOnce2 = true;
+                didOnce3 = false;
             }
-
-            if(lostCount > 300)
+            if(lostCount > 40)
             {
             lostMarker = true;
             printf("\n\nAruco lost!\n Trying to maintain position, please take manual control!\n");
@@ -444,6 +446,15 @@ void* controllerTick(void* arg)
             {
                 lostCount++;
             }
+        } else if(tracker->foundMarker == true)
+        {
+            if(didOnce3 == false)
+            {
+                printf("\nAruco found again!\n");
+                didOnce3 = true;
+                didOnce2 = false;
+            }
+            lostCount = 0;
         }
 
         VX = (PX - PX_old) / TS;
