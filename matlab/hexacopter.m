@@ -127,7 +127,7 @@ Ktrust = 2.7e-5;
 %% hover 
 heightRef = 1.0;
 % sample time (not used) % MC: Now used for discrete controllers
-Ts = 1/20; % måling interval (sampletime) - sek
+Ts = 1/60; % måling interval (sampletime) - sek
 %% hover calculation
 g = 9.82;
 totalMass = droneMass + batteryMass;
