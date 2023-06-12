@@ -127,7 +127,7 @@ Ktrust = 2.7e-5;
 %% hover 
 heightRef = 1.0;
 % sample time (not used) % MC: Now used for discrete controllers
-Ts = 1/60; % måling interval (sampletime) - sek
+Ts = 1/20; % måling interval (sampletime) - sek
 %% hover calculation
 g = 9.82;
 totalMass = droneMass + batteryMass;
@@ -287,7 +287,7 @@ hD = 0.2; % velocity drag (groundless estimate 30m/s => 6N drag)
 trust2height1 = tf(1,[totalMass hD 0]);
 Gh1a = Gtr * trust2height1
 Gh1b = minreal(Gh1a,10e-3); % MC
-Gh1b_d = c2d(Gh1b, Ts, 'zoh');
+Gh1b_d = c2d(Gh1b, 1/60, 'zoh'); % 1/120, update rate on optiTrack
 Gh1 = minreal(Gpipo(2))
 % bode sammenligning
 figure(1002)
