@@ -27,21 +27,29 @@ h1gm = 60;
 h1Ni = 4;
 h1al = 0.07;
 
-Gh1b_d_v = c2d(Gh1b * tf([1 0], [1]), Ts, 'zoh');
-[wc h1vkp h1vtd ok] = findpd_discrete(Gh1b_d_v, h1vgm, h1val, Ts, w)
+%Gh1b_d_v = c2d(Gh1b * tf([1 0], [1]), Ts, 'zoh');
+[wc1 h1vkp h1vtd ok] = findpd_discrete(Gh1bv_d, h1vgm, h1val, Ts, w)
 c_v_d = c2d(tf([h1vtd 1], [h1vtd*h1val 1]), Ts, 'tustin');
 %c_v_i = c2d(tf([h1vti 1], [h1vti 0]),Ts,'tustin');
 c_v_i = 1;
-Gh1b_d_p_ol = h1vkp * Gh1b_d_v * c_v_i * c_v_d;
+Gh1b_d_p_ol = h1vkp * Gh1bv_d * c_v_i * c_v_d;
 bode(Gh1b_d_p_ol)
 Gh1b_d_p_cl = feedback(Gh1b_d_p_ol, 1);
 
 % Pos controller
-Gh1b_d_p = Gh1b_d_p_cl * c2d(tf([1], [1 0]), Ts, 'zoh');
-[wc h1kp ok] = findp_discrete(Gh1b_d_p, h1gm, w)
+Gh1b_d_p = Gh1b_d_p_cl * c2d(tf([1], [1 0]), Ts, 'tustin');
+[wc2 h1kp ok] = findp_discrete(Gh1b_d_p, h1gm, w)
 % dB = 0 is already a really good crossover frequency
 Gh1b_d_p_c_ol = h1kp * Gh1b_d_p;
+bode(Gh1bv_d, Gh1b_d_p_ol, Gh1b_d_p_c_ol)
+grid on
+legend('Tf', 'Tf + Vel Controller', 'Tf + Vel & Pos Controller')
 s = feedback(Gh1b_d_p_c_ol,1);
 
-
-
+%% Plots
+hold off
+bode(c2d(Gxv,Ts,'zoh'),c2d(Gx,Ts,'zoh'), c2d(Gx*xkp,Ts,'zoh'))
+grid on
+legend('Tf', 'Tf + Vel Controller', 'Tf + Vel & Pos Controller')
+step(feedback(Gx,1))
+step(feedback(Gx*xkp,1))

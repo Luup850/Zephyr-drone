@@ -33,3 +33,5 @@ xvkp = 10^(-10.7/20)
 Gxv_d_c_ol = Gxv_d * vc_d * xvkp;
 bode(Gxv_d_c_ol);
 Gxv_d_c_cl = (Gxv_d * xvkp) / (1 + vc_d * Gxv_d * xvkp);
+Gxv_d_c_cl = feedback((vc_d * Gxv_d * xvkp), 1)
+step(Gxv_d_c_cl)
