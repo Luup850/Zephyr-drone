@@ -9,3 +9,10 @@ hold on
 stepplot(G_zoh)
 stepplot(G_tustin)
 legend('S-domain','Zero Order Hold', 'Billinear')
+
+%% Yaw
+hold off
+bode(Gya, Gyaol)
+legend('Tf','Tf + Positional Controller')
+
+step(feedback(Gyaol, 1))
