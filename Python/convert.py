@@ -132,8 +132,12 @@ def convert_aruco_log_to_csv():
                     entry = [x.decode('utf-8') for x in entry]
                     # Strip last element of '\n'
                     entry[-1] = entry[-1][:-1]
+                    # Strip for any spaces
+                    entry = [x.strip() for x in entry]
                     data.append(entry)
 
         # Save the dataframe as a csv
+        # Remove any spaces in keys
+        keys = [x.strip() for x in keys[0]]
         df = pd.DataFrame(data, columns=keys)
         df.to_csv('.\\data_aruco\\'+ str(log_file_names[i]) + '-aruco_log.csv', index=False)
