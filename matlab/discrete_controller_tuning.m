@@ -27,8 +27,9 @@ h1gm = 60;
 h1Ni = 4;
 h1al = 0.07;
 
+%2.500191470 Actual frequency used
 %Gh1b_d_v = c2d(Gh1b * tf([1 0], [1]), Ts, 'zoh');
-[wc1 h1vkp h1vtd ok] = findpd_discrete(Gh1bv_d, h1vgm, h1val, Ts, w)
+%[wc1 h1vkp h1vtd ok] = findpd_discrete(Gh1bv_d, h1vgm, h1val, Ts, w)
 c_v_d = c2d(tf([h1vtd 1], [h1vtd*h1val 1]), Ts, 'tustin');
 %c_v_i = c2d(tf([h1vti 1], [h1vti 0]),Ts,'tustin');
 c_v_i = 1;
