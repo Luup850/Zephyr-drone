@@ -3,7 +3,7 @@ import glob
 import os
 import numpy as np
 
-def convert_log_to_csv():
+def convert_drone_log_to_csv():
     # Print current working directory
     #print(os.getcwd())
 
@@ -93,4 +93,51 @@ def convert_log_to_csv():
         df = pd.DataFrame(data, columns=columns)
         df.to_csv('.\\data\\'+ str(log_file_names[i]) + '-log.csv', index=False)
 
-convert_log_to_csv()
+def convert_aruco_log_to_csv():
+    log_files = glob.glob('..\\drone\\mission\\build\\aruco_logs\\*.log')
+    
+    # Get filename only
+    log_file_names = [(x.split('\\')[-1])[:-4] for x in log_files]
+    
+    # if folder data_aruco does not exist, create it
+    if not os.path.exists('.\\data_aruco'):
+        os.makedirs('.\\data_aruco')
+
+    # Read in the log file
+    for i,lg in enumerate(log_files):
+        data = []
+        keys = []
+        with open(lg, 'rb') as f:
+            log = f.readlines()
+
+            # If file has less than 4 lines, skip it
+            if(len(log) < 4):
+                print('Log file ' + str(log_file_names[i]) + ' is empty')
+                continue
+
+            for j,l in enumerate(log):
+                # Remove linebreak at the end
+                #l = l[:-1]
+                if (j == 0):
+                    print("First line")
+                elif (j == 1):
+                    entry = l.split(b',')
+                    # Strip last element of '\n'
+                    entry = [x.decode('utf-8') for x in entry]
+                    entry[-1] = entry[-1][:-1]
+                    keys.append(entry)
+                else:
+                    entry = l.split(b',')
+                    # Remove any 'b'
+                    entry = [x.decode('utf-8') for x in entry]
+                    # Strip last element of '\n'
+                    entry[-1] = entry[-1][:-1]
+                    # Strip for any spaces
+                    entry = [x.strip() for x in entry]
+                    data.append(entry)
+
+        # Save the dataframe as a csv
+        # Remove any spaces in keys
+        keys = [x.strip() for x in keys[0]]
+        df = pd.DataFrame(data, columns=keys)
+        df.to_csv('.\\data_aruco\\'+ str(log_file_names[i]) + '-aruco_log.csv', index=False)
