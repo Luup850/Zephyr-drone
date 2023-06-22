@@ -21,17 +21,21 @@ Gxv_d = c2d(Gxv, Ts, 'zoh');
 vc_d = c2d(tf([1 1], [1*xval 1]),Ts, 'tustin');
 bode(Gxv_d, vc_d)
 %% Set target
-target = 10.9;
-xvtd = 1 / (sqrt(h1al) * target)
+target = 5.26454;
+xvtd = 1 / (sqrt(xval) * target)
 vc_d = c2d(tf([xvtd 1], [xvtd*xval 1]),Ts, 'tustin');
 Gxv_d_c_ol = Gxv_d * vc_d;
 bode(Gxv_d_c_ol)
 %xvti = h1Ni * (1/ target)
 
 %% Find gain aka. How far is target from 0.
-xvkp = 10^(-10.7/20)
+xvkp = 10^(-14.7/20)
 Gxv_d_c_ol = Gxv_d * vc_d * xvkp;
 bode(Gxv_d_c_ol);
 Gxv_d_c_cl = (Gxv_d * xvkp) / (1 + vc_d * Gxv_d * xvkp);
 Gxv_d_c_cl = feedback((vc_d * Gxv_d * xvkp), 1)
 step(Gxv_d_c_cl)
+
+%% Plot
+bode(Gxv_d, Gxv_d_c_ol)
+legend('Tf', 'Tf + Vel & Pos Controller')
