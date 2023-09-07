@@ -1,5 +1,7 @@
 # Zephyr Drone
 
+![alt text](https://github.com/Luup850/Zephyr-drone/blob/main/Docs/frontpage.jpg?raw=true)
+
 Master thesis project at Technical University Denmark
 
 This project is a fork of the http://rsewiki.elektro.dtu.dk/index.php/Drone_control project, originally made by Jens Christian Andersen at DTU.
