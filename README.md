@@ -9,7 +9,7 @@ This project is a fork of the http://rsewiki.elektro.dtu.dk/index.php/Drone_cont
 ## Drone Software
 All the code for the drone can be found in `Zephyr-drone/drone/`
 
-The code running on the Teensy is found in `Zephyr-drone/drone/drone_ctrl` is a modified version of the original logic for the onboard teensy. Follow Jens tutorial on the previously mentioned wiki, but overwrite the drone_ctrl folder.
+The code running on the Teensy is found in `Zephyr-drone/drone/drone_ctrl` which is a modified version of the original logic for the onboard teensy. Follow Jens tutorial on the previously mentioned wiki, but overwrite the drone_ctrl folder.
 
 
 `Zephyr-drone/drone/mission` contains the code for the mission running on the Raspberry Pi. To be able to recompile the project, it is nessecary to install OpenCV with contributions.
